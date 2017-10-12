@@ -1,0 +1,11 @@
+.notifications
+  - if notice
+    #notice_wrapper
+      %p.alert.alert-dismissable= notice
+      %span.close{type: "button", data: {dismiss:"alert"}}
+        %i.fa.fa-times
+  - elsif alert
+    #alert_wrapper
+      %p.alert.alert-dismissable= alert
+      %span.close{type: "button", data: {dismiss:"alert"}}
+        %i.fa.fa-times

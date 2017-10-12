@@ -29,6 +29,8 @@ end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
-
+gem 'bootstrap', '~> 4.0.0.beta'
 gem 'flickr_fu', '~> 0.3.4'
+gem 'font-awesome-rails', '~> 4.7', '>= 4.7.0.2'
 gem 'haml'
+gem 'jquery-rails'

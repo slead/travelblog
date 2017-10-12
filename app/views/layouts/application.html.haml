@@ -1,9 +1,20 @@
 !!!
-%html
+%html{:lang => "en"}
   %head
+    %meta{:charset => "utf-8"}/
+    %meta{:content => "width=device-width, initial-scale=1, shrink-to-fit=no", :name => "viewport"}/
+    %meta{:content => "Steve and Glo's travel blog", :name => "description"}/
+    %meta{:content => "Stephen Lead", :name => "author"}/
     %title Travelblog
     = csrf_meta_tags
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+    / Custom fonts for this template
+    %link{:href => "https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic", :rel => "stylesheet", :type => "text/css"}/
+    %link{:href => "https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800", :rel => "stylesheet", :type => "text/css"}/
+
   %body
+    =render 'layouts/nav'
+    =render 'layouts/notifications'
     = yield
+    =render 'layouts/footer'
