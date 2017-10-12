@@ -4,5 +4,6 @@ Rails.application.routes.draw do
 
   get '/about', to: 'content#about', as: :about #=> about_path 
   get '/contact', to: 'content#contact', as: :contact #=> contact_path 
+  get '/map', to: 'content#map', as: :map #=> map_path 
   root to: "posts#index"
 end
