@@ -4,74 +4,31 @@
     .row
       .col-lg-8.col-md-10.mx-auto
         .site-heading
-          %h1 Clean Blog
-          %span.subheading A Blog Theme by Start Bootstrap
+          %h1 Steve and Glo's travel blog
+          %span.subheading Cos working is over-rated
 
 / Main Content
 .container
   .row
     .col-lg-8.col-md-10.mx-auto
-      .post-preview
-        %a{:href => "post.html"}
+      - @posts.each do |post|
+        .post-preview
           %h2.post-title
-            Man must explore, and this is exploration at its greatest
+            =link_to post.title, post
           %h3.post-subtitle
-            Problems look mighty small from 150 miles up
+            =link_to truncate(post.content, length: 300), post
         %p.post-meta
-          Posted by
-          %a{:href => "#"} Start Bootstrap
-          on September 24, 2017
-      %hr/
-      .post-preview
-        %a{:href => "post.html"}
-          %h2.post-title
-            I believe every human has a finite number of heartbeats. I don't intend to waste any of mine.
-        %p.post-meta
-          Posted by
-          %a{:href => "#"} Start Bootstrap
-          on September 18, 2017
-      %hr/
-      .post-preview
-        %a{:href => "post.html"}
-          %h2.post-title
-            Science has not yet mastered prophecy
-          %h3.post-subtitle
-            We predict too much for the next year and yet far too little for the next ten.
-        %p.post-meta
-          Posted by
-          %a{:href => "#"} Start Bootstrap
-          on August 24, 2017
-      %hr/
-      .post-preview
-        %a{:href => "post.html"}
-          %h2.post-title
-            Failure is not an option
-          %h3.post-subtitle
-            Many say exploration is part of our destiny, but it’s actually our duty to future generations.
-        %p.post-meta
-          Posted by
-          %a{:href => "#"} Start Bootstrap
-          on July 8, 2017
-      %hr/
+          Posted
+          = time_ago_in_words(post.created_at)
+          ago
+          
+          %td= link_to 'Show', post
+          %td= link_to 'Edit', edit_post_path(post)
+          %td= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' }        
+      
       / Pager
       .clearfix
         %a.btn.btn-secondary.float-right{:href => "#"} Older Posts →
 
-.container
-  %h1 Posts
-  %table
-    %thead
-      %tr
-        %th Title
-        %th Content
-        %th{:colspan => "3"}
-    %tbody
-      - @posts.each do |post|
-        %tr
-          %td= post.title
-          %td= post.content
-          %td= link_to 'Show', post
-          %td= link_to 'Edit', edit_post_path(post)
-          %td= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' }
   %br/
   = link_to 'New Post', new_post_path

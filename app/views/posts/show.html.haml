@@ -1,22 +1,22 @@
 / Page Header
 %header.masthead{:style => "background-image: url('img/post-bg.jpg')"}
-  .container
-    .row
-      .col-lg-8.col-md-10.mx-auto
-        .post-heading
-          %h1
-          = @post.title
-          %h2.subheading Problems look mighty small from 150 miles up
-          %span.meta
-            Posted by
-            %a{:href => "#"} Start Bootstrap
-            on August 24, 2017
+	.container
+		.row
+			.col-lg-8.col-md-10.mx-auto
+				.post-heading
+					%h1
+					= @post.title
+				%h2.subheading Problems look mighty small from 150 miles up
+				%span.meta
+					Posted
+					= time_ago_in_words(@post.created_at)
+					ago
 / Post Content
 %article
-  .container
-    .row
-      .col-lg-8.col-md-10.mx-auto
-        = @post.content
+	.container
+		.row
+			.col-lg-8.col-md-10.mx-auto
+				= @post.content
 
 = link_to 'Edit', edit_post_path(@post)
 |
