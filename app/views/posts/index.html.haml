@@ -15,7 +15,7 @@
         .post-preview
           %h2.post-title
             =link_to post.title, post
-          %h3.post-subtitle
+          %p.post-subtitle
             =link_to truncate(post.content, length: 300), post
         %p.post-meta
           Posted
@@ -25,10 +25,6 @@
           %td= link_to 'Show', post
           %td= link_to 'Edit', edit_post_path(post)
           %td= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' }        
-      
-      / Pager
-      .clearfix
-        %a.btn.btn-secondary.float-right{:href => "#"} Older Posts →
 
   %br/
   = link_to 'New Post', new_post_path
