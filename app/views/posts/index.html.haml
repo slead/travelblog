@@ -30,9 +30,10 @@
           %td= link_to 'Show', post
           %td= link_to 'Edit', edit_post_path(post)
           %td= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' }
+  #hr
   .row
     .col-lg-8.col-md-10.mx-auto
-      = will_paginate @posts, renderer: BootstrapPagination::Rails   
+      = will_paginate @posts, renderer: WillPaginate::ActionView::BootstrapLinkRenderer   
 
   %br/
   = link_to 'New Post', new_post_path
