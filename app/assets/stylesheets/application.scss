@@ -13,7 +13,9 @@
  */
  @import "bootstrap";
  @import "clean-blog";
- @import "font-awesome"; 
+ @import "font-awesome";
+ @import "leaflet";
+ @import "content";
 
  #notice_wrapper, #alert_wrapper {
   position: absolute;

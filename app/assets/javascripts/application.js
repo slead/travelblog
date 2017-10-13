@@ -13,6 +13,7 @@
 //= require rails-ujs
 //= require turbolinks
 //= require jquery
+//= require leaflet
 //= require_tree .
 
 function pageLoad() {
