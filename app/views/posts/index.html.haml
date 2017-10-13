@@ -21,10 +21,18 @@
           Posted
           = time_ago_in_words(post.created_at)
           ago
+          - if post.city && post.country
+            from
+            = post.city
+            ,
+            = post.country
           
           %td= link_to 'Show', post
           %td= link_to 'Edit', edit_post_path(post)
-          %td= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' }        
+          %td= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' }
+  .row
+    .col-lg-8.col-md-10.mx-auto
+      = will_paginate @posts, renderer: BootstrapPagination::Rails   
 
   %br/
   = link_to 'New Post', new_post_path
