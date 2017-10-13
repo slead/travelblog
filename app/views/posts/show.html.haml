@@ -23,6 +23,9 @@
 			.col-lg-8.col-md-10.mx-auto
 				= @post.content
 
-= link_to 'Edit', edit_post_path(@post)
-|
-\#{link_to 'Back', root_path}
+.container
+	.row
+		.col-md-12
+			= link_to 'Edit', edit_post_path(@post)
+			= link_to 'Back', posts_path
+			
