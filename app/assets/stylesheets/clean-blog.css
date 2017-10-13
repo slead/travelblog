@@ -349,3 +349,7 @@ footer {
   color: white;
   border: 1px solid #0085A1;
   background-color: #0085A1; }
+
+.top-50 {
+  margin-top: 50px;
+}

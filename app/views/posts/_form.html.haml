@@ -1,0 +1,28 @@
+.container.top-50
+  = simple_form_for(post, html: { class: 'form-horizontal' }) do |form|
+    - if post.errors.any?
+      .container
+        #error_explanation
+          %h2
+            = pluralize(post.errors.count, "error")
+            prohibited this post from being saved:
+          %ul
+            - post.errors.full_messages.each do |message|
+              %li= message
+    .container
+      .row
+        .col-md-12
+          .form-group
+            .field
+              = form.label :title
+              = form.text_field :title, id: :post_title
+            .field
+              = form.label :content
+              = form.text_area :content, id: :post_content
+            .field
+              = form.label :placename
+              = form.text_field :content, id: :post_placename
+        .row
+          .col-md-12
+            .actions
+              = form.submit
