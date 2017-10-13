@@ -12,16 +12,26 @@
 					= time_ago_in_words(@post.created_at)
 					ago
 					- if @post.city && @post.country
-						from
-						= @post.city
-						,
-						= @post.country
+						= "from #{@post.city}, #{@post.country}"
 / Post Content
 %article
 	.container
 		.row
 			.col-lg-8.col-md-10.mx-auto
 				= @post.content
+
+-if @post.previous || @post.next
+	.container.top-50
+		.row.pagination
+			.col-md-12
+				#nav.pagination
+					#ul.pagination
+						-if @post.previous
+							#li.page-item
+								=link_to 'Previous post', @post.previous, :class => "page-link"
+						-if @post.next
+							#li.page-item
+								=link_to "Next post", @post.next, :class => "page-link"
 
 .container
 	.row

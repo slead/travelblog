@@ -13,4 +13,12 @@ class Post < ApplicationRecord
   after_validation :geocode, if: :placename_changed?
   after_validation :reverse_geocode, if: :placename_changed?
 
+  def previous
+    Post.where(["id < ?", id]).last
+  end
+
+  def next
+    Post.where(["id > ?", id]).first
+  end
+
 end
