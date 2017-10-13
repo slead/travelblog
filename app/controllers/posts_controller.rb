@@ -1,6 +1,11 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
 
+  rescue_from ActiveRecord::RecordNotFound do
+    flash[:notice] = "Sorry, that post does not exist"
+    redirect_to action: :index
+  end
+
   # GET /posts
   # GET /posts.json
   def index

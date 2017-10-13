@@ -12,4 +12,19 @@
 //
 //= require rails-ujs
 //= require turbolinks
+//= require jquery
 //= require_tree .
+
+function pageLoad() {
+  setTimeout(function() {
+    $('#notice_wrapper').fadeOut("slow", function() {
+      $(this).remove();
+    })
+    $('#alert_wrapper').fadeOut("slow", function() {
+      $(this).remove();
+    })
+  }, 4500);
+
+}
+
+$(document).on('turbolinks:load', pageLoad);

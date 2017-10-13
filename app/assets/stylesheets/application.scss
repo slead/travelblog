@@ -24,20 +24,14 @@
   background: rgba(135,216,211,0.85);
   p {
     text-align: center;
-    margin: 0;
+    margin-top: -15px;
     font-size: 1.25rem;
     color: #ffffff;
     letter-spacing: 1px;
     padding: 1.5rem 0;
   }
   span.close {
-      color: #fff;
-      position: absolute;
-      right: 13px;
-      top: 13px;
-      font-weight: 100;
-      font-size: 15px;
-      opacity: 0.75;
+    display: none;
   }
 }
 
