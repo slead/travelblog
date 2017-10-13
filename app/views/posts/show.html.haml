@@ -11,6 +11,11 @@
 					Posted
 					= time_ago_in_words(@post.created_at)
 					ago
+					- if @post.city && @post.country
+						from
+						= @post.city
+						,
+						= @post.country
 / Post Content
 %article
 	.container
