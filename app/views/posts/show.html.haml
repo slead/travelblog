@@ -1,41 +1,56 @@
 / Page Header
-%header.masthead{:style => "background-image: url('img/post-bg.jpg')"}
-	.container
-		.row
-			.col-lg-8.col-md-10.mx-auto
-				.post-heading
-					%h1
-					= @post.title
-				%h2.subheading Problems look mighty small from 150 miles up
-				%span.meta
-					Posted
-					= time_ago_in_words(@post.published_date)
-					ago
-					- if @post.city && @post.country
-						= "from #{@post.city}, #{@post.country}"
-/ Post Content
-%article
-	.container
-		.row
-			.col-lg-8.col-md-10.mx-auto
-				= @post.content
+.container-fluid.top-50
+	-if @post.hero_image_url.present?
+		%header.masthead{:style => "background-image: url(#{@post.hero_image_url})"}
+			.container
+				.row
+					.col-lg-8.col-md-10.mx-auto
+						.post-heading
+							%h1
+							= @post.title
+						%span.meta
+							Posted
+							= time_ago_in_words(@post.published_date)
+							ago
+							- if @post.city && @post.country
+								= "from #{@post.city}, #{@post.country}"
+	- else
+		%header
+			.container
+				.row
+					.col-lg-8.col-md-10.mx-auto
+						.post-heading
+							%h1
+							= @post.title
+						%span.meta
+							Posted
+							= time_ago_in_words(@post.published_date)
+							ago
+							- if @post.city && @post.country
+								= "from #{@post.city}, #{@post.country}"
 
--if @post.previous || @post.next
-	.container.top-50
-		.row.pagination
+	%article
+		.container
+			.row
+				.col-lg-8.col-md-10.mx-auto
+					= @post.content
+
+	-if @post.previous || @post.next
+		.container.top-50
+			.row.pagination
+				.col-md-12
+					#nav.pagination
+						#ul.pagination
+							-if @post.previous
+								#li.page-item
+									=link_to "Previous post: #{@post.previous.title}", @post.previous, :class => "page-link"
+							-if @post.next
+								#li.page-item
+									=link_to "Next post: #{@post.next.title}", @post.next, :class => "page-link"
+
+	.container
+		.row
 			.col-md-12
-				#nav.pagination
-					#ul.pagination
-						-if @post.previous
-							#li.page-item
-								=link_to "Previous post: #{@post.previous.title}", @post.previous, :class => "page-link"
-						-if @post.next
-							#li.page-item
-								=link_to "Next post: #{@post.next.title}", @post.next, :class => "page-link"
-
-.container
-	.row
-		.col-md-12
-			= link_to 'Edit', edit_post_path(@post)
-			= link_to 'Back', posts_path
+				= link_to 'Edit', edit_post_path(@post)
+				= link_to 'Back', posts_path
 			
