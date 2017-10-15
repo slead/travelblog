@@ -28,10 +28,10 @@
 					#ul.pagination
 						-if @post.previous
 							#li.page-item
-								=link_to 'Previous post', @post.previous, :class => "page-link"
+								=link_to "Previous post: #{@post.previous.title}", @post.previous, :class => "page-link"
 						-if @post.next
 							#li.page-item
-								=link_to "Next post", @post.next, :class => "page-link"
+								=link_to "Next post: #{@post.next.title}", @post.next, :class => "page-link"
 
 .container
 	.row
