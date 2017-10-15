@@ -1,6 +1,10 @@
 class Post < ApplicationRecord
-	include FriendlyId
+	extend FriendlyId
 	friendly_id :title, use: :slugged
+
+  def should_generate_new_friendly_id?
+    title_changed?
+  end
 
 	geocoded_by :placename
 	reverse_geocoded_by :latitude, :longitude do |obj, results|
