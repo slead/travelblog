@@ -12,12 +12,8 @@
 
 ActiveRecord::Schema.define(version: 20171013000233) do
 
-  create_table "blahs", force: :cascade do |t|
-    t.string "name"
-    t.text "content"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string "slug", null: false
