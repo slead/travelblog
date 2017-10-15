@@ -19,7 +19,7 @@
             =link_to truncate(post.content, length: 300), post
         %p.post-meta
           Posted
-          = time_ago_in_words(post.created_at)
+          = time_ago_in_words(post.published_date)
           ago
           - if post.city && post.country
             = "from #{post.city}, #{post.country}"

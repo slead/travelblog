@@ -6,6 +6,13 @@ class Post < ApplicationRecord
     title_changed?
   end
 
+  before_create -> do
+    # Allow override of the published date, otherwise use the current date
+    if !self.published_date.present?
+      self.published_date = self.created_at
+    end
+  end
+
 	geocoded_by :placename
 	reverse_geocoded_by :latitude, :longitude do |obj, results|
     if geo = results.first
