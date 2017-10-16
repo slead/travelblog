@@ -16,7 +16,7 @@
           %h2.post-title
             =link_to post.title, post
           %p.post-subtitle
-            =link_to truncate(post.content, length: 300), post
+            =sanitize(post.content)
             
   #hr
   .row
