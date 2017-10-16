@@ -17,10 +17,7 @@
             =link_to post.title, post
           %p.post-subtitle
             =link_to truncate(post.content, length: 300), post
-          
-        %td= link_to 'Show', post
-        %td= link_to 'Edit', edit_post_path(post)
-        %td= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' }
+            
   #hr
   .row
     .col-lg-8.col-md-10.mx-auto
