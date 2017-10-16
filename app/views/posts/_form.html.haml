@@ -2,8 +2,9 @@
   .container.top-50
     .form-group
       = f.input :title
-      = f.input :content, :input_html => {:rows => 10}
+      = f.text_area :content, :class => "tinymce", :rows => 20, :cols => 120
       = f.input :placename
       = f.input :published_date
       = f.input :hero_image_url
     = f.button :submit
+    = tinymce

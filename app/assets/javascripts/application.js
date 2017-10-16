@@ -14,6 +14,7 @@
 //= require turbolinks
 //= require jquery
 //= require leaflet
+//= require tinymce-jquery
 //= require_tree .
 
 function pageLoad() {

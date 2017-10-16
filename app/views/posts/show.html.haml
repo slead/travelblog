@@ -21,7 +21,7 @@
 		.container
 			.row
 				.col-lg-8.col-md-10.mx-auto
-					= @post.content
+					= @post.content.html_safe
 
 	-if @post.previous || @post.next
 		.container.top-50
