@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
+  include ActionView::Helpers::DateHelper
 
   rescue_from ActiveRecord::RecordNotFound do
     flash[:notice] = "Sorry, that post does not exist"
@@ -16,6 +17,10 @@ class PostsController < ApplicationController
   # GET /posts/1.json
   def show
     @post = Post.friendly.find(params[:id])
+    @meta = "Posted #{time_ago_in_words(@post.published_date)} ago"
+    if @post.city && @post.country
+      @meta += " in #{@post.city}, #{@post.country}"
+    end
   end
 
   # GET /posts/new

@@ -6,28 +6,16 @@
 				.row
 					.col-lg-8.col-md-10.mx-auto
 						.post-heading
-							%h1
-							= @post.title
-						%span.meta
-							Posted
-							= time_ago_in_words(@post.published_date)
-							ago
-							- if @post.city && @post.country
-								= "from #{@post.city}, #{@post.country}"
+							%h1= @post.title
+							%span.meta=@meta
 	- else
 		%header
 			.container
 				.row
 					.col-lg-8.col-md-10.mx-auto
 						.post-heading
-							%h1
-							= @post.title
-						%span.meta
-							Posted
-							= time_ago_in_words(@post.published_date)
-							ago
-							- if @post.city && @post.country
-								= "from #{@post.city}, #{@post.country}"
+							%h1= @post.title
+							%span.meta=@meta
 
 	%article
 		.container
