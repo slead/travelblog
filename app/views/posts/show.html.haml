@@ -22,10 +22,6 @@
 			.row
 				.col-lg-8.col-md-10.mx-auto
 					= sanitize @post.content
-		.container
-			.row
-				- cache ("flickr_sidebar") do
-					=render_flickr_sidebar_widget('7970251@N05')
 
 	-if @post.previous || @post.next
 		.container.top-50
