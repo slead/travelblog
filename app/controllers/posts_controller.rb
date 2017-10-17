@@ -59,8 +59,13 @@ class PostsController < ApplicationController
     if @post.city && @post.country
       @meta += " in #{@post.city}, #{@post.country}"
     end
-    FlickRaw.api_key = ENV['FlickRaw_api_key']
-    FlickRaw.shared_secret = ENV['FlickRaw_shared_secret']
+    if @post.flickr_album.present?
+      @photoset = flickr.photosets.getPhotos(photoset_id: @post.flickr_album).photo.map do |photo|
+        FlickRaw.url_b(photo)
+      end 
+    else
+      @photoset = nil
+    end
   end
 
   # GET /posts/new
