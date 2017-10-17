@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171015104429) do
+ActiveRecord::Schema.define(version: 20171017044948) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(version: 20171015104429) do
     t.string "placename"
     t.date "published_date"
     t.string "hero_image_url"
+    t.string "flickr_album"
   end
 
 end
