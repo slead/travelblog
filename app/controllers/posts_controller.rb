@@ -26,7 +26,7 @@ class PostsController < ApplicationController
       return
     else
       @posts = Post.paginate(:page => params[:page], :per_page => 3).order published_date: :desc
-      @posts.first.hero_image_url.present? ? @header_image_url = @posts.first.hero_image_url : @header_image_url = 'img/home-bg.jpg'
+      @posts.first.hero_image_url.present? ? @header_image_url = @posts.first.hero_image_url : @header_image_url = 'https://farm9.staticflickr.com/8026/7254508562_25fc4962e5_b.jpg'
     end
     # Make a JSON object from the posts, to add to the map
     @geojson = Array.new
