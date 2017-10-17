@@ -20,7 +20,64 @@ ready = function() {
 	    layers: [app.basemap],
 	    maxBounds: L.latLngBounds(L.latLng(-90, -180), L.latLng(90, 180))
 	  });
-	}
+	
+
+	    // Fetch the posts within  the current map extent, and re-fetch them when it changes
+    mapSearch();
+    app.leafletMap.on('moveend', mapSearch);
+
+  }
+
+  function mapSearch() {
+    // Request posts within the current map extent
+
+    extent = app.leafletMap.getBounds();
+    var northEast = extent._northEast.wrap();
+    var southWest = extent._southWest.wrap();
+    currentZoom = app.leafletMap.getZoom();
+
+    url = "posts.json?bbox=" + southWest.lat + "," + southWest.lng + "," + northEast.lat + "," + northEast.lng + "&zoom=" + currentZoom;
+    $.ajax({
+      dataType: 'text',
+      url: url,
+      success: drawEvents,
+      error: function() {
+        console.log("Error with Index map");
+      }
+    });
+  }
+
+  function drawEvents(data) {
+    var geojson = $.parseJSON(data);
+    var geojsonMarkerOptions = {
+	    radius: 8,
+	    fillColor: "#ed9c28",
+	    color: "#000",
+	    weight: 1,
+	    opacity: 1,
+	    fillOpacity: 0.8
+	  };
+
+    // Add the posts to the map
+    jsonLayer = L.geoJson(geojson, {
+      pointToLayer: function (feature, latlng) {
+        return L.circleMarker(latlng, geojsonMarkerOptions);
+      },
+      onEachFeature: function (feature, layer) {
+        if(feature.properties.title != undefined) {
+          if(feature.properties.url != undefined) {
+            layer.bindPopup("<a href='" + feature.properties.url + "''>" + feature.properties.title + "</a>");
+          } else {
+            layer.bindPopup(feature.properties.title);
+          }
+        }
+      }
+    });
+    featureGroup = L.featureGroup()
+    featureGroup.addLayer(jsonLayer)
+    featureGroup.addTo(app.leafletMap);
+
+  }
 };
 
 $(document).on('turbolinks:load', ready);

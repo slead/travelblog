@@ -14,11 +14,10 @@ class PostsController < ApplicationController
   # end
 
   def index
-    @geojson = Array.new #TODO - hardcode the IgniteTalks post to the JSON so it's always shown
     if params[:bbox].present?
       #Find posts which fall within the current map extent
       bbox = params[:bbox].split(",").map(&:to_f)
-      @posts = Post.within_bounding_box(bbox).order(:name)
+      @posts = Post.within_bounding_box(bbox).order(:title)
     elsif params[:id].present?
       # This path is called when the user chooses an Ignite from the dropdown on the Posts page. In
       # this case, open that post's homepage (and break out of the rest of this function)
@@ -29,19 +28,17 @@ class PostsController < ApplicationController
       @posts = Post.paginate(:page => params[:page], :per_page => 3).order published_date: :desc
     end
     # Make a JSON object from the posts, to add to the map
-    @geojson += @posts.collect do |post|
-      {
+    @geojson = Array.new
+
+    @posts.each do |post|
+      @geojson << {
         type: 'Feature',
         geometry: {
           type: 'Point',
           coordinates: [post.longitude, post.latitude]
         },
         properties: {
-          type: "post",
-          id: post.id,
           title: post.title,
-          city: post.city,
-          country: post.country,
           url: post.slug
         }
       }
