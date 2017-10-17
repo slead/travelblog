@@ -9,13 +9,14 @@ ready = function() {
 			subdomains: 'abcd',
 			minZoom: 0,
 			maxZoom: 20,
-			ext: 'png'
+			ext: 'png',
+			opacity: 0.5
 		});
 
 		app.leafletMap = new L.Map("map", {
 	    center: [40, -73],
 	    zoom: 3,
-	    maxZoom: 9,
+	    maxZoom: 6,
 	    minZoom: 2,
 	    layers: [app.basemap],
 	    maxBounds: L.latLngBounds(L.latLng(-90, -180), L.latLng(90, 180))
@@ -51,7 +52,7 @@ ready = function() {
     var geojson = $.parseJSON(data);
     var geojsonMarkerOptions = {
 	    radius: 8,
-	    fillColor: "#ed9c28",
+	    fillColor: "#FF0000",
 	    color: "#000",
 	    weight: 1,
 	    opacity: 1,
