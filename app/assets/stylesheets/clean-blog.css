@@ -171,7 +171,7 @@ header.masthead {
     header.masthead .site-heading h1 {
       font-size: 50px;
       margin-top: 0;
-      text-shadow: 3px 3px 4px black;}
+      text-shadow: 3px 3px 4px #333333;}
     header.masthead .page-heading .subheading,
     header.masthead .site-heading .subheading {
       font-size: 24px;
@@ -180,12 +180,12 @@ header.masthead {
       display: block;
       margin: 10px 0 0;
       font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      text-shadow: 3px 3px 4px black;
+      text-shadow: 3px 3px 4px #333333;
     }
     @media only screen and (min-width: 768px) {
       header.masthead .page-heading h1,
       header.masthead .site-heading h1 {
-        text-shadow: 5px 5px 5px black;
+        text-shadow: 5px 5px 5px #333333;
         font-size: 80px; } }
   header.masthead .post-heading h1 {
     font-size: 35px; }
@@ -207,12 +207,12 @@ header.masthead {
       color: white; }
   @media only screen and (min-width: 768px) {
     header.masthead .post-heading h1 {
-      text-shadow: 3px 3px 5px black;
+      text-shadow: 3px 3px 5px #333333;
       font-size: 55px; }
     header.masthead .post-heading .subheading {
       font-size: 30px; } 
     header.masthead .post-heading .meta {
-      text-shadow: 1px 1px 3px black;
+      text-shadow: 1px 1px 3px #333333;
     }
   }
 
