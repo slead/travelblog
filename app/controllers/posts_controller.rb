@@ -7,12 +7,6 @@ class PostsController < ApplicationController
     redirect_to action: :index
   end
 
-  # GET /posts
-  # GET /posts.json
-  # def index
-  #   @posts = Post.paginate(:page => params[:page], :per_page => 3).order published_date: :desc
-  # end
-
   def index
     if params[:bbox].present?
       #Find posts which fall within the current map extent
