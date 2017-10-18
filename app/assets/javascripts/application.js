@@ -15,6 +15,7 @@
 //= require jquery
 //= require leaflet
 //= require tinymce-jquery
+//= require lightbox
 //= require_tree .
 
 function pageLoad() {

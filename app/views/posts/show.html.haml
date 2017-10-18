@@ -22,9 +22,12 @@
 			.row
 				.col-lg-8.col-md-10.mx-auto
 					= sanitize @post.content
-				.col-lg-12
-					- @photos.each do |photo|
-						=image_tag photo.large
+			- @photos.each do |photo|
+				.row
+					.col-md-12
+						%a.image-link{"data-lightbox" => "set", "data-title" => "#{photo.title}", :href => "#{photo.large}"}
+							%img.image{:alt => "", :src => "#{photo.large}", :class => "lightbox-thumb mx-auto d-block"}
+
 
 	-if @post.previous || @post.next
 		.container.top-50

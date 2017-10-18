@@ -16,6 +16,7 @@
  @import "font-awesome";
  @import "leaflet";
  @import "content";
+ @import 'lightbox';
 
  #notice_wrapper, #alert_wrapper {
   position: absolute;
@@ -83,4 +84,9 @@
 header.empty {
   padding-top: 15px;
   margin-bottom: 15px;
+}
+
+.lightbox-thumb {
+  padding: 15px;
+  max-width: 100%;
 }
