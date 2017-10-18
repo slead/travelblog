@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
+  before_action :check_photos, only: [:update, :create]
   include ActionView::Helpers::DateHelper
 
   rescue_from ActiveRecord::RecordNotFound do
@@ -120,5 +121,38 @@ class PostsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
       params.require(:post).permit(:title, :content, :placename, :published_date, :hero_image_url, :flickr_album)
+    end
+
+    def check_photos
+      if self.params['post']['flickr_album'].present?
+        photoset_id = self.params['post']['flickr_album']
+        flickr.photosets.getPhotos(photoset_id: photoset_id).photo.map do |photo|
+          photo_id = photo['id']
+          if (Photo.where(:flickr_id => photo_id).count == 0)
+            photo_info = flickr.photos.getInfo :photo_id => photo_id
+            date_taken = photo_info['dates']['taken']
+            title = photo_info['title']
+            description = photo_info['description']
+            photo_sizes = flickr.photos.getSizes :photo_id => photo_id
+            thumb = ''
+            small = ''
+            medium = ''
+            large = ''
+            photo_sizes.each do |size|
+              label = size['label']
+              if label == 'Thumbnail'
+                thumb = size['source']
+              elsif label == 'Small'
+                small = size['source']
+              elsif label == 'Medium'
+                medium = size['source']
+              elsif label == 'Large'
+                large = size['source']
+              end
+            end
+            Photo.create!(flickr_id: photo_id, title: title, description: description, thumb: thumb, small: small, medium: medium, large: large)
+          end
+        end 
+      end
     end
 end
