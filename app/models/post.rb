@@ -2,6 +2,8 @@ class Post < ApplicationRecord
 	extend FriendlyId
 	friendly_id :title, use: :slugged
 
+  has_and_belongs_to_many :photos
+
   def should_generate_new_friendly_id?
     title_changed?
   end

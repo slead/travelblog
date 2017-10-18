@@ -54,6 +54,7 @@ class PostsController < ApplicationController
     if @post.city && @post.country
       @meta += " in #{@post.city}, #{@post.country}"
     end
+    @photos = @post.photos
   end
 
   # GET /posts/new
@@ -117,35 +118,40 @@ class PostsController < ApplicationController
     end
 
     def check_photos
-      if self.params['post']['flickr_album'].present?
-        photoset_id = self.params['post']['flickr_album']
-        flickr.photosets.getPhotos(photoset_id: photoset_id).photo.map do |photo|
-          photo_id = photo['id']
-          if (Photo.where(:flickr_id => photo_id).count == 0)
-            photo_info = flickr.photos.getInfo :photo_id => photo_id
-            date_taken = photo_info['dates']['taken']
-            title = photo_info['title']
-            description = photo_info['description']
-            photo_sizes = flickr.photos.getSizes :photo_id => photo_id
-            thumb = ''
-            small = ''
-            medium = ''
-            large = ''
-            photo_sizes.each do |size|
-              label = size['label']
-              if label == 'Thumbnail'
-                thumb = size['source']
-              elsif label == 'Small'
-                small = size['source']
-              elsif label == 'Medium'
-                medium = size['source']
-              elsif label == 'Large'
-                large = size['source']
+      # Import all photos from the specified Flickr album and relate them to this post
+      begin
+        if self.params['post']['flickr_album'].present?
+          photoset_id = self.params['post']['flickr_album']
+          flickr.photosets.getPhotos(photoset_id: photoset_id).photo.map do |photo|
+            photo_id = photo['id']
+            if (Photo.where(:flickr_id => photo_id).count == 0)
+              photo_info = flickr.photos.getInfo :photo_id => photo_id
+              date_taken = photo_info['dates']['taken']
+              title = photo_info['title']
+              description = photo_info['description']
+              photo_sizes = flickr.photos.getSizes :photo_id => photo_id
+              thumb = ''
+              small = ''
+              medium = ''
+              large = ''
+              photo_sizes.each do |size|
+                label = size['label']
+                if label == 'Thumbnail'
+                  thumb = size['source']
+                elsif label == 'Small'
+                  small = size['source']
+                elsif label == 'Medium'
+                  medium = size['source']
+                elsif label == 'Large'
+                  large = size['source']
+                end
               end
+              photo = Photo.create!(flickr_id: photo_id, title: title, description: description, thumb: thumb, small: small, medium: medium, large: large)
+              @post.photos << photo
             end
-            Photo.create!(flickr_id: photo_id, title: title, description: description, thumb: thumb, small: small, medium: medium, large: large)
-          end
-        end 
+          end 
+        end
       end
+    rescue
     end
 end

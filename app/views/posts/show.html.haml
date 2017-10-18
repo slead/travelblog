@@ -22,10 +22,9 @@
 			.row
 				.col-lg-8.col-md-10.mx-auto
 					= sanitize @post.content
-			/ -if @photoset
-			/ 	.col-lg-12
-			/ 		- @photoset.each do |photo|
-			/ 			=image_tag photo
+				.col-lg-12
+					- @photos.each do |photo|
+						=image_tag photo.large
 
 	-if @post.previous || @post.next
 		.container.top-50
