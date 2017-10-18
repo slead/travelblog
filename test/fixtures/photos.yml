@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  flickr_id: MyString
+  title: MyString
+  description: MyText
+  date_taken: 2017-10-18
+  thumb: MyString
+  small: MyString
+  medium: MyString
+  large: MyString
+
+two:
+  flickr_id: MyString
+  title: MyString
+  description: MyText
+  date_taken: 2017-10-18
+  thumb: MyString
+  small: MyString
+  medium: MyString
+  large: MyString
