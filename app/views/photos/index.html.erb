@@ -9,10 +9,6 @@
       <th>Title</th>
       <th>Description</th>
       <th>Date taken</th>
-      <th>Thumb</th>
-      <th>Small</th>
-      <th>Medium</th>
-      <th>Large</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -24,11 +20,7 @@
         <td><%= photo.title %></td>
         <td><%= photo.description %></td>
         <td><%= photo.date_taken %></td>
-        <td><%= photo.thumb %></td>
-        <td><%= photo.small %></td>
-        <td><%= photo.medium %></td>
-        <td><%= photo.large %></td>
-        <td><%= link_to 'Show', photo %></td>
+        <td><%= link_to (image_tag photo.thumb), photo %></td>
         <td><%= link_to 'Edit', edit_photo_path(photo) %></td>
         <td><%= link_to 'Destroy', photo, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>

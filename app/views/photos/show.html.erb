@@ -1,44 +1,30 @@
-<p id="notice"><%= notice %></p>
+<div class="top-50">
+  <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Flickr:</strong>
-  <%= @photo.flickr_id %>
-</p>
+  <p>
+    <strong>Flickr:</strong>
+    <%= @photo.flickr_id %>
+  </p>
 
-<p>
-  <strong>Title:</strong>
-  <%= @photo.title %>
-</p>
+  <p>
+    <strong>Title:</strong>
+    <%= @photo.title %>
+  </p>
 
-<p>
-  <strong>Description:</strong>
-  <%= @photo.description %>
-</p>
+  <p>
+    <strong>Description:</strong>
+    <%= @photo.description %>
+  </p>
 
-<p>
-  <strong>Date taken:</strong>
-  <%= @photo.date_taken %>
-</p>
+  <p>
+    <strong>Date taken:</strong>
+    <%= @photo.date_taken %>
+  </p>
 
-<p>
-  <strong>Thumb:</strong>
-  <%= @photo.thumb %>
-</p>
+  <p>
+    <%= image_tag @photo.large, :class => "lightbox-thumb mx-auto d-block" %>
+  </p>
 
-<p>
-  <strong>Small:</strong>
-  <%= @photo.small %>
-</p>
-
-<p>
-  <strong>Medium:</strong>
-  <%= @photo.medium %>
-</p>
-
-<p>
-  <strong>Large:</strong>
-  <%= @photo.large %>
-</p>
-
-<%= link_to 'Edit', edit_photo_path(@photo) %> |
-<%= link_to 'Back', photos_path %>
+  <%= link_to 'Edit', edit_photo_path(@photo) %> |
+  <%= link_to 'Back', photos_path %>
+</div>
