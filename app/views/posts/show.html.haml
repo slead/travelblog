@@ -1,7 +1,7 @@
 / Page Header
 .container-fluid.top-50
-	-if @post.hero_image_url.present?
-		%header.masthead{:style => "background-image: url(#{@post.hero_image_url})"}
+	-if @post.photos.count > 0
+		%header.masthead{:style => "background-image: url(#{@post.photos[0].large})"}
 			.container
 				.row
 					.col-lg-8.col-md-10.mx-auto
@@ -22,7 +22,7 @@
 			.row
 				.col-lg-8.col-md-10.mx-auto
 					= sanitize @post.content
-			- @photos.each do |photo|
+			- @post.photos.drop(1).each do |photo|
 				.row
 					.col-md-12
 						%a.image-link{"data-lightbox" => "set", "data-title" => "#{photo.title}", :href => "#{photo.large}"}

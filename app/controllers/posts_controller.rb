@@ -21,7 +21,7 @@ class PostsController < ApplicationController
       return
     else
       @posts = Post.paginate(:page => params[:page], :per_page => 3).order published_date: :desc
-      @posts.first.hero_image_url.present? ? @header_image_url = @posts.first.hero_image_url : @header_image_url = 'https://farm9.staticflickr.com/8026/7254508562_25fc4962e5_b.jpg'
+      @posts.first.photos.count > 0 ? @header_image_url = @posts.first.photos.first.large : @header_image_url = 'https://farm9.staticflickr.com/8026/7254508562_25fc4962e5_b.jpg'
     end
     # Make a JSON object from the posts, to add to the map
     @geojson = Array.new
@@ -54,7 +54,6 @@ class PostsController < ApplicationController
     if @post.city && @post.country
       @meta += " in #{@post.city}, #{@post.country}"
     end
-    @photos = @post.photos
   end
 
   # GET /posts/new
@@ -114,7 +113,7 @@ class PostsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
-      params.require(:post).permit(:title, :content, :placename, :published_date, :hero_image_url, :flickr_album)
+      params.require(:post).permit(:title, :content, :placename, :published_date, :flickr_album)
     end
 
     def check_photos

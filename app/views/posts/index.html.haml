@@ -10,14 +10,20 @@
 / Main Content
 .container
   .row
-    .col-lg-8.col-md-10.mx-auto
+    .col-md-12
       - @posts.each do |post|
-        .post-preview
-          %h2.post-title
-            =link_to post.title, post
-          %p.post-subtitle
-            =sanitize(post.content)
-            
+        .row.top-50
+          .col-md-10.mx-auto
+            .post-preview
+              %h2.post-title
+                =link_to post.title, post
+              %p.post-subtitle
+                =sanitize(post.content)
+            -post.photos.each do |photo|
+              .row
+                .col-md-12.mx-auto
+                  =image_tag photo.large, class: "lightbox-thumb mx-auto d-block"
+                
   #hr
   .row
     .col-lg-8.col-md-10.mx-auto
