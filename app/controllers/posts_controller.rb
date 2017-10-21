@@ -27,6 +27,7 @@ class PostsController < ApplicationController
     @geojson = Array.new
 
     @posts.each do |post|
+      post.photos.count > 0 ? photo = post.photos.first.small : photo = nil
       @geojson << {
         type: 'Feature',
         geometry: {
@@ -35,7 +36,8 @@ class PostsController < ApplicationController
         },
         properties: {
           title: post.title,
-          url: post.slug
+          url: post.slug,
+          photo: photo
         }
       }
     end
