@@ -11,7 +11,7 @@
 .container
   .row
     .col-md-12
-      - @posts.each do |post|
+      - @posts.each.with_index do |post, idx|
         .row.top-50
           .col-md-10.mx-auto
             .post-preview
@@ -19,7 +19,11 @@
                 =link_to post.title, post
               %p.post-subtitle
                 =sanitize(post.content)
-            -post.photos.each do |photo|
+            -if idx == 0
+              - photos = post.photos.drop(1)
+            -else
+              - photos = post.photos
+            -photos.each do |photo|
               .row
                 .col-md-12.mx-auto
                   %a.image-link{"data-lightbox" => "set", "data-title" => "#{photo.title}", :href => "#{photo.large}"}
