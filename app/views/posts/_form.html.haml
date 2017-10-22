@@ -4,7 +4,7 @@
       = f.input :title
       = f.text_area :content, :class => "tinymce", :rows => 20, :cols => 120
       = f.input :placename
-      = f.input :published_date
+      = f.input :published_date, :start_year => 2001
       = f.input :flickr_album
     = f.button :submit
     = tinymce
