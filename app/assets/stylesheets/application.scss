@@ -92,6 +92,13 @@ header.empty {
 }
 
 .lightbox-thumb {
+  padding: 5px;
+  max-width: 100%;
+  margin-top: 10px;
+  background: #e9e9e9;
+}
+
+.lightbox-frame {
   padding: 15px;
   max-width: 100%;
   margin-top: 25px;
