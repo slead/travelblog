@@ -1,5 +1,11 @@
 #map {
-	height: 600px;
+	/*height: 600px;*/
+	top: 50px;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	position: absolute;
+	z-index: 1000;
 }
 
 .leaflet-left {
