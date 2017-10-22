@@ -27,7 +27,7 @@
             -photos.each do |photo|
               .row
                 .col-md-12.mx-auto
-                  %a.image-link{"data-lightbox" => "set", "data-title" => "#{photo.title}", :href => "#{photo.large}"}
+                  %a.image-link{"data-lightbox" => "#{post.title}", "data-title" => "#{photo.title}", :href => "#{photo.large}"}
                     %img.image{:alt => "", :src => "#{photo.large}", :class => "lightbox-thumb mx-auto d-block"}
                 
   #hr
