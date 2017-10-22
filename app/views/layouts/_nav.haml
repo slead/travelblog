@@ -4,6 +4,9 @@
     %a.navbar-brand{:href => root_path} Steve and Glo's travel blog
     #navbarResponsive
       %ul.navbar-nav.ml-auto
+        -if user_signed_in?
+          %li.nav-item
+            %a.nav-link{:href => new_post_path} New Post
         %li.nav-item
           %a.nav-link{:href => about_path} About
         %li.nav-item

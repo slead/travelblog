@@ -1,6 +1,8 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
   before_action :check_photos, only: [:update, :create]
+  before_action :authenticate_user!, only: [:create, :new, :edit, :update, :destroy]
+
   include ActionView::Helpers::DateHelper
 
   rescue_from ActiveRecord::RecordNotFound do
