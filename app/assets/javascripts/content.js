@@ -15,7 +15,7 @@ ready = function() {
 
 		app.leafletMap = new L.Map("map", {
 	    center: [40, -73],
-	    zoom: 3,
+	    zoom: 2,
 	    maxZoom: 6,
 	    minZoom: 2,
 	    layers: [app.basemap],
