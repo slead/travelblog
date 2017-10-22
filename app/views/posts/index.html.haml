@@ -17,6 +17,7 @@
             .post-preview
               %h2.post-title
                 =link_to post.title, post
+              %span.meta= "Posted #{time_ago_in_words(post.published_date)} ago"
               %p.post-subtitle
                 =sanitize(post.content)
             -if idx == 0
