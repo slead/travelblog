@@ -1,11 +1,12 @@
 Rails.application.routes.draw do
   devise_for :users
   resources :photos
-  resources :posts
+  resources :posts, path: ''
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
   get '/about', to: 'content#about', as: :about #=> about_path 
   get '/map', to: 'content#map', as: :map #=> map_path
   get '/:id', to: 'posts#show', as: :post_path
+  
   root to: "posts#index"
 end

@@ -21,7 +21,9 @@
               %p.post-subtitle
                 =sanitize(post.content)
             -if idx == 0
+              - firstPhoto = post.photos.first
               - photos = post.photos.drop(1)
+              - photos << firstPhoto
             -else
               - photos = post.photos
             -photos.each_slice(3) do |photoblock|
