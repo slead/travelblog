@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
   resources :photos
-  resources :posts, path: ''
+  resources :posts
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
   get '/about', to: 'content#about', as: :about #=> about_path 

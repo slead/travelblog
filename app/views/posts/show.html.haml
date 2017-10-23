@@ -23,10 +23,7 @@
 				.col-lg-8.col-md-10.mx-auto
 					= sanitize @post.content
 			- if @post.photos.count > 0
-				- firstPhoto = @post.photos.first
-				- photos = @post.photos
-				- photos << firstPhoto
-				- photos.each do |photo|
+				- @post.photos.drop(1).each do |photo|
 					.row
 						.col-md-12
 							%a.image-link{"data-lightbox" => "set", "data-title" => "#{photo.title}", :href => "#{photo.large}"}

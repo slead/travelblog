@@ -155,8 +155,10 @@ class PostsController < ApplicationController
                 end
               end
               photo = Photo.create!(flickr_id: photo_id, title: title, description: description, thumb: thumb, small: small, medium: medium, large: large)
-              @post.photos << photo
+            else
+              photo = Photo.where(:flickr_id => photo_id).first
             end
+            @post.photos << photo
           end 
         end
       end
