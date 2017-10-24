@@ -1,6 +1,5 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
-  before_action :check_photos, only: [:update, :create]
   before_action :authenticate_user!, only: [:create, :new, :edit, :update, :destroy]
 
   include ActionView::Helpers::DateHelper
@@ -123,43 +122,4 @@ class PostsController < ApplicationController
       params.require(:post).permit(:title, :content, :placename, :published_date, :flickr_album)
     end
 
-    def check_photos
-      # Import all photos from the specified Flickr album and relate them to this post
-      begin
-        if self.params['post']['flickr_album'].present?
-          photoset_id = self.params['post']['flickr_album']
-          flickr.photosets.getPhotos(photoset_id: photoset_id).photo.map do |photo|
-            photo_id = photo['id']
-            if (Photo.where(:flickr_id => photo_id).count == 0)
-              photo_info = flickr.photos.getInfo :photo_id => photo_id
-              date_taken = photo_info['dates']['taken']
-              title = photo_info['title']
-              description = photo_info['description']
-              photo_sizes = flickr.photos.getSizes :photo_id => photo_id
-              thumb = ''
-              small = ''
-              medium = ''
-              large = ''
-              photo_sizes.each do |size|
-                label = size['label']
-                if label == 'Thumbnail'
-                  thumb = size['source']
-                elsif label == 'Small'
-                  small = size['source']
-                elsif label == 'Medium'
-                  medium = size['source']
-                elsif label == 'Large'
-                  large = size['source']
-                end
-              end
-              photo = Photo.create!(flickr_id: photo_id, title: title, description: description, thumb: thumb, small: small, medium: medium, large: large)
-            else
-              photo = Photo.where(:flickr_id => photo_id).first
-            end
-            @post.photos << photo
-          end 
-        end
-      end
-    rescue
-    end
 end
