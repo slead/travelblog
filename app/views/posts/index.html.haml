@@ -30,8 +30,8 @@
                 .row
                   -photoblock.each do |photo|
                     .col-lg-4.mx-auto
-                      %a.image-link{"data-lightbox" => "{post.title}", "data-title" => "#{photo.title}", :href => "#{photo.large}"}
-                        %img.image{:alt => "", :src => "#{photo.small}", :class => "lightbox-thumb mx-auto d-block"}
+                      %a.image-link{"data-lightbox" => "#{post.title}", "data-title" => "#{photo.title}", :href => "#{photo.large}"}
+                        %img.image{:alt => "#{photo.title}", :src => "#{photo.small}", :class => "lightbox-thumb mx-auto d-block"}
                 
   #hr
   .row

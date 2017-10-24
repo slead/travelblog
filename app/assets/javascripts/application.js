@@ -18,6 +18,7 @@
 //= require lightbox
 //= require js.cookies
 //= require popper
+//= require clean-blog
 //= require_tree .
 
 function pageLoad() {
