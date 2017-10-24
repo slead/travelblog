@@ -9,11 +9,17 @@ class Post < ApplicationRecord
     title_changed?
   end
 
-  before_create -> do
+  before_save -> do
     # Allow override of the published date, otherwise use the current date
     if !self.published_date.present?
       self.published_date = self.created_at
     end
+
+    # Put validate photos routine here
+    if self.flickr_album.present?
+      
+    end
+
   end
 
 	geocoded_by :placename

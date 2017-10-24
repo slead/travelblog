@@ -13,9 +13,13 @@ ready = function() {
 			opacity: 0.5
 		});
 
+    // Return to the last-used map extent, or use a default extent
+    var lat = Cookies.get('lat') || 0;
+    var lng = Cookies.get('lng') || 27;
+    var zoom = Cookies.get('zoom') || 3;
 		app.leafletMap = new L.Map("map", {
-	    center: [-1.2303741774326018, 26.894531250000004],
-	    zoom: 3,
+	    center: [lat, lng],
+	    zoom: zoom,
 	    maxZoom: 6,
 	    minZoom: 2,
 	    layers: [app.basemap],
@@ -25,6 +29,20 @@ ready = function() {
     // Fetch geocoded posts
     getPosts();
 
+    // Store the last map extent in cookies
+    app.leafletMap.on('zoomend', function() {
+      updateCookies();
+    });
+    app.leafletMap.on('moveend', function() {
+      updateCookies();
+    });
+
+  }
+
+  function updateCookies(){
+    Cookies.set("lat", app.leafletMap.getCenter().lat);
+    Cookies.set("lng", app.leafletMap.getCenter().lng);
+    Cookies.set("zoom", app.leafletMap.getZoom());
   }
 
   function getPosts() {

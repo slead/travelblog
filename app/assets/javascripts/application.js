@@ -16,6 +16,7 @@
 //= require leaflet
 //= require tinymce-jquery
 //= require lightbox
+//= require js.cookies
 //= require_tree .
 
 function pageLoad() {
