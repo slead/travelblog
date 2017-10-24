@@ -28,11 +28,11 @@ class Post < ApplicationRecord
   after_validation :reverse_geocode, if: :placename_changed?
 
   def previous
-    Post.where(["id < ?", id]).last
+    Post.where(["published_date < ?", published_date]).last
   end
 
   def next
-    Post.where(["id > ?", id]).first
+    Post.where(["published_date > ?", published_date]).first
   end
 
 end

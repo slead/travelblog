@@ -39,4 +39,5 @@
       = will_paginate @posts, renderer: WillPaginate::ActionView::BootstrapLinkRenderer   
 
   %br/
-  = link_to 'New Post', new_post_path
+  - if user_signed_in?
+    = link_to 'New Post', new_post_path
