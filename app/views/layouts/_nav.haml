@@ -2,7 +2,10 @@
 %nav#mainNav.navbar.navbar-expand-md.navbar-light.fixed-top
   .container
     %a.navbar-brand{:href => root_path} Steve and Glo's travel blog
-    #navbarResponsive
+    %button.navbar-toggler.navbar-toggler-right{"aria-controls" => "navbarResponsive", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-target" => "#navbarResponsive", "data-toggle" => "navbar-collapse", :type => "button"}
+      Menu
+      %i.fa.fa-bars
+    #navbarResponsive.collapse.navbar-collapse
       %ul.navbar-nav.ml-auto
         -if user_signed_in?
           %li.nav-item
