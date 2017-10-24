@@ -1,0 +1,21 @@
+.container-fluid.top-100
+  %h1 Photos
+  - @photos.each do |photo|
+    .row
+      .col-md-1= photo.flickr_id
+      .col-md-1= photo.title
+      .col-md-1= photo.description
+      .col-md-1= photo.date_taken
+      .col-md-6= link_to (image_tag photo.medium), photo
+      .col-md-1
+        = link_to 'Edit', edit_photo_path(photo)
+        = link_to 'Destroy', photo, method: :delete, data: { confirm: 'Are you sure?' }
+        -photo.posts.each do |post|
+          =link_to post.title, post
+  %br/
+  = link_to 'New Photo', new_photo_path
+
+  #hr
+  .row
+    .col-lg-8.col-md-10.mx-auto
+      = will_paginate @posts, renderer: WillPaginate::ActionView::BootstrapLinkRenderer   
