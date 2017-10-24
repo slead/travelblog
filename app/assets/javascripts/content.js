@@ -14,7 +14,7 @@ ready = function() {
 		});
 
 		app.leafletMap = new L.Map("map", {
-	    center: [40, -73],
+	    center: [-1.2303741774326018, 26.894531250000004],
 	    zoom: 3,
 	    maxZoom: 6,
 	    minZoom: 2,
@@ -22,22 +22,14 @@ ready = function() {
 	    maxBounds: L.latLngBounds(L.latLng(-90, -180), L.latLng(90, 180))
 	  });
 	
-
-	    // Fetch the posts within  the current map extent, and re-fetch them when it changes
-    mapSearch();
-    app.leafletMap.on('moveend', mapSearch);
+    // Fetch geocoded posts
+    getPosts();
 
   }
 
-  function mapSearch() {
-    // Request posts within the current map extent
-
-    extent = app.leafletMap.getBounds();
-    var northEast = extent._northEast.wrap();
-    var southWest = extent._southWest.wrap();
-    currentZoom = app.leafletMap.getZoom();
-
-    url = "posts.json?bbox=" + southWest.lat + "," + southWest.lng + "," + northEast.lat + "," + northEast.lng + "&zoom=" + currentZoom;
+  function getPosts() {
+    // Request posts with a lat/long
+    var url = "posts.json?map=true";
     $.ajax({
       dataType: 'text',
       url: url,
@@ -60,7 +52,7 @@ ready = function() {
 	  };
 
     // Add the posts to the map
-    jsonLayer = L.geoJson(geojson, {
+    var jsonLayer = L.geoJson(geojson, {
       pointToLayer: function (feature, latlng) {
         return L.circleMarker(latlng, geojsonMarkerOptions);
       },
@@ -74,7 +66,7 @@ ready = function() {
         }
       }
     });
-    featureGroup = L.featureGroup()
+    var featureGroup = L.featureGroup()
     featureGroup.addLayer(jsonLayer)
     featureGroup.addTo(app.leafletMap);
 

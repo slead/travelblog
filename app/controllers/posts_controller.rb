@@ -11,10 +11,8 @@ class PostsController < ApplicationController
   end
 
   def index
-    if params[:bbox].present?
-      #Find posts which fall within the current map extent
-      bbox = params[:bbox].split(",").map(&:to_f)
-      @posts = Post.within_bounding_box(bbox).order(:title)
+    if params[:map].present?
+      @posts = Post.all
     elsif params[:id].present?
       # This path is called when the user chooses an Ignite from the dropdown on the Posts page. In
       # this case, open that post's homepage (and break out of the rest of this function)
