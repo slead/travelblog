@@ -8,8 +8,16 @@
           %span.subheading Cos working is over-rated
           
 .container
-  %h1.center About
-  .col-md-12
-    .row
-      .col-md-10.col-md-offset-1.top-50
-        %p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin felis mi, scelerisque ut sagittis et, elementum et massa. Sed consequat ipsum in neque rutrum fermentum. Maecenas ac dictum metus. Maecenas gravida mi eu elit accumsan, non facilisis quam varius. Nullam et mi quis libero aliquet tristique. Sed scelerisque non odio eu aliquet. Vestibulum sem nibh, pulvinar nec ligula non, volutpat consectetur ex. Morbi auctor volutpat leo lobortis hendrerit. Etiam fermentum tincidunt lacus, vitae molestie velit auctor vel. Nam eget suscipit tortor. Sed mattis leo id elit rhoncus vestibulum. Sed ut diam eget augue pretium mollis scelerisque at magna. Aenean rutrum nunc et eros pulvinar, imperdiet dignissim elit faucibus. Pellentesque vestibulum leo scelerisque, tempor nisl venenatis, convallis dolor. Praesent feugiat ultrices tempor. Proin sed justo eleifend, aliquam metus nec, luctus ipsum.
+  .row
+    .col-md-10.mx-auto
+      %p We are Steve, Glo, Nelly and Clem, and we're from Sydney, Australia
+      =image_tag "https://i.imgur.com/xQDnZOu.jpg", :class => "lightbox-frame"
+      %p We started this travel blog back in 2007 and have been adding to it over the years. During 2018 we're planning to travel around the world together and add a lot more entries. Bookmark this page to keep in touch!
+      =image_tag "https://i.imgur.com/WUJZh3i.jpg", :class => "lightbox-frame"
+      %p
+        The blog was written by Steve in Rails 5, and geocodes each entry so they may be viewed on the
+        =link_to "map.", map_path
+        The photos are sourced from
+        =link_to "Flickr.", "http://flickr.com/photos/passenger57"
+        If you like this blog you can grab the source code from
+        =link_to "GitHub.com/slead", "https://github.com/slead/travelblog"
