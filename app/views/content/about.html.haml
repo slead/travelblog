@@ -6,13 +6,17 @@
         .site-heading
           %h1 Steve and Glo's travel blog
           %span.subheading Cos working is over-rated
-          
+
 .container
   .row
     .col-md-10.mx-auto
-      %p We are Steve, Glo, Nelly and Clem, and we're from Sydney, Australia
+      %p We're Steve and Glo, and our kids N and C, and we're from Sydney, Australia
       =image_tag "https://i.imgur.com/xQDnZOu.jpg", :class => "lightbox-frame"
-      %p We started this travel blog back in 2007 and have been adding to it over the years. During 2018 we're planning to travel around the world together and add a lot more entries. Bookmark this page to keep in touch!
+      %p
+        We started this travel blog back in 2007 and have been adding to it over the years. During 2018 we're planning to travel around the world together and add a lot more entries.
+      %p
+        =link_to "Subscribe", signup_path
+        and we'll keep in touch when there are new posts!
       =image_tag "https://i.imgur.com/WUJZh3i.jpg", :class => "lightbox-frame"
       %p
         The blog was written by Steve in Rails 5, and geocodes each entry so they may be viewed on the
