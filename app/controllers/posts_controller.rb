@@ -11,7 +11,7 @@ class PostsController < ApplicationController
 
   def index
     if params[:map].present?
-      @posts = Post.where("latitude IS NOT NULL")
+      @posts = Post.where(["latitude IS NOT NULL and status= ?", "published"])
     elsif params[:id].present?
       # This path is called when the user chooses an Ignite from the dropdown on the Posts page. In
       # this case, open that post's homepage (and break out of the rest of this function)
