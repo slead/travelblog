@@ -24,6 +24,7 @@
                 %p.post-subtitle
                   =sanitize(post.content)
 
+<<<<<<< HEAD
 
               -if post.photos.count > 0
                 -if idx == 0
@@ -36,6 +37,19 @@
                       .col-lg-4.mx-auto
                         %a.image-link{"data-lightbox" => "{post.title}", "data-title" => "#{photo.title}", :href => "#{photo.large}"}
                           %img.image{:alt => "", :src => "#{photo.small}", :class => "lightbox-thumb mx-auto d-block"}
+=======
+            -if post.photos.count > 0
+              -if idx == 0
+                - photos = post.photos.drop(1)
+              -else
+                - photos = post.photos
+              -photos.each_slice(3) do |photoblock|
+                .row
+                  -photoblock.each do |photo|
+                    .col-lg-4.mx-auto
+                      %a.image-link{"data-lightbox" => "#{post.title}", "data-title" => "#{photo.title}", :href => "#{photo.large}"}
+                        %img.image{:alt => "#{photo.title}", :src => "#{photo.small}", :class => "lightbox-thumb mx-auto d-block"}
+>>>>>>> origin/master
                 
   #hr
   .row
