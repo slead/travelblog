@@ -60,6 +60,10 @@ class PostsController < ApplicationController
     if @post.city && @post.country
       @meta += " in #{@post.city}, #{@post.country}"
     end
+    if @post.photos.count > 0
+      @og_image = @post.photos.first.large
+    end
+    @og_title = @post.title
   end
 
   # GET /posts/new

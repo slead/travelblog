@@ -5,6 +5,16 @@
     %meta{:content => "width=device-width, initial-scale=1, shrink-to-fit=no", :name => "viewport"}/
     %meta{:content => "Steve and Glo's travel blog", :name => "description"}/
     %meta{:content => "Stephen Lead", :name => "author"}/
+    %meta{'name' => 'contact', :content => 'http://www.stephenlead.com'}
+    %meta{'property' => "og:title", :content => og_title}
+    %meta{'property' => "og:url", :content => request.original_url}
+    %meta{'property' => "og:type", :content => "website"}
+    %meta{'property' => "og:image", :content => og_image}
+    %meta{'name' => 'twitter:card', :content => 'summary_large_image'}
+    %meta{'name' => 'twitter:site', :content => '@stephenlead'}
+    %meta{'name' => 'twitter:image', :content => og_image}
+    %meta{'name' => 'twitter:description', :content => "Steve and Glo's travel blog"}
+
     %title Travels with Steve and Glo
     = csrf_meta_tags
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
