@@ -42,10 +42,12 @@
 						#ul.pagination
 							-if @post.previous
 								#li.page-item
-									=link_to "Previous post: #{@post.previous.title}", @post.previous, :class => "page-link"
+									=link_to "<< #{@post.previous.title}", @post.previous, :class => "page-link"
+							#li.page-item
+								=link_to 'All posts', posts_path, :class => "page-link"
 							-if @post.next
 								#li.page-item
-									=link_to "Next post: #{@post.next.title}", @post.next, :class => "page-link"
+									=link_to "#{@post.next.title} >>", @post.next, :class => "page-link"
 
 	.container
 		.row
@@ -53,5 +55,4 @@
 				- if user_signed_in?
 					= link_to 'Edit', edit_post_path(@post)
 					= link_to "Delete", post_path(@post), method: :delete, data: { confirm: 'Are you certain you want to delete this?' }
-				= link_to 'All posts', posts_path
 			
