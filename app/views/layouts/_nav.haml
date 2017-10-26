@@ -1,16 +1,13 @@
-/ Navigation
-%nav#mainNav.navbar.navbar-expand-md.navbar-light.fixed-top
-  .container
-    %a.navbar-brand{:href => root_path} Steve and Glo's travel blog
-    %button.navbar-toggler.navbar-toggler-right{"aria-controls" => "navbarResponsive", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-target" => "#navbarResponsive", "data-toggle" => "navbar-collapse", :type => "button"}
-      Menu
-      %i.fa.fa-bars
-    #navbarResponsive.collapse.navbar-collapse
-      %ul.navbar-nav.ml-auto
-        -if user_signed_in?
-          %li.nav-item
-            %a.nav-link{:href => new_post_path} New Post
+%nav#mainNav.navbar.navbar-expand-md.navbar-dark.fixed-top.bg-dark
+  %a.navbar-brand{:href => root_path} Steve and Glo's travel blog
+  %button.navbar-toggler{"aria-controls" => "navbarCollapse", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-target" => "#navbarCollapse", "data-toggle" => "collapse", :type => "button"}
+    %span.navbar-toggler-icon
+  #navbarCollapse.collapse.navbar-collapse
+    %ul.navbar-nav.ml-auto
+      %li.nav-item
+        %a.nav-link{:href => about_path} About
+      %li.nav-item
+        %a.nav-link{:href => map_path} Map
+      -if user_signed_in?
         %li.nav-item
-          %a.nav-link{:href => about_path} About
-        %li.nav-item
-          %a.nav-link{:href => map_path} Map
+          %a.nav-link{:href => new_post_path} New Post

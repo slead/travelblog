@@ -17,6 +17,8 @@
 //= require tinymce-jquery
 //= require lightbox
 //= require js.cookies
+//= require popper
+//= require bootstrap
 //= require_tree .
 
 function pageLoad() {
