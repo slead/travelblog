@@ -1,7 +1,7 @@
 / Page Header
 .container-fluid.top-50
 	-if @post.photos.count > 0
-		%header.masthead{:style => "background-image: url(#{@post.photos[0].large})"}
+		%header.masthead.d-none.d-md-block{:style => "background-image: url(#{@post.photos[0].large})"}
 			.container
 				.row
 					.col-lg-8.col-md-10.mx-auto
