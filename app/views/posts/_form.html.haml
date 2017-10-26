@@ -6,5 +6,6 @@
       = f.input :placename
       = f.input :published_date, :start_year => 2001
       = f.input :flickr_album
+      = f.select :status, ['draft', 'published']
     = f.button :submit
     = tinymce

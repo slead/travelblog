@@ -12,26 +12,30 @@
   .row
     .col-md-12
       - @posts.each.with_index do |post, idx|
-        .row.top-50
-          .col-md-10.mx-auto
-            .post-preview
-              %h2.post-title
-                =link_to post.title, post
-              %span.meta= "Posted #{time_ago_in_words(post.published_date)} ago"
-              %p.post-subtitle
-                =sanitize(post.content)
+        - if post.status == 'published' || user_signed_in?
+          .row.top-50
+            .col-md-10.mx-auto
+              .post-preview
+                %h2.post-title
+                  =link_to post.title, post
+                %span.meta= "Posted #{time_ago_in_words(post.published_date)} ago"
+                - if post.status == 'draft'
+                  %span.meta.draft= "(draft)"
+                %p.post-subtitle
+                  =sanitize(post.content)
 
-            -if post.photos.count > 0
-              -if idx == 0
-                - photos = post.photos.drop(1)
-              -else
-                - photos = post.photos
-              -photos.each_slice(3) do |photoblock|
-                .row
-                  -photoblock.each do |photo|
-                    .col-lg-4.mx-auto
-                      %a.image-link{"data-lightbox" => "{post.title}", "data-title" => "#{photo.title}", :href => "#{photo.large}"}
-                        %img.image{:alt => "", :src => "#{photo.small}", :class => "lightbox-thumb mx-auto d-block"}
+
+              -if post.photos.count > 0
+                -if idx == 0
+                  - photos = post.photos.drop(1)
+                -else
+                  - photos = post.photos
+                -photos.each_slice(3) do |photoblock|
+                  .row
+                    -photoblock.each do |photo|
+                      .col-lg-4.mx-auto
+                        %a.image-link{"data-lightbox" => "{post.title}", "data-title" => "#{photo.title}", :href => "#{photo.large}"}
+                          %img.image{:alt => "", :src => "#{photo.small}", :class => "lightbox-thumb mx-auto d-block"}
                 
   #hr
   .row

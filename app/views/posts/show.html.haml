@@ -8,6 +8,8 @@
 						.post-heading
 							%h1= @post.title
 							%span.meta=@meta
+							- if @post.status == 'draft'
+								%span.meta.draft= "(draft)"
 	- else
 		%header.empty
 			.container
@@ -16,6 +18,8 @@
 						.post-heading
 							%h1= @post.title
 							%span.meta=@meta
+							- if @post.status == 'draft'
+								%span.meta.draft= "(draft)"
 
 	%article
 		.container
