@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
   get '/about', to: 'content#about', as: :about #=> about_path 
   get '/map', to: 'content#map', as: :map #=> map_path
+  get '/signup', to: 'content#signup', as: :signup #=> signup_path
   get '/:id', to: 'posts#show', as: :post_path
   
   root to: "posts#index"
