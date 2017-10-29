@@ -1,0 +1,23 @@
+/ Page Header
+%link{:href => "//cdn-images.mailchimp.com/embedcode/slim-10_7.css", :rel => "stylesheet", :type => "text/css"}/
+%header.masthead.d-none.d-md-block{:style => "background-image: url('https://farm6.staticflickr.com/5177/5513056929_6fa0c4f7fe_b.jpg')"}
+  .container
+    .row
+      .col-lg-8.col-md-10.mx-auto
+        .site-heading
+          %h1 Steve and Glo's travel blog
+          %span.subheading Cos working is over-rated
+
+.container.top-50
+  .row
+    .col-md-10.mx-auto
+      %p Subscribe below, and we'll let you know when there are new posts. We won't use your email for anything else.
+  .row
+    .col-md-12.mx-auto.text-center
+      #mc_embed_signup
+        .row{:style => "display: block;"}
+          %form.form-inline{:action => "https://amazon.us11.list-manage.com/subscribe/post?u=ce6e72f4b0be1ec5bd42f9ab9&id=1ac371fff5", :method => "post", :name => "mc-embedded-subscribe-form", :novalidate => "", :target => "_blank"}
+            .form-group
+              %label.sr-only Name
+              %input#mce-EMAIL.email{:name => "EMAIL", :placeholder => "email address", :required => "", :type => "email", :value => ""}
+              %button.btn.btn-default.btn-sm{:name => "subscribe", :type => "submit", :value => "Subscribe"} Subscribe
