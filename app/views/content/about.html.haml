@@ -1,4 +1,5 @@
 / Page Header
+%link{:href => "//cdn-images.mailchimp.com/embedcode/slim-10_7.css", :rel => "stylesheet", :type => "text/css"}/
 %header.masthead.d-none.d-md-block{:style => "background-image: url('https://farm8.staticflickr.com/7088/7254522762_6cb4f1162c_b.jpg')"}
   .container
     .row
@@ -14,9 +15,20 @@
       =image_tag "https://i.imgur.com/xQDnZOu.jpg", :class => "lightbox-frame"
       %p
         We started this travel blog back in 2007 and have been adding to it over the years. During 2018 we're planning to travel around the world together and add a lot more entries.
-      %p
-        =link_to "Subscribe", subscribe_path
-        and we'll keep in touch when there are new posts!
+      %p Subscribe below and we'll let you know when there are new posts!
+
+      #mc_embed_signup
+        .row{:style => "display: block;"}
+          %form#mc-embedded-subscribe-form.validate{:action => "https://amazon.us11.list-manage.com/subscribe/post?u=ce6e72f4b0be1ec5bd42f9ab9&id=1ac371fff5", :method => "post", :name => "mc-embedded-subscribe-form", :novalidate => "", :target => "_blank"}
+            .form-group
+              #mc_embed_signup_scroll
+                %input#mce-EMAIL.email{:name => "EMAIL", :placeholder => "email address", :required => "", :type => "email", :value => ""}/
+                / real people should not fill this in and expect good things - do not remove this or risk form bot signups
+                %div{"aria-hidden" => "true", :style => "position: absolute; left: -5000px;"}
+                  %input{:name => "b_ce6e72f4b0be1ec5bd42f9ab9_1ac371fff5", :tabindex => "-1", :type => "text", :value => ""}/
+                .clear
+                  %input#mc-embedded-subscribe.button{:name => "subscribe", :type => "submit", :value => "Subscribe"}/
+
       =image_tag "https://i.imgur.com/WUJZh3i.jpg", :class => "lightbox-frame"
       %p
         The blog was written by Steve in Rails 5, and geocodes each entry so they may be viewed on the
