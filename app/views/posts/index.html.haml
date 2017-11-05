@@ -7,8 +7,10 @@
           %h1 Steve and Glo's travel blog
           %span.subheading Cos working is over-rated
 
+=render "layouts/search"
+
 / Main Content
-.container.top-25
+.container
   .row
     .col-md-12
       - @posts.each.with_index do |post, idx|
@@ -37,11 +39,11 @@
                       .col-lg-4.mx-auto
                         %a.image-link{"data-lightbox" => "#{post.title}", "data-title" => "#{photo.title}", :href => "#{photo.large}"}
                           %img.image{:alt => "#{photo.title}", :src => "#{photo.small}", :class => "lightbox-thumb mx-auto d-block"}
-                
+
   #hr
   .row
     .col-lg-8.col-md-10.mx-auto
-      = will_paginate @posts, renderer: WillPaginate::ActionView::BootstrapLinkRenderer   
+      = will_paginate @posts, renderer: WillPaginate::ActionView::BootstrapLinkRenderer
 
   %br/
   - if user_signed_in?

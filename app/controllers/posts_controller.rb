@@ -10,7 +10,10 @@ class PostsController < ApplicationController
   end
 
   def index
-    if params[:map].present?
+    if params[:query].present?
+      # Find posts using elastic search
+      @posts = Post.where("status = 'published'").search(params[:query], page: params[:page], :per_page => 10)
+    elsif params[:map].present?
       @posts = Post.where(["latitude IS NOT NULL and status= ?", "published"])
     elsif params[:id].present?
       # This path is called when the user chooses an Ignite from the dropdown on the Posts page. In
