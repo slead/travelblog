@@ -1,0 +1,11 @@
+.container.index
+  .row.top-100
+    .col-md-12
+      %h4#page_title Say hello or send feedback
+      = simple_form_for(@contact, html: { class: 'form' })  do |f|
+        =f.input :name,  input_html: { class: 'form-control' }, placeholder: "Your name", required: true
+        =f.input :email, input_html: { class: 'form-control'}, placeholder: 'Your email', required: true
+        =f.text_area :message, :class => "form-control", placeholder: 'Enter your message', required: true
+        .invisible
+          =f.input :nickname, input_html: { class: 'form-control'}, placeholder: 'leave this blank'
+        =f.submit 'Send message', class: "btn btn-warning"
