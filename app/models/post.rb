@@ -2,7 +2,7 @@ class Post < ApplicationRecord
   validates :title, presence: true
 	extend FriendlyId
 	friendly_id :title, use: :slugged
-
+  searchkick
   has_and_belongs_to_many :photos
 
   def should_generate_new_friendly_id?
@@ -50,7 +50,7 @@ class Post < ApplicationRecord
           if not self.photos.exists?(photo.id)
             self.photos << photo
           end
-        end      
+        end
       end
     rescue
     end
