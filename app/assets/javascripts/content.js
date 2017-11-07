@@ -31,7 +31,7 @@ ready = function() {
 	    maxBounds: L.latLngBounds(L.latLng(-90, -180), L.latLng(90, 180)),
       zoomControl: zoomControl
 	  });
-	
+
     // Fetch geocoded posts
     getPosts();
 
@@ -81,13 +81,17 @@ ready = function() {
         return L.circleMarker(latlng, geojsonMarkerOptions);
       },
       onEachFeature: function (feature, layer) {
+        var popupContent;
         if(feature.properties.title != undefined) {
+          popupContent = feature.properties.title;
           if(feature.properties.url != undefined) {
-            layer.bindPopup("<a href='" + feature.properties.url + "''>" + feature.properties.title + "</a>");
-          } else {
-            layer.bindPopup(feature.properties.title);
+            popupContent = "<p><strong><a href='" + feature.properties.url + "''>" + feature.properties.title + "</a></strong></p>";
+          }
+          if (feature.properties.photo !== undefined) {
+            popupContent += "<img width='300px' class='mapPhoto' src='" + feature.properties.photo + "'>";
           }
         }
+        layer.bindPopup(popupContent);
       }
     });
     var featureGroup = L.featureGroup()
