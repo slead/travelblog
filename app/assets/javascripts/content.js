@@ -88,7 +88,7 @@ ready = function() {
             popupContent = "<p><strong><a href='" + feature.properties.url + "''>" + feature.properties.title + "</a></strong></p>";
           }
           if (feature.properties.photo !== undefined) {
-            popupContent += "<img width='300px' class='mapPhoto' src='" + feature.properties.photo + "'>";
+            popupContent += "<img width='240px' height='159px' class='mapPhoto' src='" + feature.properties.photo + "'>";
           }
         }
         layer.bindPopup(popupContent);
