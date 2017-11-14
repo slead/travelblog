@@ -85,10 +85,10 @@ ready = function() {
         if(feature.properties.title != undefined) {
           popupContent = feature.properties.title;
           if(feature.properties.url != undefined) {
-            popupContent = "<p><strong><a href='" + feature.properties.url + "''>" + feature.properties.title + "</a></strong></p>";
+            popupContent = "<p><strong><a class='mapTitle' href='" + feature.properties.url + "''>" + feature.properties.title + "</a></strong></p>";
           }
           if (feature.properties.photo !== undefined) {
-            popupContent += "<img width='240px' height='159px' class='mapPhoto' src='" + feature.properties.photo + "'>";
+            popupContent += "<a href='" + feature.properties.url + "''><img width='240px' height='159px' class='mapPhoto' src='" + feature.properties.photo + "'></a>";
           }
         }
         layer.bindPopup(popupContent);
