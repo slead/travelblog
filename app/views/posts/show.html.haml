@@ -33,9 +33,9 @@
 				- @post.photos.drop(1).each do |photo|
 					.row
 						.col-md-12
-							%a.image-link{"data-lightbox" => "set", "data-title" => "#{photo.title}", :href => "#{photo.large}"}
+							%figure
 								%img.image{:alt => "#{photo.title}", :src => "#{photo.large}", :class => "lightbox-frame mx-auto d-block"}
-
+								%figcaption= "#{photo.title}"
 
 	-if @post.previous || @post.next
 		.container.top-50
