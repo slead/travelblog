@@ -8,7 +8,6 @@ Rails.application.routes.draw do
   get '/map', to: 'content#map', as: :map #=> map_path
   get '/subscribe', to: 'content#subscribe', as: :subscribe #=> subscribe_path
   match '/contact' => "contacts#new", via: [:get, :post], as: :contact
-  get '/:id', to: 'posts#show', as: :post_path
 
   root to: "posts#index"
 end

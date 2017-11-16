@@ -43,7 +43,7 @@ class PostsController < ApplicationController
         },
         properties: {
           title: post.title,
-          url: post.slug,
+          url: "/posts/" + post.slug,
           photo: photo
         }
       }
