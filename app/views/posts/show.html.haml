@@ -35,7 +35,8 @@
 						.col-md-12
 							%figure
 								%img.image{:alt => "#{photo.title}", :src => "#{photo.large}", :class => "lightbox-frame mx-auto d-block"}
-								%figcaption= "#{photo.title}"
+								-if not photo.title.include? "jpg"
+									%figcaption= "#{photo.title}"
 
 	-if @post.previous || @post.next
 		.container.top-50
