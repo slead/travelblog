@@ -196,6 +196,8 @@ GEM
     simple_form (3.5.0)
       actionpack (> 4, < 5.2)
       activemodel (> 4, < 5.2)
+    sitemap_generator (5.0.5)
+      builder
     spring (2.0.2)
       activesupport (>= 4.2)
     spring-watcher-listen (2.0.1)
@@ -265,6 +267,7 @@ DEPENDENCIES
   searchkick
   selenium-webdriver
   simple_form
+  sitemap_generator
   spring
   spring-watcher-listen (~> 2.0.0)
   sqlite3
