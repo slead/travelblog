@@ -99,7 +99,8 @@ ready = function() {
     var markers = L.markerClusterGroup({
       spiderfyOnMaxZoom: true,
       showCoverageOnHover: false,
-      zoomToBoundsOnClick: true
+      zoomToBoundsOnClick: true,
+      spiderfyDistanceMultiplier: 1.5
     });
     markers.addLayer(jsonLayer);
     app.leafletMap.addLayer(markers);
