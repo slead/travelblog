@@ -25,7 +25,7 @@ ready = function() {
 		app.leafletMap = new L.Map("map", {
 	    center: [lat, lng],
 	    zoom: zoom,
-	    maxZoom: 6,
+	    maxZoom: 8,
 	    minZoom: 2,
 	    layers: [app.basemap],
 	    maxBounds: L.latLngBounds(L.latLng(-90, -180), L.latLng(90, 180)),
@@ -96,7 +96,11 @@ ready = function() {
     });
     // var featureGroup = L.featureGroup();
     // featureGroup.addLayer(jsonLayer);
-    var markers = L.markerClusterGroup();
+    var markers = L.markerClusterGroup({
+      spiderfyOnMaxZoom: true,
+      showCoverageOnHover: false,
+      zoomToBoundsOnClick: true
+    });
     markers.addLayer(jsonLayer);
     app.leafletMap.addLayer(markers);
     // featureGroup.addTo(app.leafletMap);
