@@ -94,9 +94,12 @@ ready = function() {
         layer.bindPopup(popupContent);
       }
     });
-    var featureGroup = L.featureGroup()
-    featureGroup.addLayer(jsonLayer)
-    featureGroup.addTo(app.leafletMap);
+    // var featureGroup = L.featureGroup();
+    // featureGroup.addLayer(jsonLayer);
+    var markers = L.markerClusterGroup();
+    markers.addLayer(jsonLayer);
+    app.leafletMap.addLayer(markers);
+    // featureGroup.addTo(app.leafletMap);
 
   }
 };

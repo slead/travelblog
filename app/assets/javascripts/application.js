@@ -14,6 +14,7 @@
 //= require turbolinks
 //= require jquery
 //= require leaflet
+//= require leaflet.markercluster
 //= require tinymce-jquery
 //= require lightbox
 //= require js.cookies
