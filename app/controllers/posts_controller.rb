@@ -25,7 +25,7 @@ class PostsController < ApplicationController
       @posts = Post.paginate(:page => params[:page], :per_page => 3).order published_date: :desc
     end
     begin
-      @header_image_url = @posts.first.photos.first.large
+      @header_image_url = @posts.where("status = 'published'").first.photos.first.large
     rescue
       @header_image_url = 'https://farm9.staticflickr.com/8026/7254508562_25fc4962e5_b.jpg'
     end
