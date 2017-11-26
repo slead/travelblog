@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   devise_for :users
   resources :photos
   resources :posts
+  resources :tips
   resources :contacts, only: [:new, :create]
 
   get '/about', to: 'content#about', as: :about #=> about_path

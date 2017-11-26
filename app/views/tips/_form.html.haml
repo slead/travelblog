@@ -1,0 +1,7 @@
+= simple_form_for(@tip, html: { class: 'form-horizontal' }) do |f|
+  .container.top-50
+    .form-group
+      = f.input :title
+      = f.text_area :content, :class => "tinymce", :rows => 20, :cols => 120
+    = f.button :submit
+    = tinymce

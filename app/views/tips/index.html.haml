@@ -1,0 +1,31 @@
+/ Page Header
+%header.masthead.d-none.d-md-block{:style => "background-image: url('#{@header_image_url}')"}
+  .container
+    .row
+      .col-lg-8.col-md-10.mx-auto
+        .site-heading
+          %h1 Steve and Glo's travel blog
+          %span.subheading Cos working is over-rated
+
+/ Main Content
+.container
+  .row
+    .col-md-12
+      - @tips.each.with_index do |tip, idx|
+        .row.top-50
+          .col-md-10.mx-auto
+            .tip-preview
+              %h2.tip-title
+                =link_to tip.title, tip
+              %span.meta= "Posted #{time_ago_in_words(tip.created_at)} ago"
+              %p.tip-subtitle
+                =sanitize(tip.content)
+
+  #hr
+  .row
+    .col-lg-8.col-md-10.mx-auto
+      = will_paginate @tips, renderer: WillPaginate::ActionView::BootstrapLinkRenderer
+
+  %br/
+  - if user_signed_in?
+    = link_to 'New Tip', new_tip_path

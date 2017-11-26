@@ -1,0 +1,41 @@
+/ Page Header
+.container-fluid.top-50
+	%header.empty
+		.container
+			.row
+				.col-lg-8.col-md-10.mx-auto
+					.tip-heading
+						%h1= @tip.title
+						%span.meta=@meta
+
+	%article
+		.container
+			- if user_signed_in?
+				.row
+					= link_to 'Edit', edit_tip_path(@tip)
+			.row
+				.col-lg-8.col-md-10.mx-auto
+					= sanitize @tip.content
+
+	-if @tip.previous || @tip.next
+		.container.top-50
+			.row.pagination
+				.col-md-12
+					#nav.pagination
+						#ul.pagination
+							-if @tip.previous
+								#li.page-item
+									=link_to "<< #{@tip.previous.title}", @tip.previous, :class => "page-link"
+							#li.page-item
+								=link_to 'All tips', tips_path, :class => "page-link"
+							-if @tip.next
+								#li.page-item
+									=link_to "#{@tip.next.title} >>", @tip.next, :class => "page-link"
+
+	.container
+		.row
+			.col-md-12
+				- if user_signed_in?
+					= link_to 'Edit', edit_tip_path(@tip)
+					= link_to "Delete", tip_path(@tip), method: :delete, data: { confirm: 'Are you certain you want to delete this?' }
+

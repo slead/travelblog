@@ -1,0 +1,8 @@
+%h1 Editing Tip
+= render 'form', tip: @tip
+
+.container
+	.row
+		.col-md-12
+			= link_to 'Show', @tip
+			#{link_to 'Back', tips_path}
