@@ -34,7 +34,8 @@
 					.row
 						.col-md-12
 							%figure
-								%img.image{:alt => "#{photo.title}", :src => "#{photo.large}", :class => "lightbox-frame mx-auto d-block"}
+								%a.image-link{"data-lightbox" => "#{@post.title}", "data-title" => "#{photo.title}", :href => "#{photo.large}"}
+									%img.image{:alt => "#{photo.title}", :src => "#{photo.large}", :class => "lightbox-thumb mx-auto d-block"}
 								-if not photo.title.include? "jpg"
 									%figcaption= "#{photo.title}"
 

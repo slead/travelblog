@@ -32,6 +32,9 @@ function pageLoad() {
     })
   }, 4500);
 
+  // re-initialize Lightbox on Turbolinks page load
+  lightbox.init();
+
 }
 
 $(document).on('turbolinks:load', pageLoad);
