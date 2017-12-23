@@ -1,0 +1,3 @@
+pg_dump --host aa128zkuhha5t0o.c5ikfgboiqxh.ap-southeast-2.rds.amazonaws.com --port 5432 --username "travelblog" --no-password  --format custom --section pre-data --section data --section post-data --inserts --column-inserts --verbose --file "/Users/steve/Desktop/travelblog" --table "public.contacts" --table "public.friendly_id_slugs" --table "public.photos" --table "public.photos_posts" --table "public.posts" --table "public.tips" --table "public.users" "ebdb"
+
+pg_restore --host localhost --port 5432 --username "postgres" --dbname "travelblog_development" --no-password  --data-only --schema public --verbose "/Users/steve/Desktop/travelblog"
