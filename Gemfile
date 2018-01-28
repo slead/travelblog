@@ -12,7 +12,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.2'
 gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
-gem 'pg', '~> 1.0'
+gem 'pg'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -49,5 +49,6 @@ gem 'will_paginate-bootstrap4'
 ruby "2.4.0"
 
 group :production do
+  gem 'pg'
   gem 'rails_12factor'
 end
