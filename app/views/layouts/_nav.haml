@@ -12,8 +12,8 @@
         %li.nav-item
           %a.nav-link{:href => new_post_path} New Post
 
-    = form_tag posts_path, class: "form-inline mt-2 mt-md-0", id: "frmSearch", method: :get do
-      = text_field_tag :query, params[:query], class: "form-control", id: "search", autocomplete: "off", placeholder: "Search for a post"
-      = button_tag type: 'submit', class: "btn", id: "btnSearch" do
-        %i.fa.fa-search
+    / = form_tag posts_path, class: "form-inline mt-2 mt-md-0", id: "frmSearch", method: :get do
+    /   = text_field_tag :query, params[:query], class: "form-control", id: "search", autocomplete: "off", placeholder: "Search for a post"
+    /   = button_tag type: 'submit', class: "btn", id: "btnSearch" do
+    /     %i.fa.fa-search
 
