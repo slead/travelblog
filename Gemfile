@@ -12,6 +12,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.2'
 gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
+gem 'pg', '~> 1.0'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -39,7 +40,6 @@ gem 'haml'
 gem 'jquery-rails'
 gem 'leaflet-rails', '~> 1.2'
 gem 'mail_form', '~> 1.5', '>= 1.5.1'
-gem 'pg', '~> 1.0'
 gem 'simple_form'
 gem 'sitemap_generator'
 gem 'tinymce-rails'
@@ -47,3 +47,7 @@ gem 'will_paginate', '~> 3.1.0'
 gem 'will_paginate-bootstrap4'
 
 ruby "2.4.0"
+
+group :production do
+  gem 'rails_12factor'
+end
