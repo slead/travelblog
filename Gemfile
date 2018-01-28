@@ -47,3 +47,5 @@ gem 'sitemap_generator'
 gem 'tinymce-rails'
 gem 'will_paginate', '~> 3.1.0'
 gem 'will_paginate-bootstrap4'
+
+ruby "2.4.0"
