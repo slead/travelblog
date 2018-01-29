@@ -4,6 +4,8 @@ ready = function() {
 
 	if ( $("#map").length ) {
 
+    maptiks.trackcode='fa969613-9010-44fb-b866-1750026fcdb3';
+
     var zoomControl = true;
     if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
      zoomControl = false;
