@@ -33,7 +33,9 @@ function pageLoad() {
   }, 4500);
 
   // re-initialize Lightbox on Turbolinks page load
-  lightbox.init();
+  if ( $("#map").length === 0) {
+    lightbox.init();
+  }
 
 }
 
