@@ -42,7 +42,7 @@ gem 'leaflet-rails', '~> 1.2'
 gem 'mail_form', '~> 1.5', '>= 1.5.1'
 gem 'simple_form'
 gem 'sitemap_generator'
-gem 'tinymce-rails'
+# gem 'tinymce-rails'
 gem 'will_paginate', '~> 3.1.0'
 gem 'will_paginate-bootstrap4'
 
