@@ -15,6 +15,7 @@
 //= require jquery
 //= require leaflet
 //= require leaflet.markercluster
+//= require tinymce
 //= require lightbox
 //= require js.cookies
 //= require popper

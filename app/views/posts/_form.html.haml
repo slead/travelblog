@@ -2,10 +2,10 @@
   .container.top-50
     .form-group
       = f.input :title
-      = f.text_area :content, :class => "tinymceXXX", :rows => 20, :cols => 120
+      = f.text_area :content, :class => "tinymce", :rows => 20, :cols => 120
       = f.input :placename
       = f.input :published_date, :start_year => 2001
       = f.input :flickr_album
       = f.select :status, ['draft', 'published']
     = f.button :submit
-    / = tinymce
+    = tinymce
