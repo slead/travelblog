@@ -28,3 +28,5 @@
 !.elasticbeanstalk/*.global.yml
 
 *.backup
+
+*.dump
