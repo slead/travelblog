@@ -10,9 +10,6 @@ class TipsController < ApplicationController
   end
 
   def index
-    # if params[:query].present?
-    #   # Find tips using elastic search
-    #   @tips = Tip.search(params[:query], page: params[:page], :per_page => 10)
     if params[:id].present?
       @tip = Tip.find(params[:id])
       redirect_to @tip
