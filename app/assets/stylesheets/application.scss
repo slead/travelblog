@@ -18,6 +18,10 @@
  @import "content";
  @import 'lightbox';
 
+ .center {
+   text-align: center;
+ }
+
  #notice_wrapper, #alert_wrapper {
   position: absolute;
   top: 50px;

@@ -17,6 +17,8 @@ class TipsController < ApplicationController
       @tip = Tip.find(params[:id])
       redirect_to @tip
       return
+    elsif params[:category].present?
+      @tips = Tip.where(category: params[:category]).paginate(:page => params[:page], :per_page => 3).order created_at: :desc
     else
       @tips = Tip.paginate(:page => params[:page], :per_page => 3).order created_at: :desc
     end
@@ -92,7 +94,7 @@ class TipsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def tip_params
-      params.require(:tip).permit(:title, :content, :placename, :created_at, :flickr_album, :status)
+      params.require(:tip).permit(:title, :content, :created_at, :category)
     end
 
 end

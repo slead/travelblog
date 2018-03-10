@@ -7,6 +7,25 @@
           %h1 Steve and Glo's travel blog
           %span.subheading Cos working is over-rated
 
+.row.top-50
+  .col-md-12.hidden-sm.hidden-xs.center
+    =link_to tips_path(category: "money") do
+      %span.btn
+        %i.fa.fa-dollar
+        = "money"
+    =link_to tips_path(category: "kids") do
+      %span.btn
+        %i.fa.fa-child
+        = "kids"
+    =link_to tips_path(category: "gadgets") do
+      %span.btn
+        %i.fa.fa-camera
+        = "gadgets"
+    =link_to tips_path do
+      %span.btn
+        %i.fa.fa-times
+        clear
+
 / Main Content
 .container
   .row

@@ -3,5 +3,6 @@
     .form-group
       = f.input :title
       = f.text_area :content, :class => "tinymce", :rows => 20, :cols => 120
+      = f.input :category, :collection => %w[money kids gadgets]
     = f.button :submit
     = tinymce
