@@ -5,3 +5,7 @@ plugins:
   - image
   - link
   - media
+image_class_list: [
+    {title: 'None', value: ''},
+    {title: 'centre', value: 'center'}
+  ]

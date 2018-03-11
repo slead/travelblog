@@ -22,6 +22,12 @@
    text-align: center;
  }
 
+ img.center {
+  display: block;
+  margin: 0 auto;
+  box-shadow: 3px 3px 4px #727272;
+ }
+
  #notice_wrapper, #alert_wrapper {
   position: absolute;
   top: 50px;
