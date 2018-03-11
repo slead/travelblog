@@ -1,13 +1,21 @@
 / Page Header
-%header.masthead.d-none.d-md-block{:style => "background-image: url('#{@header_image_url}')"}
-  .container
-    .row
-      .col-lg-8.col-md-10.mx-auto
-        .site-heading
-          %h1 Steve and Glo's travel blog
-          %span.subheading Cos working is over-rated
+/ %header.masthead.d-none.d-md-block
+/   .container
+/     .row
+/       .col-lg-8.col-md-10.mx-auto
+/         .site-heading
+/           %h1 Steve and Glo's travel blog
+/           %span.subheading Cos working is over-rated
 
-.row.top-50
+.container
+  .row.top-100
+    .col-lg-8.col-md-10.mx-auto
+      .site-heading.center
+        %h2 Steve and Glo's travel tips
+        %span.subheading Useful stuff we've learnt on the road
+  %hr
+
+.row
   .col-md-12.hidden-sm.hidden-xs.center
     =link_to tips_path(category: "money") do
       %span.btn
