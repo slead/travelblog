@@ -31,6 +31,9 @@ class TipsController < ApplicationController
   def show
     @tip = Tip.friendly.find(params[:id])
     @meta = "Published #{time_ago_in_words(@tip.created_at)} ago"
+    if @tip.category.present?
+      @meta += " in " + @tip.category.titlecase
+    end
     @og_title = @tip.title
   end
 
