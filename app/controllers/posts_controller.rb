@@ -22,7 +22,7 @@ class PostsController < ApplicationController
       redirect_to @post
       return
     else
-      @posts = Post.paginate(:page => params[:page], :per_page => 3).order published_date: :desc
+      @posts = Post.paginate(:page => params[:page], :per_page => 4).order published_date: :desc
     end
     begin
       @header_image_url = @posts.where("status = 'published'").first.photos.first.large
