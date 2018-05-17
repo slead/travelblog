@@ -1,8 +1,21 @@
 %h1 Editing Post
 = render 'form', post: @post
 
+-if @post.photos.count > 0
+  .container
+    .row
+      .col-md-12
+        %h4 Photos
+        %table{:border => 1}
+          %tbody.sortable
+            -@post.photos.order(:sort).each_with_sortable_id do |photo, sortable_id|
+              %tr{:id => sortable_id}
+                %td
+                  %img{:src => photo.small, :width => "100"}/
+                %td=photo.title
+
 .container
-	.row
-		.col-md-12
-			= link_to 'Show', @post
-			#{link_to 'Back', posts_path}
+  .row
+    .col-md-12
+      = link_to 'Show', @post
+      #{link_to 'Back', posts_path}

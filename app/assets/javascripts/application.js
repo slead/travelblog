@@ -13,6 +13,9 @@
 //= require rails-ujs
 //= require turbolinks
 //= require jquery
+//= require jquery_ujs
+//= require jquery-ui/widgets/sortable
+//= require rails_sortable
 //= require leaflet
 //= require leaflet.markercluster
 //= require tinymce
@@ -35,6 +38,7 @@ function pageLoad() {
   // re-initialize Lightbox on Turbolinks page load
   if ( $("#map").length === 0) {
     lightbox.init();
+    $('.sortable').railsSortable();
   }
 
 }

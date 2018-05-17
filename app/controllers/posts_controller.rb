@@ -25,7 +25,7 @@ class PostsController < ApplicationController
       @posts = Post.paginate(:page => params[:page], :per_page => 4).order published_date: :desc
     end
     begin
-      @header_image_url = @posts.where("status = 'published'").first.photos.first.large
+      @header_image_url = @posts.where(status: "published").first.photos.order(:sort).first.large
     rescue
       @header_image_url = 'https://farm9.staticflickr.com/8026/7254508562_25fc4962e5_b.jpg'
     end
@@ -34,7 +34,7 @@ class PostsController < ApplicationController
     @geojson = Array.new
 
     @posts.each do |post|
-      post.photos.count > 0 ? photo = post.photos.first.small : photo = nil
+      post.photos.count > 0 ? photo = post.photos.order(:sort).first.small : photo = nil
       @geojson << {
         type: 'Feature',
         geometry: {
@@ -64,7 +64,7 @@ class PostsController < ApplicationController
       @meta += " in #{@post.city}, #{@post.country}"
     end
     if @post.photos.count > 0
-      @og_image = @post.photos.first.large
+      @og_image = @post.photos.order(:sort).first.large
     end
     @og_title = @post.title
   end

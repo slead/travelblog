@@ -28,9 +28,9 @@
             .row
               .col-md-12.mx-auto
                 -if idx == 0
-                  - photos = post.photos.reverse
+                  - photos = post.photos.order(:sort)
                 -else
-                  - photos = post.photos
+                  - photos = post.photos.order(:sort)
                 -photos.each_slice(3) do |photoblock|
                   .row
                     -photoblock.each do |photo|
