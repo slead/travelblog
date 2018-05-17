@@ -31,6 +31,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'bootstrap', '~> 4.0.0.beta'
 gem 'devise'
+gem 'execjs'
 gem 'flickraw', '~> 0.9.9'
 gem 'friendly_id', '~> 5.2', '>= 5.2.3'
 gem 'font-awesome-rails', '~> 4.7', '>= 4.7.0.2'
@@ -45,6 +46,7 @@ gem 'rails_sortable'
 gem 'simple_form'
 gem 'sitemap_generator'
 gem 'tinymce-rails'
+gem 'webpacker'
 gem 'will_paginate', '~> 3.1.0'
 gem 'will_paginate-bootstrap4'
 
