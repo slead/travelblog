@@ -13,6 +13,8 @@
                 %td
                   %img{:src => photo.small, :width => "100"}/
                 %td=photo.title
+                %td= link_to 'Edit', edit_photo_path(photo)
+                %td= link_to 'Destroy', photo, method: :delete, data: { confirm: 'Are you sure?' }
 
 .container
   .row

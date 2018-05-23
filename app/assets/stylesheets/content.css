@@ -1,4 +1,4 @@
-#map {
+.map {
 	/*height: 600px;*/
 	top: 50px;
 	bottom: 0;
@@ -8,6 +8,15 @@
 	z-index: 1000;
 }
 
+.minimap {
+  /*height: 600px;*/
+  top: 10px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  position: absolute;
+  z-index: 1000;
+}
 .leaflet-left {
   left: 15px;
 }

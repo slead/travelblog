@@ -27,9 +27,17 @@
 				.row
 					= link_to 'Edit', edit_post_path(@post)
 			.row
-				.col-lg-8.col-md-10.mx-auto
-					= sanitize @post.content
+				-if @post.content.length > 0
+					-if @post.latitude.present?
+						.col-md-8
+							= sanitize @post.content
+						.col-md-4.d-none.d-md-block
+							#map.minimap.col-md-12
+					- else
+						.col-md-8.mx-auto
+							= sanitize @post.content
 			- if @post.photos.count > 0
+				.row.top-50
 				- @post.photos.order(:sort)[1..@post.photos.length].each do |photo|
 					.row
 						.col-md-12
