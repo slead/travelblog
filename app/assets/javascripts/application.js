@@ -63,7 +63,7 @@ function pageLoad() {
      zoomControl = false;
     }
 
-    app.basemap = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.{ext}', tileOptions);
+    app.basemap = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.{ext}', tileOptions);
 
     // Return to the last-used map extent, or use a default extent
     var lat = Cookies.get('lat') || 0;
@@ -81,7 +81,9 @@ function pageLoad() {
 
     // Fetch geocoded posts
     var postId = $("#post_id").data('id') || null;
-    getPosts(postId);
+    var postLat = $("#post_id").data('latitude') || null;
+    var postLong = $("#post_id").data('longitude') || null;
+    getPosts(postId, postLat, postLong);
 
     // Store the last map extent in cookies
     app.leafletMap.on('zoomend', function() {
@@ -99,20 +101,31 @@ function pageLoad() {
     Cookies.set("zoom", app.leafletMap.getZoom());
   }
 
-  function getPosts(postId) {
+  function getPosts(postID, postLat, postLong) {
     // Request posts with a lat/long
     var url = window.location.origin + "/posts.json?map=true";
     $.ajax({
       dataType: 'text',
       url: url,
-      success: drawEvents,
+      beforeSend: function (jqXHR, settings) {
+        // send the post ID
+        jqXHR.postID = postID;
+        jqXHR.postLat= postLat;
+        jqXHR.postLong = postLong;
+      },
+      success: function(data, textStatus, jqXHR) {
+        var postID = jqXHR.postID || null;
+        var postLat = jqXHR.postLat || null;
+        var postLong = jqXHR.postLong || null;
+        drawEvents(data, postID, postLat, postLong);
+      },
       error: function() {
         console.log("Error with Index map");
       }
     });
   }
 
-  function drawEvents(data) {
+  function drawEvents(data, postID, postLat, postLong) {
     var geojson = $.parseJSON(data);
     var geojsonMarkerOptions = {
       radius: 8,
@@ -153,6 +166,11 @@ function pageLoad() {
     markers.addLayer(jsonLayer);
     app.leafletMap.addLayer(markers);
     // featureGroup.addTo(app.leafletMap);
+
+    // If we are on a Post page, zoom to the post
+    if (postLat !== null && postLong !== null){
+      app.leafletMap.flyTo([postLat, postLong], 5);
+    }
 
   }
 

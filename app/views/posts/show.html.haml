@@ -1,5 +1,5 @@
 / Page Header
-= content_tag 'div', '', class: 'container-fluid top-50', id: 'post_id', data: {id: @post.id}
+= content_tag 'div', '', class: 'container-fluid top-50', id: 'post_id', data: {id: @post.id, latitude: @post.latitude, longitude: @post.longitude}
 -if @post.photos.count > 0
 	%header.masthead.d-none.d-md-block{:style => "background-image: url(#{@post.photos.order(:sort)[0].large})"}
 		.container
