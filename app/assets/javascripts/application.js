@@ -45,23 +45,23 @@ function pageLoad() {
   // Only load the map if necessary
   if ( $(".map").length > 0 || $(".minimap").length > 0) {
     var zoomControl = true;
-    var attribution = 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>';
-    if ( $(".minimap").length === 1) {
-      var zoomControl = false;
-      var attribution = false;
-    }
-    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-     zoomControl = false;
-    }
-
-    app.basemap = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.{ext}', {
-      attribution: attribution,
+    var tileOptions = {
       subdomains: 'abcd',
       minZoom: 0,
       maxZoom: 20,
       ext: 'png',
       opacity: 0.5
-    });
+    }
+    if ( $(".minimap").length === 1) {
+      var zoomControl = false;
+    } else {
+      tileOptions.attribution = 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>';
+    }
+    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+     zoomControl = false;
+    }
+
+    app.basemap = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.{ext}', tileOptions);
 
     // Return to the last-used map extent, or use a default extent
     var lat = Cookies.get('lat') || 0;

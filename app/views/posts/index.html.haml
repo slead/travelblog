@@ -18,7 +18,10 @@
               .post-preview
                 %h2.post-title
                   =link_to post.title, post
-                %span.meta= "Posted #{time_ago_in_words(post.published_date)} ago"
+                -if post.city && post.country
+                  %span.meta= "Posted #{time_ago_in_words(post.published_date)} ago in #{post.city}, #{post.country}"
+                - else
+                  %span.meta= "Posted #{time_ago_in_words(post.published_date)} ago"
                 - if post.status == 'draft'
                   %span.meta.draft= "(draft)"
                 %p.post-subtitle

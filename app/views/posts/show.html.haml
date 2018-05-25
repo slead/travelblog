@@ -29,7 +29,7 @@
 			.row
 				-if @post.content.length > 0
 					-if @post.latitude.present?
-						.col-md-8
+						#content.col-md-8
 							= sanitize @post.content
 						.col-md-4.d-none.d-md-block
 							#map.minimap.col-md-12
