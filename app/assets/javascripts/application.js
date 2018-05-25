@@ -39,7 +39,7 @@ function pageLoad() {
   }, 4500);
 
   // re-initialize Lightbox on Turbolinks page load
-  if ( $("#bigmap").length === 0) {
+  if ( $(".lightboxpics").length === 0) {
     lightbox.init();
     $('.sortable').railsSortable();
   }
@@ -47,6 +47,7 @@ function pageLoad() {
   // Only load the map if necessary
   if ( $("#bigmap").length > 0 || $(".minimap").length > 0) {
     var zoomControl = true;
+    var attributionControl = true;
     var tileOptions = {
       subdomains: 'abcd',
       minZoom: 0,
@@ -55,7 +56,8 @@ function pageLoad() {
       opacity: 0.5
     }
     if ( $(".minimap").length === 1) {
-      var zoomControl = false;
+      zoomControl = false;
+      attributionControl = false;
     } else {
       tileOptions.attribution = 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>';
     }
@@ -76,7 +78,8 @@ function pageLoad() {
       minZoom: 2,
       layers: [app.basemap],
       maxBounds: L.latLngBounds(L.latLng(-90, -180), L.latLng(90, 180)),
-      zoomControl: zoomControl
+      zoomControl: zoomControl,
+      attributionControl: attributionControl
     });
 
     // Fetch geocoded posts

@@ -37,7 +37,7 @@
 					.col-md-8.mx-auto
 						= sanitize @post.content
 		- if @post.photos.count > 0
-			.row.top-50
+			.row.top-50.lightboxpics
 			- @post.photos.order(:sort)[1..@post.photos.length].each do |photo|
 				.row
 					.col-md-12

@@ -28,7 +28,7 @@
                   =sanitize(post.content)
 
           -if post.photos.count > 0
-            .row
+            .row.lightboxpics
               .col-md-12.mx-auto
                 -if idx == 0
                   - photos = post.photos.order(:sort)
