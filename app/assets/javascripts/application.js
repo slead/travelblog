@@ -39,11 +39,13 @@ function pageLoad() {
   }, 4500);
 
   // re-initialize Lightbox on Turbolinks page load
-  lightbox.init();
-  $('.sortable').railsSortable();
+  if ( $("#bigmap").length === 0) {
+    lightbox.init();
+    $('.sortable').railsSortable();
+  }
 
   // Only load the map if necessary
-  if ( $(".map").length > 0 || $(".minimap").length > 0) {
+  if ( $("#bigmap").length > 0 || $(".minimap").length > 0) {
     var zoomControl = true;
     var tileOptions = {
       subdomains: 'abcd',
@@ -78,17 +80,8 @@ function pageLoad() {
     });
 
     // Fetch geocoded posts
-    getPosts();
-
-    // if ( $(".minimap").length > 0) {
-    //   app.leafletMap.dragging.disable();
-    //   app.leafletMap.touchZoom.disable();
-    //   app.leafletMap.doubleClickZoom.disable();
-    //   app.leafletMap.scrollWheelZoom.disable();
-    //   app.leafletMap.boxZoom.disable();
-    //   app.leafletMap.keyboard.disable();
-    //   if (app.leafletMap.tap) app.leafletMap.tap.disable();
-    // }
+    var postId = $("#post_id").data('id') || null;
+    getPosts(postId);
 
     // Store the last map extent in cookies
     app.leafletMap.on('zoomend', function() {
@@ -106,7 +99,7 @@ function pageLoad() {
     Cookies.set("zoom", app.leafletMap.getZoom());
   }
 
-  function getPosts() {
+  function getPosts(postId) {
     // Request posts with a lat/long
     var url = window.location.origin + "/posts.json?map=true";
     $.ajax({
