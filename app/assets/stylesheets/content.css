@@ -19,8 +19,19 @@
   outline: 1px solid #727272;
   box-shadow: 3px 3px 7px #727272;
 }
+
+.leaflet-touch .leaflet-control-zoom-in, .leaflet-touch .leaflet-control-zoom-out {
+  font-size: 15px;
+}
+
+.leaflet-touch .leaflet-bar a {
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+}
+
 .leaflet-left {
-  left: 15px;
+  left: 0px;
 }
 
 .leaflet-container .leaflet-control-attribution {
