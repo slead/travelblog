@@ -33,7 +33,7 @@
 						= sanitize @post.content
 					#minimapdiv.col-md-4.d-none.d-md-block
 						#map.minimap.col-md-12
-						%span#fullscreen= link_to "view full screen", map_path
+						%span#fullscreen= link_to "view full screen", map_path(:post => @post.id)
 				- else
 					.col-md-8.mx-auto
 						= sanitize @post.content
