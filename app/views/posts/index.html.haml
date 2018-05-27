@@ -14,21 +14,39 @@
       - @posts.each.with_index do |post, idx|
         - if post.status == 'published' || user_signed_in?
           .row.top-50
-            .col-md-10.mx-auto
-              .post-preview
-                %h2.post-title
-                  =link_to post.title, post
-                -if post.city && post.country
-                  %span.meta= "Posted #{time_ago_in_words(post.published_date)} ago in #{post.city}, #{post.country}"
-                - else
-                  %span.meta= "Posted #{time_ago_in_words(post.published_date)} ago"
-                - if post.status == 'draft'
-                  %span.meta.draft= "(draft)"
-                %p.post-subtitle
-                  =sanitize(post.content)
+            -if idx == 0 and post.latitude?
+              .col-md-8
+                .post-preview
+                  %h2.post-title
+                    =link_to post.title, post
+                  -if post.city && post.country
+                    %span.meta= "Posted #{time_ago_in_words(post.published_date)} ago in #{post.city}, #{post.country}"
+                  - else
+                    %span.meta= "Posted #{time_ago_in_words(post.published_date)} ago"
+                  - if post.status == 'draft'
+                    %span.meta.draft= "(draft)"
+                  %p.post-subtitle
+                    =sanitize(post.content)
+              = content_tag 'div', '', class: 'col-md-4 post_id', id: 'minimapdiv', data: {id: post.id, latitude: post.latitude, longitude: post.longitude} do
+                #map.minimap.col-md-12
+                %span#fullscreen= link_to "view full screen", map_path(:post => post.id)
+
+            - else
+              .col-md-12.mx-auto
+                .post-preview
+                  %h2.post-title
+                    =link_to post.title, post
+                  -if post.city && post.country
+                    %span.meta= "Posted #{time_ago_in_words(post.published_date)} ago in #{post.city}, #{post.country}"
+                  - else
+                    %span.meta= "Posted #{time_ago_in_words(post.published_date)} ago"
+                  - if post.status == 'draft'
+                    %span.meta.draft= "(draft)"
+                  %p.post-subtitle
+                    =sanitize(post.content)
 
           -if post.photos.count > 0
-            .row.lightboxpics
+            .row.lightboxpics.top-50
               .col-md-12.mx-auto
                 -if idx == 0
                   - photos = post.photos.order(:sort)

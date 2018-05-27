@@ -56,7 +56,7 @@ function pageLoad() {
       opacity: 0.5
     }
     if ( $(".minimap").length === 1) {
-      zoomControl = false;
+      // zoomControl = false;
       attributionControl = false;
     } else {
       tileOptions.attribution = 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>';
@@ -83,9 +83,9 @@ function pageLoad() {
     });
 
     // Fetch geocoded posts
-    var postId = $("#post_id").data('id') || null;
-    var postLat = $("#post_id").data('latitude') || null;
-    var postLong = $("#post_id").data('longitude') || null;
+    var postId = $(".post_id").data('id') || null;
+    var postLat = $(".post_id").data('latitude') || null;
+    var postLong = $(".post_id").data('longitude') || null;
     getPosts(postId, postLat, postLong);
 
     // Store the last map extent in cookies
