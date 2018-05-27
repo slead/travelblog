@@ -39,7 +39,7 @@ function pageLoad() {
   }, 4500);
 
   // re-initialize Lightbox on Turbolinks page load
-  if ( $(".lightboxpics").length === 0) {
+  if ( $(".lightboxpics").length > 0) {
     lightbox.init();
     $('.sortable').railsSortable();
   }
