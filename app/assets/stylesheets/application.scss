@@ -162,3 +162,21 @@ figcaption {
 .footer-link {
   font-weight: bold;
 }
+
+#minimapdiv {
+  position: relative;
+  max-height: 300px;
+}
+
+#fullscreen {
+  position: absolute;
+  bottom: -5px;
+  right: 2px;
+  font-size: 11px;
+  z-index: 1001;
+  background: #e9e9e9;
+  padding: 1px 3px 1px 3px;
+  a {
+    color: #007bff;
+  }
+}

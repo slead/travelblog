@@ -9,8 +9,7 @@
 }
 
 .minimap {
-  min-height: 300px;
-  max-height: 400px;
+  height: 100%;
   top: 10px;
   bottom: 0;
   left: 0;
