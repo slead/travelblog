@@ -16,6 +16,8 @@
   right: 0;
   position: absolute;
   z-index: 1000;
+  outline: 1px solid #727272;
+  box-shadow: 3px 3px 7px #727272;
 }
 .leaflet-left {
   left: 15px;
