@@ -139,6 +139,18 @@
     });
 
     this.$lightbox.find('.lb-prev').on('click', function() {
+      var start = Date.now();
+      if(self.lastRun !== undefined){
+        var elapsed = start - self.lastRun;
+        if (elapsed < 100){
+          self.lastRun = start;
+          return false;
+        } else {
+          self.lastRun = start;
+        }
+      } else {
+        self.lastRun = start;
+      }
       if (self.currentImageIndex === 0) {
         self.changeImage(self.album.length - 1);
       } else {
@@ -148,6 +160,18 @@
     });
 
     this.$lightbox.find('.lb-next').on('click', function() {
+      var start = new Date();
+      if(self.lastRun !== undefined){
+        var elapsed = start - self.lastRun;
+        if (elapsed < 100){
+          self.lastRun = start;
+          return false;
+        } else {
+          self.lastRun = start;
+        }
+      } else {
+        self.lastRun = start;
+      }
       if (self.currentImageIndex === self.album.length - 1) {
         self.changeImage(0);
       } else {
@@ -476,17 +500,42 @@
     if (keycode === KEYCODE_ESC || key.match(/x|o|c/)) {
       this.end();
     } else if (key === 'p' || keycode === KEYCODE_LEFTARROW) {
+      var start = new Date();
+      if(self.lastRun !== undefined){
+        var elapsed = start - self.lastRun;
+        if (elapsed < 100){
+          self.lastRun = start;
+          return false;
+        } else {
+          self.lastRun = start;
+        }
+      } else {
+        self.lastRun = start;
+      }
       if (this.currentImageIndex !== 0) {
         this.changeImage(this.currentImageIndex - 1);
       } else if (this.options.wrapAround && this.album.length > 1) {
         this.changeImage(this.album.length - 1);
       }
     } else if (key === 'n' || keycode === KEYCODE_RIGHTARROW) {
+      var start = new Date();
+      if(self.lastRun !== undefined){
+        var elapsed = start - self.lastRun;
+        if (elapsed < 100){
+          self.lastRun = start;
+          return false;
+        } else {
+          self.lastRun = start;
+        }
+      } else {
+        self.lastRun = start;
+      }
       if (this.currentImageIndex !== this.album.length - 1) {
         this.changeImage(this.currentImageIndex + 1);
       } else if (this.options.wrapAround && this.album.length > 1) {
         this.changeImage(0);
       }
+
     }
   };
 
