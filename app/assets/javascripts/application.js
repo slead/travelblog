@@ -39,9 +39,9 @@ function pageLoad() {
   }, 4500);
 
   // re-initialize Lightbox on Turbolinks page load
+  $('.sortable').railsSortable();
   if ( $(".lightboxpics").length > 0) {
     lightbox.init();
-    $('.sortable').railsSortable();
   }
 
   // Only load the map if necessary
