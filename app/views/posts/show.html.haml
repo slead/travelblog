@@ -21,6 +21,15 @@
 						- if @post.status == 'draft'
 							%span.meta.draft= "(draft)"
 
+.container.top-100.d-lg-none.d-md-none
+	.row
+		.col-lg-8.col-md-10.mx-auto
+			.post-heading
+				%h1= @post.title
+				%span.meta=@meta
+				- if @post.status == 'draft'
+					%span.meta.draft= "(draft)"
+
 %article
 	.container
 		- if user_signed_in?
@@ -33,7 +42,7 @@
 						= sanitize @post.content
 					#minimapdiv.col-md-4.d-none.d-md-block
 						#map.minimap.col-md-12
-						%span#fullscreen= link_to "view full screen", map_path(:post => @post.id)
+						%span#fullscreen.d-none.d-md-block= link_to "view full screen", map_path(:post => @post.id)
 				- else
 					.col-md-8.mx-auto
 						= sanitize @post.content

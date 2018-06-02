@@ -28,8 +28,8 @@
                   %p.post-subtitle
                     =sanitize(post.content)
               = content_tag 'div', '', class: 'col-md-4 post_id', id: 'minimapdiv', data: {id: post.id, latitude: post.latitude, longitude: post.longitude} do
-                #map.minimap.col-md-12
-                %span#fullscreen= link_to "view full screen", map_path(:post => post.id)
+                #map.minimap.col-md-12.d-none.d-md-block
+                %span#fullscreen.d-none.d-md-block= link_to "view full screen", map_path(:post => post.id)
 
             - else
               .col-md-12.mx-auto
