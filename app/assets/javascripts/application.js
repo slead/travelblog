@@ -106,7 +106,7 @@ function pageLoad() {
 
   function getPosts(postID, postLat, postLong) {
     // Request posts with a lat/long
-    var url = window.location.origin + "/posts.json?map=true";
+    var url = window.location.origin + "/getpins/index.json";
     $.ajax({
       dataType: 'text',
       url: url,
