@@ -129,6 +129,7 @@ GEM
     public_suffix (3.0.2)
     puma (3.11.3)
     rack (2.0.5)
+    rack-cors (1.0.2)
     rack-proxy (0.6.4)
       rack
     rack-test (0.8.3)
@@ -252,6 +253,7 @@ DEPENDENCIES
   mail_form (~> 1.5, >= 1.5.1)
   pg (~> 0.20)
   puma (~> 3.7)
+  rack-cors
   rails (~> 5.1.1)
   rails_sortable
   sass-rails (~> 5.0)
