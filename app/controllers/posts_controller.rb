@@ -18,7 +18,7 @@ class PostsController < ApplicationController
       redirect_to @post
       return
     elsif params[:api].present?
-      @posts = Post.all.order published_date: :desc
+      @posts = Post.where("status = 'published'").order published_date: :desc
     else
       @posts = Post.paginate(:page => params[:page], :per_page => 4).order published_date: :desc
     end
@@ -31,8 +31,7 @@ class PostsController < ApplicationController
 
     respond_to do |format|
       format.html
-      # Format the response for the map
-      format.json
+      format.json { render :json => @posts.to_json(:only => [:id, :title, :content, :placename, :latitude, :longitude, :slug, :published_date])}
     end
   end
 
