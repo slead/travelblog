@@ -17,6 +17,8 @@ class PostsController < ApplicationController
       @post = Post.find(params[:id])
       redirect_to @post
       return
+    elsif params[:api].present?
+      @posts = Post.all.order published_date: :desc
     else
       @posts = Post.paginate(:page => params[:page], :per_page => 4).order published_date: :desc
     end
