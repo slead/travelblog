@@ -53,6 +53,18 @@ class PostsController < ApplicationController
       @og_image = @post.photos.order(:sort).first.large
     end
     @og_title = @post.title
+
+    respond_to do |format|
+      format.html
+      format.json {
+        render :json =>
+        @post.to_json(
+          :include => { :photos => { :only => [:title, :small, :medium, :large, :thumb] } },
+          :only => [:id, :title, :content, :placename, :latitude, :longitude, :slug, :published_date]
+
+        )
+      }
+    end
   end
 
   # GET /posts/new
