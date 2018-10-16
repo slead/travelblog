@@ -31,7 +31,13 @@ class PostsController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.json { render :json => @posts.to_json(:only => [:id, :title, :content, :placename, :latitude, :longitude, :slug, :published_date])}
+      format.json {
+        render :json =>
+        @posts.to_json(
+          :include => { :photos => { :only => [:title, :small, :medium, :large, :thumb] } },
+          :only => [:id, :title, :content, :placename, :latitude, :longitude, :slug, :published_date]
+
+        )}
     end
   end
 
