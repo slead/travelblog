@@ -34,7 +34,7 @@ class PostsController < ApplicationController
       format.json {
         render :json =>
         @posts.to_json(
-          :include => { :photos => { :only => [:id, :title, :small, :large] } },
+          :include => { :photos => { :only => [:id, :sort, :title, :small, :large] } },
           :only => [:id, :title, :content, :placename, :latitude, :longitude, :slug, :published_date]
 
         )}
@@ -59,7 +59,7 @@ class PostsController < ApplicationController
       format.json {
         render :json =>
         @post.to_json(
-          :include => { :photos => { :only => [:title, :small, :medium, :large, :thumb] } },
+          :include => { :photos => { :only => [:id, :sort, :title, :small, :large] } },
           :only => [:id, :title, :content, :placename, :latitude, :longitude, :slug, :published_date]
 
         )
