@@ -17,7 +17,7 @@ module Travelblog
 
     config.middleware.insert_before 0, Rack::Cors do
       allow do
-        origins 'localhost:3000', '127.0.0.1:3000'
+        origins 'localhost:3000', '127.0.0.1:3000', 'https://pure-garden-66821.herokuapp.com'
         resource '*', headers: :any, methods: [:get, :post, :options]
       end
     end
