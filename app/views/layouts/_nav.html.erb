@@ -1,0 +1,32 @@
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark" id="mainNav">
+  <a class="navbar-brand" href="<%= root_path %>">Steve and Glo's travel blog</a>
+  <button aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navbarCollapse" data-toggle="collapse" type="button">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarCollapse">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="<%= posts_path %>">Posts</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="<%= tips_path %>">Tips</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="<%= map_path %>">Map</a>
+      </li>
+      <% if user_signed_in? %>
+        <li class="nav-item">
+          <a class="nav-link" href="<%= new_post_path %>">New Post</a>
+        </li>
+      <% end %>
+    </ul>
+    <!-- = form_tag posts_path, class: "form-inline mt-2 mt-md-0", id: "frmSearch", method: :get do
+    -->
+    <!--   = text_field_tag :query, params[:query], class: "form-control", id: "search", autocomplete: "off", placeholder: "Search for a post"
+    -->
+    <!--   = button_tag type: 'submit', class: "btn", id: "btnSearch" do
+    -->
+    <!--     %i.fa.fa-search
+    -->
+  </div>
+</nav>
