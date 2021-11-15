@@ -50,4 +50,4 @@ gem 'webpacker'
 gem 'will_paginate', '~> 3.1.0'
 gem 'will_paginate-bootstrap4'
 
-ruby "2.4.0"
+ruby "2.6.6"
