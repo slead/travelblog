@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: travelblog
+    runtime: ruby
+    buildCommand: "./bin/render-build.sh"
+    startCommand: "bundle exec puma -C config/puma.rb"
+    envVars:
+      - key: RAILS_MASTER_KEY
+        sync: false
+      - key: DATABASE_URL
+        fromDatabase:
+          name: travelblog_db
+          property: connectionString
+      - key: RAILS_ENV
+        value: production
+      - key: FlickRaw_api_key
+        sync: false
+      - key: FlickRaw_shared_secret
+        sync: false
+
+databases:
+  - name: travelblog_db
+    databaseName: travelblog
+    user: travelblog
