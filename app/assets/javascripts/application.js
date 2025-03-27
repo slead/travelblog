@@ -26,51 +26,59 @@
 //= require_tree .
 
 var ready;
-var app = {}
+var app = {};
 
 function pageLoad() {
-  setTimeout(function() {
-    $('#notice_wrapper').fadeOut("slow", function() {
+  setTimeout(function () {
+    $("#notice_wrapper").fadeOut("slow", function () {
       $(this).remove();
-    })
-    $('#alert_wrapper').fadeOut("slow", function() {
+    });
+    $("#alert_wrapper").fadeOut("slow", function () {
       $(this).remove();
-    })
+    });
   }, 4500);
 
   // re-initialize Lightbox on Turbolinks page load
-  $('.sortable').railsSortable();
-  if ( $(".lightboxpics").length > 0) {
+  $(".sortable").railsSortable();
+  if ($(".lightboxpics").length > 0) {
     lightbox.init();
   }
 
   // Only load the map if necessary
-  if ( $("#bigmap").length > 0 || $(".minimap").length > 0) {
+  if ($("#bigmap").length > 0 || $(".minimap").length > 0) {
     var zoomControl = true;
     var attributionControl = true;
     var tileOptions = {
-      subdomains: 'abcd',
+      subdomains: "abcd",
       minZoom: 0,
       maxZoom: 20,
-      ext: 'png',
-      opacity: 0.5
-    }
-    if ( $(".minimap").length === 1) {
+      ext: "png",
+      opacity: 0.5,
+    };
+    if ($(".minimap").length === 1) {
       // zoomControl = false;
       attributionControl = false;
     } else {
-      tileOptions.attribution = 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>';
+      tileOptions.attribution =
+        'Map tiles by <a href="https://carto.com/">CartoDB</a>, under CC BY 3.0. Data by <a href="http://www.openstreetmap.org/">OpenStreetMap</a>, under ODbL.';
     }
-    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-     zoomControl = false;
+    if (
+      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        navigator.userAgent
+      )
+    ) {
+      zoomControl = false;
     }
 
-    app.basemap = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.{ext}', tileOptions);
+    app.basemap = L.tileLayer(
+      "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png",
+      tileOptions
+    );
 
     // Return to the last-used map extent, or use a default extent
-    var lat = Cookies.get('lat') || 0;
-    var lng = Cookies.get('lng') || 27;
-    var zoom = Cookies.get('zoom') || 3;
+    var lat = Cookies.get("lat") || 0;
+    var lng = Cookies.get("lng") || 27;
+    var zoom = Cookies.get("zoom") || 3;
     app.leafletMap = new L.Map("map", {
       center: [lat, lng],
       zoom: zoom,
@@ -79,26 +87,25 @@ function pageLoad() {
       layers: [app.basemap],
       maxBounds: L.latLngBounds(L.latLng(-90, -180), L.latLng(90, 180)),
       zoomControl: zoomControl,
-      attributionControl: attributionControl
+      attributionControl: attributionControl,
     });
 
     // Fetch geocoded posts
-    var postId = $(".post_id").data('id') || null;
-    var postLat = $(".post_id").data('latitude') || null;
-    var postLong = $(".post_id").data('longitude') || null;
+    var postId = $(".post_id").data("id") || null;
+    var postLat = $(".post_id").data("latitude") || null;
+    var postLong = $(".post_id").data("longitude") || null;
     getPosts(postId, postLat, postLong);
 
     // Store the last map extent in cookies
-    app.leafletMap.on('zoomend', function() {
+    app.leafletMap.on("zoomend", function () {
       updateCookies();
     });
-    app.leafletMap.on('moveend', function() {
+    app.leafletMap.on("moveend", function () {
       updateCookies();
     });
-
   }
 
-  function updateCookies(){
+  function updateCookies() {
     Cookies.set("lat", app.leafletMap.getCenter().lat);
     Cookies.set("lng", app.leafletMap.getCenter().lng);
     Cookies.set("zoom", app.leafletMap.getZoom());
@@ -108,23 +115,23 @@ function pageLoad() {
     // Request posts with a lat/long
     var url = window.location.origin + "/getpins/index.json";
     $.ajax({
-      dataType: 'text',
+      dataType: "text",
       url: url,
       beforeSend: function (jqXHR, settings) {
         // send the post ID
         jqXHR.postID = postID;
-        jqXHR.postLat= postLat;
+        jqXHR.postLat = postLat;
         jqXHR.postLong = postLong;
       },
-      success: function(data, textStatus, jqXHR) {
+      success: function (data, textStatus, jqXHR) {
         var postID = jqXHR.postID || null;
         var postLat = jqXHR.postLat || null;
         var postLong = jqXHR.postLong || null;
         drawEvents(data, postID, postLat, postLong);
       },
-      error: function() {
+      error: function () {
         console.log("Error with Index map");
-      }
+      },
     });
   }
 
@@ -136,7 +143,7 @@ function pageLoad() {
       color: "#000",
       weight: 1,
       opacity: 1,
-      fillOpacity: 0.8
+      fillOpacity: 0.8,
     };
 
     // Add the posts to the map
@@ -146,17 +153,27 @@ function pageLoad() {
       },
       onEachFeature: function (feature, layer) {
         var popupContent;
-        if(feature.properties.title != undefined) {
+        if (feature.properties.title != undefined) {
           popupContent = feature.properties.title;
-          if(feature.properties.url != undefined) {
-            popupContent = "<p><strong><a class='mapTitle' href='" + feature.properties.url + "''>" + feature.properties.title + "</a></strong></p>";
+          if (feature.properties.url != undefined) {
+            popupContent =
+              "<p><strong><a class='mapTitle' href='" +
+              feature.properties.url +
+              "''>" +
+              feature.properties.title +
+              "</a></strong></p>";
           }
           if (feature.properties.photo !== undefined) {
-            popupContent += "<a href='" + feature.properties.url + "''><img width='240px' height='159px' class='mapPhoto' src='" + feature.properties.photo + "'></a>";
+            popupContent +=
+              "<a href='" +
+              feature.properties.url +
+              "''><img width='240px' height='159px' class='mapPhoto' src='" +
+              feature.properties.photo +
+              "'></a>";
           }
         }
         layer.bindPopup(popupContent);
-      }
+      },
     });
     // var featureGroup = L.featureGroup();
     // featureGroup.addLayer(jsonLayer);
@@ -164,19 +181,17 @@ function pageLoad() {
       spiderfyOnMaxZoom: true,
       showCoverageOnHover: false,
       zoomToBoundsOnClick: true,
-      spiderfyDistanceMultiplier: 1.5
+      spiderfyDistanceMultiplier: 1.5,
     });
     markers.addLayer(jsonLayer);
     app.leafletMap.addLayer(markers);
     // featureGroup.addTo(app.leafletMap);
 
     // If we are on a Post page, zoom to the post
-    if (postLat !== null && postLong !== null){
+    if (postLat !== null && postLong !== null) {
       app.leafletMap.flyTo([postLat, postLong], 5);
     }
-
   }
-
 }
 
-$(document).on('turbolinks:load', pageLoad);
+$(document).on("turbolinks:load", pageLoad);
