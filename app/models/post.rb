@@ -75,4 +75,23 @@ class Post < ApplicationRecord
     Post.where("published_date < ?", published_date).where("status = 'published'").order("published_date DESC").first
   end
 
+  def unique_photos
+    photos.distinct.order(:sort)
+  end
+
+  def deduplicate_photos!
+    # Get unique photo IDs while preserving order
+    unique_photo_ids = photos.order(:sort).pluck(:id).uniq
+    
+    # Clear existing associations
+    photos.clear
+    
+    # Re-add photos in order, ensuring no duplicates
+    unique_photo_ids.each_with_index do |photo_id, index|
+      photo = Photo.find(photo_id)
+      photo.update(sort: index)
+      photos << photo
+    end
+  end
+
 end

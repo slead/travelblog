@@ -48,10 +48,7 @@
           -if post.photos.count > 0
             .row.lightboxpics.top-50
               .col-md-12.mx-auto
-                -if idx == 0
-                  - photos = post.photos.order(:sort)
-                -else
-                  - photos = post.photos.order(:sort)
+                - photos = post.unique_photos
                 -photos.each_slice(3) do |photoblock|
                   .row
                     -photoblock.each do |photo|

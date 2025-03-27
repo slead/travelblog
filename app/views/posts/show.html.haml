@@ -1,7 +1,7 @@
 / Page Header
 = content_tag 'div', '', class: 'container-fluid top-50 post_id', id: 'post_id', data: {id: @post.id, latitude: @post.latitude, longitude: @post.longitude}
 -if @post.photos.count > 0
-	%header.masthead.d-none.d-md-block{:style => "background-image: url(#{@post.photos.order(:sort)[0].large})"}
+	%header.masthead.d-none.d-md-block{:style => "background-image: url(#{@post.unique_photos.first.large})"}
 		.container
 			.row
 				.col-lg-8.col-md-10.mx-auto
@@ -59,7 +59,7 @@
 									=link_to "Next post: #{@post.next.title}", @post.next, :class => "page-link"
 		- if @post.photos.count > 0
 			.row.top-50.lightboxpics
-			- @post.photos.order(:sort)[1..@post.photos.length].each do |photo|
+			- @post.unique_photos.offset(1).each do |photo|
 				.row
 					.col-md-12
 						-if user_signed_in?
