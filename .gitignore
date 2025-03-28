@@ -36,3 +36,8 @@
 yarn-debug.log*
 .yarn-integrity
 app/views/.DS_Store
+
+# Ignore environment variables
+.env
+.env.*
+!.env.example

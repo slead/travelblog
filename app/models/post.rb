@@ -16,43 +16,102 @@ class Post < ApplicationRecord
     end
 
     # Attach Flickr photos to this post if specified as flickr_album
-    begin
-      if self.flickr_album.present?
+    if self.flickr_album.present? # Removed the _changed? condition for testing
+      begin
+        Rails.logger.info "Fetching photos from Flickr album: #{self.flickr_album}"
         photoset_id = self.flickr_album
-        flickr.photosets.getPhotos(photoset_id: photoset_id).photo.map do |photo|
-          photo_id = photo['id']
-          if (Photo.where(:flickr_id => photo_id).count == 0)
-            photo_info = flickr.photos.getInfo :photo_id => photo_id
-            date_taken = photo_info['dates']['taken']
-            title = photo_info['title']
-            description = photo_info['description']
-            photo_sizes = flickr.photos.getSizes :photo_id => photo_id
-            thumb = ''
-            small = ''
-            medium = ''
-            large = ''
+        
+        # Get all photos from the album
+        Rails.logger.info "Calling flickr.photosets.getPhotos..."
+        photoset = flickr.photosets.getPhotos(
+          photoset_id: photoset_id,
+          user_id: ENV['FLICKR_USER_ID']
+        )
+        Rails.logger.info "Photoset response: #{photoset.inspect}"
+        
+        if photoset && photoset.photo.present?
+          photoset.photo.each do |photo|
+            photo_id = photo['id']
+            Rails.logger.info "Processing photo: #{photo_id}"
+            Rails.logger.info "Photo data: #{photo.inspect}"
+            
+            # Skip if photo already exists in this post
+            next if self.photos.exists?(flickr_id: photo_id)
+            
+            # Get or create the photo
+            existing_photo = Photo.find_by(flickr_id: photo_id)
+            
+            if existing_photo
+              Rails.logger.info "Using existing photo: #{photo_id}"
+              self.photos << existing_photo unless self.photos.exists?(id: existing_photo.id)
+              next
+            end
+
+            begin
+              photo_sizes = flickr.photos.getSizes(photo_id: photo_id)
+              Rails.logger.info "Photo sizes response: #{photo_sizes.inspect}"
+            rescue => e
+              Rails.logger.error "Error getting photo sizes: #{e.message}"
+              next
+            end
+            
+            # Extract URLs for different sizes
+            urls = {}
             photo_sizes.each do |size|
-              label = size['label']
-              if label == 'Thumbnail'
-                thumb = size['source']
-              elsif label == 'Small'
-                small = size['source']
-              elsif label == 'Medium'
-                medium = size['source']
-              elsif label == 'Large'
-                large = size['source']
+              case size['label']
+              when 'Square'
+                urls[:thumb] = size['source']
+              when 'Small'
+                urls[:small] = size['source']
+              when 'Medium'
+                urls[:medium] = size['source']
+              when 'Large'
+                urls[:large] = size['source']
               end
             end
-            photo = Photo.create!(flickr_id: photo_id, title: title, description: description, date_taken: date_taken, thumb: thumb, small: small, medium: medium, large: large)
-          else
-            photo = Photo.where(:flickr_id => photo_id).first
+
+            # Construct Flickr URLs if sizes not found
+            if urls.empty?
+              farm_id = photo['farm']
+              server_id = photo['server']
+              secret = photo['secret']
+              base_url = "https://farm#{farm_id}.staticflickr.com/#{server_id}/#{photo_id}_#{secret}"
+              urls[:thumb] = "#{base_url}_s.jpg"  # 75x75
+              urls[:small] = "#{base_url}_n.jpg"  # 320 on longest side
+              urls[:medium] = "#{base_url}.jpg"   # 500 on longest side
+              urls[:large] = "#{base_url}_b.jpg"  # 1024 on longest side
+            end
+
+            begin
+              # Create new photo record
+              new_photo = Photo.create!(
+                flickr_id: photo_id,
+                title: photo['title'] || 'Untitled',
+                description: '',
+                date_taken: Time.current,
+                thumb: urls[:thumb],
+                small: urls[:small],
+                medium: urls[:medium],
+                large: urls[:large]
+              )
+
+              Rails.logger.info "Created new photo: #{photo_id}"
+              self.photos << new_photo
+            rescue => e
+              Rails.logger.error "Error creating photo: #{e.message}"
+              next
+            end
           end
-          if not self.photos.exists?(photo.id)
-            self.photos << photo
-          end
+
+          Rails.logger.info "Successfully synced #{photoset.photo.size} photos from Flickr album"
+        else
+          Rails.logger.warn "No photos found in Flickr album: #{photoset_id}"
         end
+      rescue => e
+        Rails.logger.error "Error syncing Flickr photos: #{e.message}"
+        Rails.logger.error e.backtrace.join("\n")
+        raise
       end
-    rescue
     end
   end
 
