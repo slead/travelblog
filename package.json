@@ -2,7 +2,8 @@
   "name": "travelblog",
   "private": true,
   "dependencies": {
-    "@rails/webpacker": "3.5"
+    "@rails/webpacker": "3.5",
+    "sass": "^1.86.0"
   },
   "devDependencies": {
     "webpack-dev-server": "2.11.2"
