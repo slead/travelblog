@@ -2,15 +2,15 @@
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 #
-# Note that this schema.rb definition is the authoritative source for your
-# database schema. If you need to create the application database on another
-# system, you should be using db:schema:load, not running all the migrations
-# from scratch. The latter is a flawed and unsustainable approach (the more migrations
-# you'll amass, the slower it'll run and the greater likelihood for issues).
+# This file is the source Rails uses to define your schema when running `bin/rails
+# db:schema:load`. When creating a new database, `bin/rails db:schema:load` tends to
+# be faster and is potentially less error prone than running all of your
+# migrations from scratch. Old migrations may fail to apply correctly if those
+# migrations use external dependencies or application code.
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180517154351) do
+ActiveRecord::Schema.define(version: 2018_05_17_154351) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -66,6 +66,33 @@ ActiveRecord::Schema.define(version: 20180517154351) do
     t.date "published_date"
     t.string "flickr_album"
     t.string "status"
+    t.string "photo_service", default: "flickr"
+    t.string "google_album_id"
+  end
+
+  create_table "presentations", id: :serial, force: :cascade do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer "user_id"
+    t.string "slug", limit: 255
+    t.string "title", limit: 255
+    t.text "description"
+    t.string "url", limit: 255
+  end
+
+  create_table "projects", id: :serial, force: :cascade do |t|
+    t.string "title", limit: 255
+    t.text "description"
+    t.string "image", limit: 255
+    t.string "url", limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string "slug", limit: 255
+    t.integer "user_id"
+    t.string "image_file_name", limit: 255
+    t.string "image_content_type", limit: 255
+    t.integer "image_file_size"
+    t.datetime "image_updated_at"
   end
 
   create_table "tips", force: :cascade do |t|
