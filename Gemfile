@@ -15,8 +15,7 @@ gem 'activerecord', '~> 6.1.7.3'
 gem 'concurrent-ruby', '1.3.4'
 
 gem 'puma', '~> 5.6'
-gem 'sass-rails', '~> 5.1.0'
-gem 'sassc-rails'
+gem 'sassc-rails', '~> 2.1.2'
 
 gem 'coffee-rails', '~> 5.0'
 gem 'turbolinks', '~> 5'
