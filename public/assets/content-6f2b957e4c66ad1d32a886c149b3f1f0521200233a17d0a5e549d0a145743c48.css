@@ -1,0 +1,100 @@
+.map {
+	/*height: 600px;*/
+	top: 50px;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	position: absolute;
+	z-index: 1000;
+}
+
+.minimap {
+  height: 100%;
+  top: 10px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  position: absolute;
+  z-index: 1000;
+  outline: 1px solid #727272;
+  box-shadow: 3px 3px 7px #727272;
+}
+
+.leaflet-touch .leaflet-control-zoom-in, .leaflet-touch .leaflet-control-zoom-out {
+  font-size: 15px;
+}
+
+.leaflet-touch .leaflet-bar a {
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+}
+
+.leaflet-left {
+  left: 0px;
+}
+
+.leaflet-container .leaflet-control-attribution {
+  font-size: 9px;
+  margin-right: 15px;
+}
+
+.mapPhoto {
+  border-radius: 5px;
+}
+
+.mapTitle {
+  text-decoration: none;
+}
+
+/* Clusters start */
+
+.leaflet-cluster-anim .leaflet-marker-icon, .leaflet-cluster-anim .leaflet-marker-shadow {
+  transition: transform 0.3s ease-out, opacity 0.3s ease-in;
+}
+
+.leaflet-cluster-spider-leg {
+  /* stroke-dashoffset (duration and function) should match with leaflet-marker-icon transform in order to track it exactly */
+  transition: stroke-dashoffset 0.3s ease-out, stroke-opacity 0.3s ease-in;
+}
+
+.marker-cluster-small {
+  background-color: rgba(255, 0, 0, 0.2);
+  }
+.marker-cluster-small div {
+  background-color: rgba(255, 0, 0, 0.8);
+  }
+
+.marker-cluster-medium {
+  background-color: rgba(255, 0, 0, 0.2);
+  }
+.marker-cluster-medium div {
+  background-color: rgba(255, 0, 0, 0.8);
+  }
+
+.marker-cluster-large {
+  background-color: rgba(255, 0, 0, 0.2);
+  }
+.marker-cluster-large div {
+  background-color: rgba(255, 0, 0, 0.8);
+  }
+
+.marker-cluster {
+  background-clip: padding-box;
+  border-radius: 20px;
+  }
+.marker-cluster div {
+  width: 30px;
+  height: 30px;
+  margin-left: 5px;
+  margin-top: 5px;
+
+  text-align: center;
+  border-radius: 15px;
+  font: 12px "Helvetica Neue", Arial, Helvetica, sans-serif;
+  }
+.marker-cluster span {
+  line-height: 30px;
+  }
+
+/* Clusters end */

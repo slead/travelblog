@@ -36,3 +36,6 @@
 yarn-debug.log*
 .yarn-integrity
 app/views/.DS_Store
+.env
+
+/config/master.key
