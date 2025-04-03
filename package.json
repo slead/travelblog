@@ -2,10 +2,14 @@
   "name": "travelblog",
   "private": true,
   "dependencies": {
-    "@rails/webpacker": "3.5",
-    "sass": "^1.86.0"
+    "@rails/webpacker": "^5.4.4",
+    "sass": "^1.86.2"
   },
   "devDependencies": {
+    "babel-plugin-syntax-dynamic-import": "^6.18.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
     "webpack-dev-server": "2.11.2"
   },
   "engines": {
