@@ -1,9 +1,0 @@
-services:
-  - type: web
-    name: my-rails-app
-    env: production
-    buildCommand: "bundle install"
-    startCommand: "bundle exec puma -t 5:5 -p ${PORT:-3000} -e ${RACK_ENV:-production}"
-    envVars:
-      DATABASE_URL: "your-database-url-here"
-    postDeployCommand: "RAILS_ENV=production bundle exec rails db:migrate"
