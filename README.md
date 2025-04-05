@@ -36,3 +36,7 @@ An admin user may sign in using the Devise routes <app>/users/sign_in or <app>/p
 This application uses the [Flickraw](https://github.com/hanklords/flickraw) gem to access Flickr, so you need to [apply for your Flickr API keys](https://www.flickr.com/services/api/misc.api_keys.html).
 
 You then need to set these in the environment variables `FlickRaw_api_key` and `FlickRaw_shared_secret`
+
+#### Reset database
+
+`bin/rails db:reset; bin/rails db:migrate RAILS_ENV=development`
