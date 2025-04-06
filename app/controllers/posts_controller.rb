@@ -45,7 +45,7 @@ class PostsController < ApplicationController
   # GET /posts/1.json
   def show
     @post = Post.friendly.find(params[:id])
-    @meta = "Posted #{time_ago_in_words(@post.published_date)} ago"
+    @meta = @post.published_date ? "Posted #{time_ago_in_words(@post.published_date)} ago" : "Posted"
     if @post.city && @post.country
       @meta += " in #{@post.city}, #{@post.country}"
     end

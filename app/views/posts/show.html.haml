@@ -32,20 +32,29 @@
 
 %article
 	.container
-		- if user_signed_in?
-			.row
-				= link_to 'Edit', edit_post_path(@post)
 		.row
-			-if @post.content.length > 0
-				-if @post.latitude.present?
-					#content.col-md-8
-						= sanitize @post.content
-					#minimapdiv.col-md-4.d-none.d-md-block
-						#map.minimap.col-md-12
-						%span#fullscreen.d-none.d-md-block= link_to "view full screen", map_path(:post => @post.id)
-				- else
-					.col-md-8.mx-auto
-						= sanitize @post.content
+			.col-md-12
+				%h1.post-title= @post.title
+				%p.post-meta= @meta
+				- if user_signed_in?
+					.row
+						.col-md-12
+							= link_to 'Edit', edit_post_path(@post)
+				.row
+					-if @post.content.present?
+						-if @post.latitude.present?
+							#content.col-md-8
+								= sanitize @post.content
+							= content_tag 'div', '', class: 'col-md-4 post_id', id: 'minimapdiv', data: {id: @post.id, latitude: @post.latitude, longitude: @post.longitude} do
+								#map.minimap.col-md-12.d-none.d-md-block
+								%span#fullscreen.d-none.d-md-block= link_to "view full screen", map_path(:post => @post.id)
+						-else
+							#content.col-md-12
+								= sanitize @post.content
+					-else
+						.col-md-12
+							%p No content available for this post.
+
 		-if @post.previous || @post.next
 			.row.pagination.top-50
 				.col-md-12

@@ -20,9 +20,9 @@
                   %h2.post-title
                     =link_to post.title, post
                   -if post.city && post.country
-                    %span.meta= "Posted #{time_ago_in_words(post.published_date)} ago in #{post.city}, #{post.country}"
+                    %span.meta= post.published_date ? "Posted #{time_ago_in_words(post.published_date)} ago in #{post.city}, #{post.country}" : "Posted in #{post.city}, #{post.country}"
                   - else
-                    %span.meta= "Posted #{time_ago_in_words(post.published_date)} ago"
+                    %span.meta= post.published_date ? "Posted #{time_ago_in_words(post.published_date)} ago" : "Posted"
                   - if post.status == 'draft'
                     %span.meta.draft= "(draft)"
                   %p.post-subtitle
@@ -37,9 +37,9 @@
                   %h2.post-title
                     =link_to post.title, post
                   -if post.city && post.country
-                    %span.meta= "Posted #{time_ago_in_words(post.published_date)} ago in #{post.city}, #{post.country}"
+                    %span.meta= post.published_date ? "Posted #{time_ago_in_words(post.published_date)} ago in #{post.city}, #{post.country}" : "Posted in #{post.city}, #{post.country}"
                   - else
-                    %span.meta= "Posted #{time_ago_in_words(post.published_date)} ago"
+                    %span.meta= post.published_date ? "Posted #{time_ago_in_words(post.published_date)} ago" : "Posted"
                   - if post.status == 'draft'
                     %span.meta.draft= "(draft)"
                   %p.post-subtitle

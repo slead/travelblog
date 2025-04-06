@@ -41,9 +41,10 @@ gem 'will_paginate-bootstrap4'
 gem 'bootstrap', '~> 5.3.3'
 gem 'devise'
 gem 'execjs'
-gem 'flickraw', '~> 0.9.10'
+gem 'flickr', '~> 1.0.0'
 gem 'friendly_id', '~> 5.4'
 gem 'font-awesome-rails', '~> 4.7', '>= 4.7.0.2'
+gem 'oauth', '~> 1.1'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
