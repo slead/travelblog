@@ -7,4 +7,11 @@
 // To reference this file, add <%= javascript_pack_tag 'application' %> to the appropriate
 // layout file, like app/views/layouts/application.html.erb
 
-console.log('Hello World from Webpacker')
+import $ from "jquery";
+import "jquery-ui-sortable";
+
+console.log("Hello World from Webpacker");
+
+document.addEventListener("DOMContentLoaded", () => {
+  $(".sortable").sortable();
+});
