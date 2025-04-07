@@ -57,10 +57,12 @@
                           %img.image{:alt => "#{photo.title}", :src => "#{photo.small}", :class => "lightbox-thumb mx-auto d-block"}
 
   #hr
-  .row
-    .col-lg-8.col-md-10.mx-auto
-      = will_paginate @posts, renderer: WillPaginate::ActionView::BootstrapLinkRenderer
+  .container.pt-3
+    .row.justify-content-center
+      .col-auto
+        %nav
+          = will_paginate @posts, renderer: WillPaginate::ActionView::BootstrapLinkRenderer, class: 'pagination'
 
   %br/
   - if user_signed_in?
-    = link_to 'New Post', new_post_path
+    = link_to 'New Post', new_post_path, class: 'btn btn-primary'
