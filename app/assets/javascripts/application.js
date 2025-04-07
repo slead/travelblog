@@ -52,6 +52,37 @@ function pageLoad() {
     lightbox.init();
     // Hide lightbox loading indicator
     $(".lb-loader").hide();
+
+    // Add keyboard navigation support
+    $(document).on("keydown", function (e) {
+      if ($(".lb-dataContainer").is(":visible")) {
+        switch (e.key) {
+          case "ArrowLeft":
+            $(".lb-prev").click();
+            e.preventDefault();
+            break;
+          case "ArrowRight":
+            $(".lb-next").click();
+            e.preventDefault();
+            break;
+          case "Escape":
+            $(".lb-close").click();
+            e.preventDefault();
+            break;
+        }
+      }
+    });
+
+    // Add ARIA live region for lightbox navigation
+    $("body").append(
+      '<div class="sr-only" aria-live="polite" id="lightbox-status"></div>'
+    );
+
+    // Update ARIA live region when navigating
+    $(".lb-nav a").on("click", function () {
+      const currentImage = $(".lb-data .lb-caption").text();
+      $("#lightbox-status").text("Now viewing: " + currentImage);
+    });
   }
 
   // Only load the map if necessary
