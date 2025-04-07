@@ -59,7 +59,7 @@
 			.row.pagination.top-50
 				.col-md-12
 					%nav
-						%ul.pagination
+						%ul.pagination.justify-content-center
 							-if @post.previous
 								%li.page-item
 									=link_to "Previous post: #{@post.previous.title}", @post.previous, :class => "page-link"
@@ -87,7 +87,7 @@
 		.row.pagination
 			.col-md-12
 				%nav
-					%ul.pagination
+					%ul.pagination.justify-content-center
 						-if @post.previous
 							%li.page-item
 								=link_to "<< #{@post.previous.title}", @post.previous, :class => "page-link"
