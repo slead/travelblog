@@ -1,5 +1,5 @@
 / Page Header
-%header.masthead.d-none.d-md-block{:style => "background-image: url('#{@header_image_url}')"}
+%header.masthead.d-none.d-md-block{:style => "background-image: url('#{@header_image_url}')", :role => "img", "aria-label" => "Travel blog header image"}
   .container
     .row
       .col-lg-8.col-md-10.mx-auto
@@ -27,9 +27,9 @@
                     %span.meta.draft= "(draft)"
                   %p.post-subtitle
                     =sanitize(post.content)
-              = content_tag 'div', '', class: 'col-md-4 post_id', id: 'minimapdiv', data: {id: post.id, latitude: post.latitude, longitude: post.longitude} do
-                #map.minimap.col-md-12.d-none.d-md-block
-                %span#fullscreen.d-none.d-md-block= link_to "view full screen", map_path(:post => post.id)
+              = content_tag 'div', '', class: 'col-md-4 post_id', id: 'minimapdiv', data: {id: post.id, latitude: post.latitude, longitude: post.longitude}, role: "region", "aria-label" => "Map showing location for #{post.title}" do
+                #map.minimap.col-md-12.d-none.d-md-block{"aria-label" => "Interactive map"}
+                %span#fullscreen.d-none.d-md-block= link_to "view full screen", map_path(:post => post.id), "aria-label" => "Open full screen map for #{post.title}"
 
             - else
               .col-md-12.mx-auto
@@ -54,7 +54,7 @@
                     -photoblock.each do |photo|
                       .col-lg-4.mx-auto
                         %a.image-link{"data-lightbox" => "#{post.title}", "data-title" => "#{photo.title}", :href => "#{photo.large}"}
-                          %img.image{:alt => "#{photo.title}", :src => "#{photo.small}", :class => "lightbox-thumb mx-auto d-block"}
+                          %img.image{:alt => "#{photo.title} - #{post.title} photo gallery thumbnail", :src => "#{photo.small}", :class => "lightbox-thumb mx-auto d-block"}
 
   #hr
   .container.pt-3

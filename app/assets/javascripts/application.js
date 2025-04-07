@@ -25,6 +25,14 @@
 //= require bootstrap
 //= require_tree .
 
+// Hide Turbolinks progress bar
+document.addEventListener("turbolinks:load", function () {
+  var progress = document.querySelector(".turbolinks-progress-bar");
+  if (progress) {
+    progress.style.display = "none";
+  }
+});
+
 var ready;
 var app = {};
 
@@ -42,6 +50,8 @@ function pageLoad() {
   $(".sortable").railsSortable();
   if ($(".lightboxpics").length > 0) {
     lightbox.init();
+    // Hide lightbox loading indicator
+    $(".lb-loader").hide();
   }
 
   // Only load the map if necessary

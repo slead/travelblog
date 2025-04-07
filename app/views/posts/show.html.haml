@@ -1,7 +1,7 @@
 / Page Header
 = content_tag 'div', '', class: 'container-fluid top-50 post_id', id: 'post_id', data: {id: @post.id, latitude: @post.latitude, longitude: @post.longitude}
 -if @post.photos.count > 0
-	%header.masthead.d-none.d-md-block{:style => "background-image: url(#{@post.unique_photos.first.large})"}
+	%header.masthead.d-none.d-md-block{:style => "background-image: url(#{@post.unique_photos.first.large})", :role => "img", "aria-label" => "Header image for post: #{@post.title}"}
 		.container
 			.row
 				.col-lg-8.col-md-10.mx-auto
@@ -45,9 +45,9 @@
 						-if @post.latitude.present?
 							#content.col-md-8
 								= sanitize @post.content
-							= content_tag 'div', '', class: 'col-md-4 post_id', id: 'minimapdiv', data: {id: @post.id, latitude: @post.latitude, longitude: @post.longitude} do
-								#map.minimap.col-md-12.d-none.d-md-block
-								%span#fullscreen.d-none.d-md-block= link_to "view full screen", map_path(:post => @post.id)
+							= content_tag 'div', '', class: 'col-md-4 post_id', id: 'minimapdiv', data: {id: @post.id, latitude: @post.latitude, longitude: @post.longitude}, role: "region", "aria-label" => "Map showing location for #{@post.title}" do
+								#map.minimap.col-md-12.d-none.d-md-block{"aria-label" => "Interactive map"}
+								%span#fullscreen.d-none.d-md-block= link_to "view full screen", map_path(:post => @post.id), "aria-label" => "Open full screen map for #{@post.title}"
 						-else
 							#content.col-md-12
 								= sanitize @post.content
@@ -75,7 +75,7 @@
 								%i.fa.fa-times
 						%figure
 							%a.image-link{"data-lightbox" => "#{@post.title}", "data-title" => "#{photo.title}", :href => "#{photo.large}"}
-								%img.image{:alt => "#{photo.title}", :src => "#{photo.large}", :class => "lightbox-thumb mx-auto d-block"}
+								%img.image{:alt => "#{photo.title} - #{@post.title} photo gallery", :src => "#{photo.large}", :class => "lightbox-thumb mx-auto d-block"}
 							-if not photo.title.include? "jpg"
 								%figcaption= "#{photo.title}"
 
