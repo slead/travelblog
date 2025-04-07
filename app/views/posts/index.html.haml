@@ -53,9 +53,9 @@
                 -photos.each_slice(3) do |photoblock|
                   .row
                     -photoblock.each.with_index do |photo, index|
-                      .col-lg-4.mx-auto
+                      .col-12.col-md-4.mx-auto
                         %a.image-link{"data-lightbox" => "#{post.title}", "data-title" => "#{photo.title}", :href => "#{photo.large}", "aria-label" => "View larger version of #{photo.title} (photo #{index + 1} of #{photos.count})", :tabindex => "0", "aria-describedby" => "photo-desc-#{photo.id}"}
-                          %img.image{:alt => "#{photo.title} - #{post.title} photo gallery thumbnail", :src => "#{photo.small}", :class => "lightbox-thumb mx-auto d-block"}
+                          %img.image{:alt => "#{photo.title} - #{post.title} photo gallery thumbnail", :src => "#{photo.small}", :class => "lightbox-thumb mx-auto d-block img-fluid"}
                           %span.sr-only{:id => "photo-desc-#{photo.id}"}= photo.title
 
   #hr

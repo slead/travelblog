@@ -1,11 +1,11 @@
 .notifications
   - if notice
     #notice_wrapper
-      %p.alert.alert-dismissable= notice
-      %span.close{type: "button", data: {dismiss:"alert"}}
-        %i.fa.fa-times
+      .alert.alert-dismissible.fade.show{role: "alert"}
+        = notice
+        %button.btn-close{type: "button", "data-bs-dismiss": "alert", "aria-label": "Close"}
   - elsif alert
     #alert_wrapper
-      %p.alert.alert-dismissable= alert
-      %span.close{type: "button", data: {dismiss:"alert"}}
-        %i.fa.fa-times
+      .alert.alert-dismissible.fade.show{role: "alert"}
+        = alert
+        %button.btn-close{type: "button", "data-bs-dismiss": "alert", "aria-label": "Close"}

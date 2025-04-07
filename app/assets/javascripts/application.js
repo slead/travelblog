@@ -49,7 +49,10 @@ function pageLoad() {
   // re-initialize Lightbox on Turbolinks page load
   $(".sortable").railsSortable();
   if ($(".lightboxpics").length > 0) {
-    lightbox.init();
+    // Only initialize if lightbox hasn't been initialized yet
+    if (!$("#lightbox").length) {
+      lightbox.init();
+    }
     // Hide lightbox loading indicator
     $(".lb-loader").hide();
 
@@ -101,10 +104,12 @@ function pageLoad() {
       }
     }
 
-    // Add ARIA live region for lightbox navigation
-    $("body").append(
-      '<div class="sr-only" aria-live="polite" id="lightbox-status"></div>'
-    );
+    // Add ARIA live region for lightbox navigation if it doesn't exist
+    if (!$("#lightbox-status").length) {
+      $("body").append(
+        '<div class="sr-only" aria-live="polite" id="lightbox-status"></div>'
+      );
+    }
 
     // Update ARIA live region when navigating
     $(".lb-nav a").on("click", function () {
@@ -112,6 +117,11 @@ function pageLoad() {
       $("#lightbox-status").text("Now viewing: " + currentImage);
     });
   }
+
+  // Clean up lightbox elements when page changes
+  $(document).on("turbolinks:before-cache", function () {
+    $("#lightbox, #lightboxOverlay, #lightbox-status").remove();
+  });
 
   // Only load the map if necessary
   if ($("#bigmap").length > 0 || $(".minimap").length > 0) {
