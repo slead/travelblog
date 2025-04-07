@@ -1,5 +1,11 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
-  FlickRaw.api_key = ENV['FlickRaw_api_key']
-  FlickRaw.shared_secret = ENV['FlickRaw_shared_secret']
+  
+  before_action :initialize_flickr
+  
+  private
+  
+  def initialize_flickr
+    @flickr = Flickr.new(ENV['FLICKR_API_KEY'], ENV['FLICKR_SHARED_SECRET'])
+  end
 end

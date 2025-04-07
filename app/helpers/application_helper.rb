@@ -11,7 +11,7 @@ module ApplicationHelper
   def og_title
     #Personalise the Facebook/Twitter title
     if @og_title.nil?
-      return "Steve and Glo's travel blog. Cos working is over-rated"
+      return "Steve and Glo's travel blog. Travelling the world since 2001"
     else
       return @og_title
    end 

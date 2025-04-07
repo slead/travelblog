@@ -28,7 +28,11 @@
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
 
   %body
-    =render 'layouts/nav'
+    %a.sr-only.sr-only-focusable{:href => "#main-content"} Skip to main content
+    %nav{:role => "navigation", "aria-label" => "Main navigation"}
+      =render 'layouts/nav'
     =render 'layouts/notifications'
-    = yield
-    =render 'layouts/footer'
+    %main{:id => "main-content", :role => "main"}
+      = yield
+    %footer{:role => "contentinfo"}
+      =render 'layouts/footer'

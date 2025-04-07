@@ -1,5 +1,5 @@
 / Page Header
-%header.masthead.d-none.d-md-block{:style => "background-image: url('#{@header_image_url}')"}
+%header.masthead.d-none.d-md-block{:style => "background-image: url('#{@header_image_url}')", :role => "img", "aria-label" => "Travel blog header image"}
   .container
     .row
       .col-lg-8.col-md-10.mx-auto
@@ -20,16 +20,16 @@
                   %h2.post-title
                     =link_to post.title, post
                   -if post.city && post.country
-                    %span.meta= "Posted #{time_ago_in_words(post.published_date)} ago in #{post.city}, #{post.country}"
+                    %span.meta= post.published_date ? "Posted #{time_ago_in_words(post.published_date)} ago in #{post.city}, #{post.country}" : "Posted in #{post.city}, #{post.country}"
                   - else
-                    %span.meta= "Posted #{time_ago_in_words(post.published_date)} ago"
+                    %span.meta= post.published_date ? "Posted #{time_ago_in_words(post.published_date)} ago" : "Posted"
                   - if post.status == 'draft'
                     %span.meta.draft= "(draft)"
                   %p.post-subtitle
                     =sanitize(post.content)
-              = content_tag 'div', '', class: 'col-md-4 post_id', id: 'minimapdiv', data: {id: post.id, latitude: post.latitude, longitude: post.longitude} do
-                #map.minimap.col-md-12.d-none.d-md-block
-                %span#fullscreen.d-none.d-md-block= link_to "view full screen", map_path(:post => post.id)
+              = content_tag 'div', '', class: 'col-md-4 post_id', id: 'minimapdiv', data: {id: post.id, latitude: post.latitude, longitude: post.longitude}, role: "region", "aria-label" => "Map showing location for #{post.title}" do
+                #map.minimap.col-md-12.d-none.d-md-block{"aria-label" => "Interactive map"}
+                %span#fullscreen.d-none.d-md-block= link_to "view full screen", map_path(:post => post.id), "aria-label" => "Open full screen map for #{post.title}"
 
             - else
               .col-md-12.mx-auto
@@ -37,30 +37,34 @@
                   %h2.post-title
                     =link_to post.title, post
                   -if post.city && post.country
-                    %span.meta= "Posted #{time_ago_in_words(post.published_date)} ago in #{post.city}, #{post.country}"
+                    %span.meta= post.published_date ? "Posted #{time_ago_in_words(post.published_date)} ago in #{post.city}, #{post.country}" : "Posted in #{post.city}, #{post.country}"
                   - else
-                    %span.meta= "Posted #{time_ago_in_words(post.published_date)} ago"
+                    %span.meta= post.published_date ? "Posted #{time_ago_in_words(post.published_date)} ago" : "Posted"
                   - if post.status == 'draft'
                     %span.meta.draft= "(draft)"
                   %p.post-subtitle
                     =sanitize(post.content)
 
           -if post.photos.count > 0
-            .row.lightboxpics.top-50
+            .row.lightboxpics.top-50{"role" => "region", "aria-label" => "Photo gallery for #{post.title}"}
               .col-md-12.mx-auto
+                %p.sr-only{"aria-live" => "polite"} Gallery contains #{post.unique_photos.count} photos
                 - photos = post.unique_photos
                 -photos.each_slice(3) do |photoblock|
                   .row
-                    -photoblock.each do |photo|
+                    -photoblock.each.with_index do |photo, index|
                       .col-lg-4.mx-auto
-                        %a.image-link{"data-lightbox" => "#{post.title}", "data-title" => "#{photo.title}", :href => "#{photo.large}"}
-                          %img.image{:alt => "#{photo.title}", :src => "#{photo.small}", :class => "lightbox-thumb mx-auto d-block"}
+                        %a.image-link{"data-lightbox" => "#{post.title}", "data-title" => "#{photo.title}", :href => "#{photo.large}", "aria-label" => "View larger version of #{photo.title} (photo #{index + 1} of #{photos.count})", :tabindex => "0", "aria-describedby" => "photo-desc-#{photo.id}"}
+                          %img.image{:alt => "#{photo.title} - #{post.title} photo gallery thumbnail", :src => "#{photo.small}", :class => "lightbox-thumb mx-auto d-block"}
+                          %span.sr-only{:id => "photo-desc-#{photo.id}"}= photo.title
 
   #hr
-  .row
-    .col-lg-8.col-md-10.mx-auto
-      = will_paginate @posts, renderer: WillPaginate::ActionView::BootstrapLinkRenderer
+  .container.pt-3
+    .row.justify-content-center
+      .col-auto
+        %nav
+          = will_paginate @posts, renderer: WillPaginate::ActionView::BootstrapLinkRenderer, class: 'pagination'
 
   %br/
   - if user_signed_in?
-    = link_to 'New Post', new_post_path
+    = link_to 'New Post', new_post_path, class: 'btn btn-primary'

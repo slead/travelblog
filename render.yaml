@@ -13,9 +13,13 @@ services:
           property: connectionString
       - key: RAILS_ENV
         value: production
-      - key: FlickRaw_api_key
+      - key: FLICKR_API_KEY
         sync: false
-      - key: FlickRaw_shared_secret
+      - key: FLICKR_SHARED_SECRET
+        sync: false
+      - key: FLICKR_ACCESS_TOKEN
+        sync: false
+      - key: FLICKR_ACCESS_SECRET
         sync: false
 
 databases:

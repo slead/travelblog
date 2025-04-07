@@ -2,7 +2,7 @@
 require_relative 'application'
 
 # Flickr gem
-require 'flickraw'
+require 'flickr'
 
 # Initialize the Rails application.
 Rails.application.initialize!

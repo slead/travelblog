@@ -40,3 +40,7 @@ You then need to set these in the environment variables `FlickRaw_api_key` and `
 #### Reset database
 
 `bin/rails db:reset; bin/rails db:migrate RAILS_ENV=development`
+
+#### Pre-compile assets
+
+`RAILS_ENV=production bundle exec rails assets:precompile`

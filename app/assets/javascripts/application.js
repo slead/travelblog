@@ -25,6 +25,14 @@
 //= require bootstrap
 //= require_tree .
 
+// Hide Turbolinks progress bar
+document.addEventListener("turbolinks:load", function () {
+  var progress = document.querySelector(".turbolinks-progress-bar");
+  if (progress) {
+    progress.style.display = "none";
+  }
+});
+
 var ready;
 var app = {};
 
@@ -42,6 +50,67 @@ function pageLoad() {
   $(".sortable").railsSortable();
   if ($(".lightboxpics").length > 0) {
     lightbox.init();
+    // Hide lightbox loading indicator
+    $(".lb-loader").hide();
+
+    // Add keyboard navigation support
+    $(document).on("keydown", function (e) {
+      if ($(".lb-dataContainer").is(":visible")) {
+        switch (e.key) {
+          case "ArrowLeft":
+            $(".lb-prev").click();
+            e.preventDefault();
+            break;
+          case "ArrowRight":
+            $(".lb-next").click();
+            e.preventDefault();
+            break;
+          case "Escape":
+            $(".lb-close").click();
+            e.preventDefault();
+            break;
+        }
+      }
+    });
+
+    // Add touch swipe support for mobile
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    $(".lb-outerContainer").on("touchstart", function (e) {
+      touchStartX = e.originalEvent.touches[0].clientX;
+    });
+
+    $(".lb-outerContainer").on("touchend", function (e) {
+      touchEndX = e.originalEvent.changedTouches[0].clientX;
+      handleSwipe();
+    });
+
+    function handleSwipe() {
+      const swipeThreshold = 50; // minimum distance for a swipe
+      const swipeDistance = touchEndX - touchStartX;
+
+      if (Math.abs(swipeDistance) > swipeThreshold) {
+        if (swipeDistance > 0) {
+          // Swipe right - go to previous image
+          $(".lb-prev").click();
+        } else {
+          // Swipe left - go to next image
+          $(".lb-next").click();
+        }
+      }
+    }
+
+    // Add ARIA live region for lightbox navigation
+    $("body").append(
+      '<div class="sr-only" aria-live="polite" id="lightbox-status"></div>'
+    );
+
+    // Update ARIA live region when navigating
+    $(".lb-nav a").on("click", function () {
+      const currentImage = $(".lb-data .lb-caption").text();
+      $("#lightbox-status").text("Now viewing: " + currentImage);
+    });
   }
 
   // Only load the map if necessary

@@ -114,7 +114,8 @@ GEM
     faraday-net_http (3.4.0)
       net-http (>= 0.5.0)
     ffi (1.17.1)
-    flickraw (0.9.10)
+    flickr (1.0.2)
+      xml-simple (>= 1.0.7)
     font-awesome-rails (4.7.0.9)
       railties (>= 3.2, < 9.0)
     friendly_id (5.5.1)
@@ -166,6 +167,7 @@ GEM
       temple (>= 0.8.2)
       thor
       tilt
+    hashie (5.0.0)
     httpclient (2.9.0)
       mutex_m
     i18n (1.14.7)
@@ -223,6 +225,12 @@ GEM
     nokogiri (1.18.7)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
+    oauth (1.1.0)
+      oauth-tty (~> 1.0, >= 1.0.1)
+      snaky_hash (~> 2.0)
+      version_gem (~> 1.1)
+    oauth-tty (1.0.5)
+      version_gem (~> 1.1, >= 1.1.1)
     orm_adapter (0.5.0)
     os (1.1.4)
     pg (1.5.9)
@@ -307,6 +315,9 @@ GEM
       activemodel (>= 5.2)
     sitemap_generator (6.3.0)
       builder (~> 3.0)
+    snaky_hash (2.0.1)
+      hashie
+      version_gem (~> 1.1, >= 1.1.1)
     sprockets (4.2.1)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
@@ -328,6 +339,7 @@ GEM
       concurrent-ruby (~> 1.0)
     uber (0.1.0)
     uri (1.0.3)
+    version_gem (1.1.6)
     warden (1.2.9)
       rack (>= 2.0.9)
     web-console (4.2.1)
@@ -348,6 +360,8 @@ GEM
     will_paginate (3.1.8)
     will_paginate-bootstrap4 (0.2.2)
       will_paginate (~> 3.0, >= 3.0.0)
+    xml-simple (1.1.9)
+      rexml
     xpath (3.2.0)
       nokogiri (~> 1.8)
     zeitwerk (2.6.18)
@@ -368,7 +382,7 @@ DEPENDENCIES
   devise
   dotenv-rails (~> 2.8)
   execjs
-  flickraw (~> 0.9.10)
+  flickr (~> 1.0.0)
   font-awesome-rails (~> 4.7, >= 4.7.0.2)
   friendly_id (~> 5.4)
   geocoder (~> 1.8)
@@ -381,6 +395,7 @@ DEPENDENCIES
   leaflet-rails (~> 1.2)
   listen (>= 3.0.5, < 3.2)
   mail_form (~> 1.5, >= 1.5.1)
+  oauth (~> 1.1)
   pg (~> 1.4)
   puma (~> 5.6)
   rack-cors
