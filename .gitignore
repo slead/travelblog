@@ -38,3 +38,4 @@ app/views/.DS_Store
 .env
 
 /config/master.key
+.DS_Store
