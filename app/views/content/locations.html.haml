@@ -1,0 +1,19 @@
+.container
+  .row.mt-5
+    .col-md-12
+      %h1 Posts by Location
+      %p Browse all posts organized by country and city
+
+  - @posts_by_location.each do |country, cities|
+    .row.mb-4
+      .col-md-12
+        %h1.mb-3= country || "Unknown Country"
+        
+        - cities.each do |city, posts|
+          .city-section.mb-4
+            %h4.mb-3= city || "Unknown City"
+            %ul.list-unstyled
+              - posts.each do |post|
+                %li.mb-2
+                  = link_to post.title, post
+                  %small.text-muted.ml-2= post.published_date.strftime("%B %d, %Y") 

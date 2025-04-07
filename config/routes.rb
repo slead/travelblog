@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   get '/map', to: 'content#map', as: :map #=> map_path
   get '/subscribe', to: 'content#subscribe', as: :subscribe #=> subscribe_path
   match '/contact' => "contacts#new", via: [:get, :post], as: :contact
+  get '/locations', to: 'content#locations', as: :locations
 
   root to: "posts#index"
 end

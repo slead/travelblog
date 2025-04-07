@@ -1,0 +1,28 @@
+.container
+  .row
+    .col-md-12
+      %h1 Posts by Location
+      %p Browse all posts organized by country and city
+
+  - @posts_by_location.each do |country, cities|
+    .row.mb-4
+      .col-md-12
+        %h2.mb-3= country || "Unknown Country"
+        
+        - cities.each do |city, posts|
+          .city-section.mb-4
+            %h3.mb-3= city || "Unknown City"
+            
+            .row
+              - posts.each do |post|
+                .col-md-4.mb-4
+                  .card.h-100
+                    - if post.photos.any?
+                      = link_to post do
+                        %img.card-img-top{src: post.photos.first.small, alt: "#{post.title} thumbnail"}
+                    .card-body
+                      %h5.card-title= link_to post.title, post
+                      %p.card-text
+                        %small.text-muted= post.published_date.strftime("%B %d, %Y")
+                    .card-footer
+                      = link_to "Read more", post, class: "btn btn-primary" 
