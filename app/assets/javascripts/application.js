@@ -73,6 +73,34 @@ function pageLoad() {
       }
     });
 
+    // Add touch swipe support for mobile
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    $(".lb-outerContainer").on("touchstart", function (e) {
+      touchStartX = e.originalEvent.touches[0].clientX;
+    });
+
+    $(".lb-outerContainer").on("touchend", function (e) {
+      touchEndX = e.originalEvent.changedTouches[0].clientX;
+      handleSwipe();
+    });
+
+    function handleSwipe() {
+      const swipeThreshold = 50; // minimum distance for a swipe
+      const swipeDistance = touchEndX - touchStartX;
+
+      if (Math.abs(swipeDistance) > swipeThreshold) {
+        if (swipeDistance > 0) {
+          // Swipe right - go to previous image
+          $(".lb-prev").click();
+        } else {
+          // Swipe left - go to next image
+          $(".lb-next").click();
+        }
+      }
+    }
+
     // Add ARIA live region for lightbox navigation
     $("body").append(
       '<div class="sr-only" aria-live="polite" id="lightbox-status"></div>'
