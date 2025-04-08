@@ -46,7 +46,7 @@
                     =sanitize(post.content)
 
           -if post.photos.count > 0
-            .row.lightboxpics.top-50{"role" => "region", "aria-label" => "Photo gallery for #{post.title}"}
+            .row.top-50{"role" => "region", "aria-label" => "Photo gallery for #{post.title}"}
               .col-md-12.mx-auto
                 %p.sr-only{"aria-live" => "polite"} Gallery contains #{post.unique_photos.count} photos
                 - photos = post.unique_photos
@@ -54,8 +54,8 @@
                   .row
                     -photoblock.each.with_index do |photo, index|
                       .col-lg-4.mx-auto
-                        %a.image-link{"data-lightbox" => "#{post.title}", "data-title" => "#{photo.title}", :href => "#{photo.large}", "aria-label" => "View larger version of #{photo.title} (photo #{index + 1} of #{photos.count})", :tabindex => "0", "aria-describedby" => "photo-desc-#{photo.id}"}
-                          %img.image{:alt => "#{photo.title} - #{post.title} photo gallery thumbnail", :src => "#{photo.small}", :class => "lightbox-thumb mx-auto d-block"}
+                        %a.image-link{"data-title" => "#{photo.title}", :href => "#{photo.large}", "aria-label" => "View larger version of #{photo.title} (photo #{index + 1} of #{photos.count})", :tabindex => "0", "aria-describedby" => "photo-desc-#{photo.id}"}
+                          %img.m-3.polaroid{:alt => "#{photo.title} - #{post.title} photo gallery thumbnail", :src => "#{photo.small}", :class => "mx-auto d-block"}
                           %span.sr-only{:id => "photo-desc-#{photo.id}"}= photo.title
 
   #hr
@@ -68,3 +68,29 @@
   %br/
   - if user_signed_in?
     = link_to 'New Post', new_post_path, class: 'btn btn-primary'
+
+/ PhotoSwipe root element
+.pswp{tabindex: '-1', role: 'dialog', 'aria-hidden': 'true'}
+  .pswp__bg
+  .pswp__scroll-wrap
+    .pswp__container
+      .pswp__item
+      .pswp__item
+      .pswp__item
+    .pswp__ui.pswp__ui--hidden
+      .pswp__top-bar
+        .pswp__counter
+        %button.pswp__button.pswp__button--close{title: 'Close (Esc)'}
+        %button.pswp__button.pswp__button--share{title: 'Share'}
+        %button.pswp__button.pswp__button--fs{title: 'Toggle fullscreen'}
+        %button.pswp__button.pswp__button--zoom{title: 'Zoom in/out'}
+        .pswp__preloader
+          .pswp__preloader__icn
+            .pswp__preloader__cut
+              .pswp__preloader__donut
+      .pswp__share-modal.pswp__share-modal--hidden.pswp__single-tap
+        .pswp__share-tooltip
+      %button.pswp__button.pswp__button--arrow--left{title: 'Previous (arrow left)'}
+      %button.pswp__button.pswp__button--arrow--right{title: 'Next (arrow right)'}
+      .pswp__caption
+        .pswp__caption__center

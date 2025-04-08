@@ -67,7 +67,7 @@
 								%li.page-item
 									=link_to "Next post: #{@post.next.title}", @post.next, :class => "page-link"
 		- if @post.photos.count > 0
-			.row.top-50.lightboxpics{"role" => "region", "aria-label" => "Photo gallery for #{@post.title}"}
+			.row.top-50{"role" => "region", "aria-label" => "Photo gallery for #{@post.title}"}
 				.col-md-12
 					%p.sr-only{"aria-live" => "polite"} Gallery contains #{@post.unique_photos.offset(1).count} photos
 				- @post.unique_photos.offset(1).each.with_index do |photo, index|
@@ -77,7 +77,7 @@
 								%i.fa.fa-times{"aria-hidden" => "true"}
 						%figure
 							%a.image-link{"data-lightbox" => "#{@post.title}", "data-title" => "#{photo.title}", :href => "#{photo.large}", "aria-label" => "View larger version of #{photo.title} (photo #{index + 1} of #{@post.unique_photos.offset(1).count})", :tabindex => "0", "aria-describedby" => "photo-desc-#{photo.id}"}
-								%img.image{:alt => "#{photo.title} - #{@post.title} photo gallery", :src => "#{photo.large}", :class => "lightbox-thumb mx-auto d-block"}
+								%img.image{:alt => "#{photo.title} - #{@post.title} photo gallery", :src => "#{photo.large}", :class => "mx-auto d-block"}
 							-if not photo.title.include? "jpg"
 								%figcaption{:id => "photo-desc-#{photo.id}"}= "#{photo.title}"
 

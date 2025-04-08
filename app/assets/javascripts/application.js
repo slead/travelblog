@@ -19,7 +19,8 @@
 //= require leaflet
 //= require leaflet.markercluster
 //= require tinymce
-//= require lightbox
+//= require photoswipe/photoswipe
+//= require photoswipe/photoswipe-ui-default
 //= require js.cookies
 //= require popper
 //= require bootstrap
@@ -46,72 +47,11 @@ function pageLoad() {
     });
   }, 4500);
 
-  // re-initialize Lightbox on Turbolinks page load
+  // Initialize sortable
   $(".sortable").railsSortable();
-  if ($(".lightboxpics").length > 0) {
-    lightbox.init();
-    // Hide lightbox loading indicator
-    $(".lb-loader").hide();
 
-    // Add keyboard navigation support
-    $(document).on("keydown", function (e) {
-      if ($(".lb-dataContainer").is(":visible")) {
-        switch (e.key) {
-          case "ArrowLeft":
-            $(".lb-prev").click();
-            e.preventDefault();
-            break;
-          case "ArrowRight":
-            $(".lb-next").click();
-            e.preventDefault();
-            break;
-          case "Escape":
-            $(".lb-close").click();
-            e.preventDefault();
-            break;
-        }
-      }
-    });
-
-    // Add touch swipe support for mobile
-    let touchStartX = 0;
-    let touchEndX = 0;
-
-    $(".lb-outerContainer").on("touchstart", function (e) {
-      touchStartX = e.originalEvent.touches[0].clientX;
-    });
-
-    $(".lb-outerContainer").on("touchend", function (e) {
-      touchEndX = e.originalEvent.changedTouches[0].clientX;
-      handleSwipe();
-    });
-
-    function handleSwipe() {
-      const swipeThreshold = 50; // minimum distance for a swipe
-      const swipeDistance = touchEndX - touchStartX;
-
-      if (Math.abs(swipeDistance) > swipeThreshold) {
-        if (swipeDistance > 0) {
-          // Swipe right - go to previous image
-          $(".lb-prev").click();
-        } else {
-          // Swipe left - go to next image
-          $(".lb-next").click();
-        }
-      }
-    }
-
-    // Add ARIA live region for lightbox navigation
-    $("body").append(
-      '<div class="sr-only" aria-live="polite" id="lightbox-status"></div>'
-    );
-
-    // Update ARIA live region when navigating
-    $(".lb-nav a").on("click", function () {
-      const currentImage = $(".lb-data .lb-caption").text();
-      $("#lightbox-status").text("Now viewing: " + currentImage);
-    });
-  }
+  // Initialize PhotoSwipe
+  initPhotoSwipe();
 
   // Only load the map if necessary
   if ($("#bigmap").length > 0 || $(".minimap").length > 0) {
@@ -262,5 +202,122 @@ function pageLoad() {
     }
   }
 }
+
+function initPhotoSwipe() {
+  var pswpElement = document.querySelector(".pswp");
+  if (!pswpElement) {
+    console.error("PhotoSwipe root element not found");
+    return;
+  }
+
+  // build items array for all photos on the page
+  var items = [];
+  $(".image-link").each(function () {
+    var $link = $(this);
+    var img = new Image();
+    var item = {
+      src: $link.attr("href"),
+      title: $link.attr("data-title"),
+      w: 0,
+      h: 0,
+    };
+
+    // Preload image to get dimensions
+    img.onload = function () {
+      item.w = this.width;
+      item.h = this.height;
+    };
+    img.src = $link.attr("href");
+
+    items.push(item);
+  });
+
+  if (items.length === 0) {
+    return;
+  }
+
+  // define options (if needed)
+  var options = {
+    index: 0,
+    bgOpacity: 0.8,
+    showHideOpacity: true,
+    shareEl: false,
+    tapToClose: true,
+    tapToToggleControls: true,
+    closeOnScroll: false,
+    history: false,
+    getThumbBoundsFn: function (index) {
+      var thumbnail = document.querySelectorAll(".image-link")[index];
+      if (!thumbnail) {
+        return null;
+      }
+      var rect = thumbnail.getBoundingClientRect();
+      return {
+        x: rect.left,
+        y: rect.top + window.pageYOffset,
+        w: rect.width,
+      };
+    },
+    // Add these options to handle image loading
+    preload: [1, 1],
+    showAnimationDuration: 0,
+    hideAnimationDuration: 0,
+    maxSpreadZoom: 2,
+    getDoubleTapZoom: function (isMouseClick, item) {
+      return item.initialZoomLevel < 0.7 ? 1 : 1.5;
+    },
+  };
+
+  // Initializes and opens PhotoSwipe for all photos
+  $(".image-link").on("click", function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    var $clickedLink = $(this);
+    var index = $(".image-link").index($clickedLink);
+    if (index === -1) {
+      return;
+    }
+
+    options.index = index;
+
+    try {
+      var gallery = new PhotoSwipe(
+        pswpElement,
+        PhotoSwipeUI_Default,
+        items,
+        options
+      );
+
+      // Handle image loading errors
+      gallery.listen("imageLoadComplete", function (index, item) {
+        if (!item.w || !item.h) {
+          var img = new Image();
+          img.onload = function () {
+            item.w = this.width;
+            item.h = this.height;
+            gallery.invalidateCurrItems();
+            gallery.updateSize(true);
+          };
+          img.src = item.src;
+        }
+      });
+
+      gallery.init();
+    } catch (error) {
+      console.error("Error initializing PhotoSwipe:", error);
+    }
+  });
+}
+
+// Initialize PhotoSwipe when the document is ready
+$(document).ready(function () {
+  initPhotoSwipe();
+});
+
+// Reinitialize PhotoSwipe after Turbolinks navigation
+$(document).on("turbolinks:load", function () {
+  initPhotoSwipe();
+});
 
 $(document).on("turbolinks:load", pageLoad);
