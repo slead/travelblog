@@ -268,6 +268,9 @@ function initPhotoSwipe() {
     },
   };
 
+  // Remove any existing click handlers
+  $(".image-link").off("click");
+
   // Initializes and opens PhotoSwipe for all photos
   $(".image-link").on("click", function (e) {
     e.preventDefault();
@@ -282,6 +285,7 @@ function initPhotoSwipe() {
     options.index = index;
 
     try {
+      // Create a new gallery instance
       var gallery = new PhotoSwipe(
         pswpElement,
         PhotoSwipeUI_Default,
@@ -301,6 +305,25 @@ function initPhotoSwipe() {
           };
           img.src = item.src;
         }
+      });
+
+      // Add class when gallery opens
+      gallery.listen("beforeChange", function () {
+        pswpElement.classList.add("pswp--open");
+      });
+
+      // Remove class and cleanup when gallery closes
+      gallery.listen("close", function () {
+        pswpElement.classList.remove("pswp--open");
+        // Ensure the gallery is properly destroyed
+        setTimeout(function () {
+          gallery.destroy();
+          // Force cleanup of any remaining elements
+          var scrollWrap = pswpElement.querySelector(".pswp__scroll-wrap");
+          if (scrollWrap) {
+            scrollWrap.remove();
+          }
+        }, 0);
       });
 
       gallery.init();
