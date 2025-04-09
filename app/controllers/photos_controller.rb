@@ -44,7 +44,7 @@ class PhotosController < ApplicationController
     respond_to do |format|
       if @photo.update(photo_params)
         format.html { redirect_to @photo, notice: 'Photo was successfully updated.' }
-        format.json { render :show, status: :ok, location: @photo }
+        format.json { render json: { status: 'success' }, status: :ok }
       else
         format.html { render :edit }
         format.json { render json: @photo.errors, status: :unprocessable_entity }

@@ -2,22 +2,92 @@
 = render 'form', post: @post
 
 -if @post.photos.count > 0
-  .container
+  .container.mt-4
     .row
       .col-md-12
-        %h4 Photos
-        %table{:border => 1}
-          %tbody.sortable
-            -@post.photos.order(:sort).each_with_sortable_id do |photo, sortable_id|
-              %tr{:id => sortable_id}
-                %td
-                  %img{:src => photo.small, :width => "100"}/
-                %td=photo.title
-                %td= link_to 'Edit', edit_photo_path(photo)
-                %td= link_to 'Destroy', photo, method: :delete, data: { confirm: 'Are you sure?' }
+        %h4.mb-3 Photos
+        .table-responsive
+          %table.table.table-hover
+            %thead
+              %tr
+                %th{style: "width: 150px"} Thumbnail
+                %th Title
+                %th{style: "width: 100px"} Actions
+            %tbody.sortable
+              -@post.photos.order(:sort).each_with_sortable_id do |photo, sortable_id|
+                %tr{:id => sortable_id}
+                  %td
+                    %img.img-thumbnail{:src => photo.small, :width => "140"}/
+                  %td.editable-cell
+                    .editable-title{data: {photo_id: photo.id}}
+                      = photo.title
+                  %td
+                    = link_to 'Delete', photo, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm'
 
-.container
+.container.mt-4
   .row
     .col-md-12
-      = link_to 'Show', @post
-      #{link_to 'Back', posts_path}
+      = link_to 'Show', @post, class: 'btn btn-secondary'
+      = link_to 'Back', posts_path, class: 'btn btn-link ml-2'
+
+:javascript
+  $(document).ready(function() {
+    $(document).on('click', '.editable-cell:not(.editing)', function(e) {
+      e.stopPropagation();
+      const $cell = $(this);
+      const $title = $cell.find('.editable-title');
+      const currentTitle = $title.text().trim();
+      const photoId = $title.data('photo-id');
+      
+      $cell.addClass('editing');
+      $title.html(`
+        <input type="text" value="${currentTitle}" class="form-control form-control-sm">
+      `);
+      
+      const $input = $cell.find('input');
+      $input.focus();
+      
+      // Store original title for cancel
+      $cell.data('original-title', currentTitle);
+      
+      $input.on('keydown', function(e) {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          const newTitle = $input.val();
+          
+          $.ajax({
+            url: `/photos/${photoId}`,
+            method: 'PATCH',
+            data: { photo: { title: newTitle } },
+            dataType: 'json',
+            headers: {
+              'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content'),
+              'Accept': 'application/json'
+            },
+            success: function() {
+              $cell.removeClass('editing');
+              $title.text(newTitle);
+            },
+            error: function() {
+              alert('Failed to update title');
+              $cell.removeClass('editing');
+              $title.text($cell.data('original-title'));
+            }
+          });
+        } else if (e.key === 'Escape') {
+          e.preventDefault();
+          $cell.removeClass('editing');
+          $title.text($cell.data('original-title'));
+        }
+      });
+      
+      // Handle click outside to cancel
+      $(document).on('click.editable-cell', function(e) {
+        if (!$(e.target).closest('.editable-cell').length) {
+          $cell.removeClass('editing');
+          $title.text($cell.data('original-title'));
+          $(document).off('click.editable-cell');
+        }
+      });
+    });
+  });
