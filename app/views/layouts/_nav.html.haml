@@ -1,0 +1,25 @@
+%nav.navbar.navbar-expand-md.navbar-dark.fixed-top.bg-dark#mainNav{"aria-label" => "Main navigation", :role => "navigation"}
+  .container
+    = link_to "Steve and Glo's travel blog", root_path, class: "navbar-brand"
+    %button.navbar-toggler{
+        "aria-controls" => "navbarCollapse",
+        "aria-expanded" => "false",
+        "aria-label" => "Toggle navigation",
+        "data-bs-toggle" => "collapse",      # ✅ Bootstrap 5 syntax
+        "data-bs-target" => "#navbarCollapse", # ✅ Bootstrap 5 syntax
+        :type => "button"
+    }
+      %span.navbar-toggler-icon
+    .collapse.navbar-collapse#navbarCollapse
+      %ul.navbar-nav.ml-auto
+        %li.nav-item
+          = link_to "Posts", posts_path, class: "nav-link"
+        %li.nav-item
+          = link_to "Countries", locations_path, class: "nav-link"
+        %li.nav-item
+          = link_to "Map", map_path, class: "nav-link"
+        %li.nav-item
+          = link_to "Subscribe", subscribe_path, class: "nav-link"
+        - if user_signed_in?
+          %li.nav-item
+            = link_to "New Post", new_post_path, class: "nav-link"

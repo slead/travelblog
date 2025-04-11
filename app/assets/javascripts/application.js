@@ -31,6 +31,11 @@ document.addEventListener("turbolinks:load", function () {
   if (progress) {
     progress.style.display = "none";
   }
+
+  // Initialize Bootstrap
+  $(function () {
+    $('[data-toggle="collapse"]').collapse();
+  });
 });
 
 var ready;

@@ -29,8 +29,7 @@
 
   %body
     %a.sr-only.sr-only-focusable{:href => "#main-content"} Skip to main content
-    %nav{:role => "navigation", "aria-label" => "Main navigation"}
-      =render 'layouts/nav'
+    =render 'layouts/nav'
     =render 'layouts/notifications'
     %main{:id => "main-content", :role => "main"}
       = yield
