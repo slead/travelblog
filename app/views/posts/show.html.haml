@@ -1,17 +1,7 @@
 / Page Header
 = content_tag 'div', '', class: 'container-fluid top-50 post_id', id: 'post_id', data: {id: @post.id, latitude: @post.latitude, longitude: @post.longitude}
 -if @post.photos.count > 0
-	%header.masthead.d-none.d-md-block{:style => "background-image: url(#{@post.unique_photos.first.large})", :role => "img", "aria-label" => "Header image for post: #{@post.title}"}
-		.container
-			.row
-				.col-lg-8.col-md-10.mx-auto
-					.post-heading
-						%h1= @post.title
-						%span.meta=@meta
-						- if @post.status == 'draft'
-							%span.meta.draft= "(draft)"
-- else
-	%header.empty
+	%header.masthead{:style => "background-image: url(#{@post.unique_photos.first.large})", :role => "img", "aria-label" => "Header image for post: #{@post.title}"}
 		.container
 			.row
 				.col-lg-8.col-md-10.mx-auto
@@ -21,21 +11,12 @@
 						- if @post.status == 'draft'
 							%span.meta.draft= "(draft)"
 
-.container.top-100.d-lg-none.d-md-none
-	.row
-		.col-lg-8.col-md-10.mx-auto
-			.post-heading
-				%h1= @post.title
-				%span.meta=@meta
-				- if @post.status == 'draft'
-					%span.meta.draft= "(draft)"
+
 
 %article
 	.container
-		.row
+		.row.mt-5
 			.col-md-12
-				%h1.post-title= @post.title
-				%p.post-meta= @meta
 				- if user_signed_in?
 					.row
 						.col-md-12

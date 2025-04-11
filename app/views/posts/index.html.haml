@@ -8,12 +8,12 @@
           %span.subheading exploring the world since 2001
 
 / Main Content
-.container-fluid.p-3
+.container
   .row
     .col-12
       - @posts.each.with_index do |post, idx|
         - if post.status == 'published' || user_signed_in?
-          .row.top-50
+          .row.mt-5
             -if idx == 0 and post.latitude?
               .col-md-8.col-12
                 .post-preview
@@ -46,7 +46,7 @@
                     =sanitize(post.content)
 
           -if post.photos.count > 0
-            .row.lightboxpics.top-50{"role" => "region", "aria-label" => "Photo gallery for #{post.title}"}
+            .row.lightboxpics.mt-5{"role" => "region", "aria-label" => "Photo gallery for #{post.title}"}
               .col-12
                 %p.sr-only{"aria-live" => "polite"} Gallery contains #{post.unique_photos.count} photos
                 - photos = post.unique_photos
