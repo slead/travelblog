@@ -49,6 +49,8 @@ function pageLoad() {
   // re-initialize Lightbox on Turbolinks page load
   $(".sortable").railsSortable();
   if ($(".lightboxpics").length > 0) {
+    // Remove any existing lightbox elements before reinitializing
+    $("#lightbox, #lightboxOverlay").remove();
     lightbox.init();
     // Hide lightbox loading indicator
     $(".lb-loader").hide();
