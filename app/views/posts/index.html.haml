@@ -46,7 +46,7 @@
                     =sanitize(post.content)
 
           -if post.photos.count > 0
-            .row.lightboxpics.mt-5{"role" => "region", "aria-label" => "Photo gallery for #{post.title}"}
+            .row.mt-5{"role" => "region", "aria-label" => "Photo gallery for #{post.title}"}
               .col-12
                 %p.sr-only{"aria-live" => "polite"} Gallery contains #{post.unique_photos.count} photos
                 - photos = post.unique_photos
@@ -54,9 +54,8 @@
                   .row
                     -photoblock.each.with_index do |photo, index|
                       .col-12.col-md-4.mx-auto
-                        %a.image-link{"data-lightbox" => "#{post.title}", "data-title" => "#{photo.title}", :href => "#{photo.large}", "aria-label" => "View larger version of #{photo.title} (photo #{index + 1} of #{photos.count})", :tabindex => "0", "aria-describedby" => "photo-desc-#{photo.id}"}
-                          %img.image{:alt => "#{photo.title} - #{post.title} photo gallery thumbnail", :src => "#{photo.small}", :class => "lightbox-thumb w-100 mx-auto d-block"}
-                          %span.sr-only{:id => "photo-desc-#{photo.id}"}= photo.title
+                        %img.image{:alt => "#{photo.title} - #{post.title} photo gallery thumbnail", :src => "#{photo.small}", :class => "lightbox-thumb w-100 mx-auto d-block"}
+                        %span.sr-only{:id => "photo-desc-#{photo.id}"}= photo.title
 
   #hr
   .container.pt-3
