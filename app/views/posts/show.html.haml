@@ -54,9 +54,6 @@
 					.pswp-gallery{"itemscope" => "", "itemtype" => "http://schema.org/ImageGallery"}
 						- @post.unique_photos.offset(1).each.with_index do |photo, index|
 							.col-md-4
-								-if user_signed_in?
-									= link_to photo_path(photo), method: :delete, class: "float-end", data: {confirm: "Are you sure you want to delete this photo?"}, "aria-label" => "Delete photo: #{photo.title}" do
-										%i.fa.fa-times{"aria-hidden" => "true"}
 								%figure
 									%a{"href" => "#{photo.large}", "itemprop" => "contentUrl"}
 										%img.image{:alt => "#{photo.title} - #{@post.title} photo gallery", :src => "#{photo.large}", :class => "mx-auto d-block"}

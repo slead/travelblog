@@ -326,6 +326,7 @@ document.addEventListener("turbolinks:load", function () {
             return false;
           }
           captionEl.children[0].textContent = item.title;
+          captionEl.children[0].style.textAlign = "center";
           return true;
         },
         // Add options to better handle portrait images
@@ -336,6 +337,40 @@ document.addEventListener("turbolinks:load", function () {
           } else {
             return item.initialZoomLevel < 0.7 ? 1 : 1.5;
           }
+        },
+        // Add caption styling
+        captionEl: true,
+        fullscreenEl: true,
+        zoomEl: true,
+        shareEl: false,
+        counterEl: true,
+        arrowEl: true,
+        preloaderEl: true,
+        tapToClose: true,
+        tapToToggleControls: true,
+        closeEl: true,
+        barsSize: { top: 0, bottom: "auto" },
+        timeToIdle: 4000,
+        timeToIdleOutside: 1000,
+        loadingIndicatorDelay: 1000,
+        closeOnScroll: true,
+        closeOnVerticalDrag: true,
+        hideAnimationDuration: 333,
+        showAnimationDuration: 333,
+        bgOpacity: 0.8,
+        spacing: 0.12,
+        allowPanToNext: true,
+        maxSpreadZoom: 1.5,
+        loop: false,
+        pinchToClose: true,
+        closeOnVerticalDrag: true,
+        mouseUsed: false,
+        escKey: true,
+        arrowKeys: true,
+        history: false,
+        focus: true,
+        isClickableElement: function (el) {
+          return el.tagName === "A";
         },
       };
 
