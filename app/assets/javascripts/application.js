@@ -208,12 +208,22 @@ $(document).on("turbolinks:load", pageLoad);
 
 // Initialize PhotoSwipe
 document.addEventListener("turbolinks:load", function () {
+  // Ensure PhotoSwipe is loaded
+  if (
+    typeof PhotoSwipe === "undefined" ||
+    typeof PhotoSwipeUI_Default === "undefined"
+  ) {
+    console.error("PhotoSwipe not loaded");
+    return;
+  }
+
   var initPhotoSwipeFromDOM = function (gallerySelector) {
     var parseThumbnailElements = function (el) {
       var thumbElements = el.getElementsByClassName("col-md-4"),
         items = [],
         figureEl,
         linkEl,
+        size,
         item;
 
       for (var i = 0; i < thumbElements.length; i++) {
@@ -227,21 +237,22 @@ document.addEventListener("turbolinks:load", function () {
           continue;
         }
 
-        var imgEl = linkEl.getElementsByTagName("img")[0];
-        if (!imgEl) {
-          continue;
+        size = linkEl.getAttribute("data-size");
+        if (!size) {
+          size = "1200x800";
         }
-
-        // Create a new image to get natural dimensions
-        var img = new Image();
-        img.src = linkEl.getAttribute("href");
+        size = size.split("x");
 
         item = {
           src: linkEl.getAttribute("href"),
-          msrc: imgEl.getAttribute("src"),
-          w: img.naturalWidth || 1200,
-          h: img.naturalHeight || 800,
+          w: parseInt(size[0], 10),
+          h: parseInt(size[1], 10),
         };
+
+        var imgEl = linkEl.getElementsByTagName("img")[0];
+        if (imgEl) {
+          item.msrc = imgEl.getAttribute("src");
+        }
 
         var captionEl = figureEl.getElementsByTagName("figcaption")[0];
         if (captionEl) {
@@ -300,11 +311,13 @@ document.addEventListener("turbolinks:load", function () {
     ) {
       var pswpElement = document.querySelectorAll(".pswp")[0];
       if (!pswpElement) {
+        console.error("PhotoSwipe element not found");
         return;
       }
 
       var items = parseThumbnailElements(galleryElement);
       if (!items || items.length === 0) {
+        console.error("No gallery items found");
         return;
       }
 
@@ -329,7 +342,6 @@ document.addEventListener("turbolinks:load", function () {
           captionEl.children[0].style.textAlign = "center";
           return true;
         },
-        // Add options to better handle portrait images
         maxSpreadZoom: 2,
         getDoubleTapZoom: function (isMouseClick, item) {
           if (isMouseClick) {
@@ -337,40 +349,6 @@ document.addEventListener("turbolinks:load", function () {
           } else {
             return item.initialZoomLevel < 0.7 ? 1 : 1.5;
           }
-        },
-        // Add caption styling
-        captionEl: true,
-        fullscreenEl: true,
-        zoomEl: true,
-        shareEl: false,
-        counterEl: true,
-        arrowEl: true,
-        preloaderEl: true,
-        tapToClose: true,
-        tapToToggleControls: true,
-        closeEl: true,
-        barsSize: { top: 0, bottom: "auto" },
-        timeToIdle: 4000,
-        timeToIdleOutside: 1000,
-        loadingIndicatorDelay: 1000,
-        closeOnScroll: true,
-        closeOnVerticalDrag: true,
-        hideAnimationDuration: 333,
-        showAnimationDuration: 333,
-        bgOpacity: 0.8,
-        spacing: 0.12,
-        allowPanToNext: true,
-        maxSpreadZoom: 1.5,
-        loop: false,
-        pinchToClose: true,
-        closeOnVerticalDrag: true,
-        mouseUsed: false,
-        escKey: true,
-        arrowKeys: true,
-        history: false,
-        focus: true,
-        isClickableElement: function (el) {
-          return el.tagName === "A";
         },
       };
 
@@ -397,13 +375,17 @@ document.addEventListener("turbolinks:load", function () {
         options.showAnimationDuration = 0;
       }
 
-      var gallery = new PhotoSwipe(
-        pswpElement,
-        PhotoSwipeUI_Default,
-        items,
-        options
-      );
-      gallery.init();
+      try {
+        var gallery = new PhotoSwipe(
+          pswpElement,
+          PhotoSwipeUI_Default,
+          items,
+          options
+        );
+        gallery.init();
+      } catch (error) {
+        console.error("Error initializing PhotoSwipe:", error);
+      }
     };
 
     var galleryElements = document.querySelectorAll(gallerySelector);
