@@ -29,7 +29,7 @@
 document.addEventListener("turbolinks:load", function () {
   var progress = document.querySelector(".turbolinks-progress-bar");
   if (progress) {
-    progress.style.display = "none";
+    progress.remove();
   }
 
   // Initialize Bootstrap
@@ -208,11 +208,17 @@ $(document).on("turbolinks:load", pageLoad);
 
 // Initialize PhotoSwipe
 document.addEventListener("turbolinks:load", function () {
-  // Ensure PhotoSwipe is loaded
-  if (
-    typeof PhotoSwipe === "undefined" ||
-    typeof PhotoSwipeUI_Default === "undefined"
-  ) {
+  // Wait for DOM to be fully loaded
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initPhotoSwipe);
+  } else {
+    initPhotoSwipe();
+  }
+});
+
+function initPhotoSwipe() {
+  // Check if PhotoSwipe is loaded
+  if (typeof PhotoSwipe === "undefined") {
     console.error("PhotoSwipe not loaded");
     return;
   }
@@ -396,4 +402,4 @@ document.addEventListener("turbolinks:load", function () {
   };
 
   initPhotoSwipeFromDOM(".pswp-gallery");
-});
+}
