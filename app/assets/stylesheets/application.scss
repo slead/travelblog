@@ -16,6 +16,12 @@
 @import "font-awesome";
 @import "leaflet";
 @import "content";
+@import "photoswipe/photoswipe";
+@import "photoswipe/default-skin/default-skin";
+
+/*
+ *= require photoswipe
+ */
 
 .center {
   text-align: center;
@@ -191,4 +197,39 @@ button:focus,
 [tabindex]:focus {
   outline: 2px solid rgba(0, 0, 0, 0.3);
   outline-offset: 2px;
+}
+
+// Photoswipe gallery styles
+.pswp-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  margin: -15px;
+
+  .col-md-4 {
+    padding: 15px;
+    flex: 0 0 33.333333%;
+    max-width: 33.333333%;
+
+    figure {
+      margin: 0;
+      position: relative;
+
+      a {
+        display: block;
+        cursor: pointer;
+
+        img {
+          width: 100%;
+          height: auto;
+          display: block;
+        }
+      }
+
+      figcaption {
+        margin-top: 10px;
+        font-size: 14px;
+        color: #666;
+      }
+    }
+  }
 }

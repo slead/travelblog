@@ -22,6 +22,7 @@
 //= require js.cookies
 //= require popper
 //= require bootstrap
+//= require photoswipe
 //= require_tree .
 
 // Hide Turbolinks progress bar
@@ -33,7 +34,7 @@ document.addEventListener("turbolinks:load", function () {
 
   // Initialize Bootstrap
   $(function () {
-    $('[data-toggle="collapse"]').collapse();
+    $('[data-bs-toggle="collapse"]').collapse();
   });
 });
 
@@ -204,3 +205,178 @@ function pageLoad() {
 }
 
 $(document).on("turbolinks:load", pageLoad);
+
+// Initialize PhotoSwipe
+document.addEventListener("turbolinks:load", function () {
+  var initPhotoSwipeFromDOM = function (gallerySelector) {
+    var parseThumbnailElements = function (el) {
+      var thumbElements = el.getElementsByClassName("col-md-4"),
+        items = [],
+        figureEl,
+        linkEl,
+        item;
+
+      for (var i = 0; i < thumbElements.length; i++) {
+        figureEl = thumbElements[i].getElementsByTagName("figure")[0];
+        if (!figureEl) {
+          continue;
+        }
+
+        linkEl = figureEl.getElementsByTagName("a")[0];
+        if (!linkEl) {
+          continue;
+        }
+
+        var imgEl = linkEl.getElementsByTagName("img")[0];
+        if (!imgEl) {
+          continue;
+        }
+
+        // Create a new image to get natural dimensions
+        var img = new Image();
+        img.src = linkEl.getAttribute("href");
+
+        item = {
+          src: linkEl.getAttribute("href"),
+          msrc: imgEl.getAttribute("src"),
+          w: img.naturalWidth || 1200,
+          h: img.naturalHeight || 800,
+        };
+
+        var captionEl = figureEl.getElementsByTagName("figcaption")[0];
+        if (captionEl) {
+          item.title = captionEl.textContent;
+        }
+
+        item.el = figureEl;
+        items.push(item);
+      }
+
+      return items;
+    };
+
+    var closest = function closest(el, fn) {
+      return el && (fn(el) ? el : closest(el.parentNode, fn));
+    };
+
+    var onThumbnailsClick = function (e) {
+      e = e || window.event;
+      e.preventDefault ? e.preventDefault() : (e.returnValue = false);
+
+      var eTarget = e.target || e.srcElement;
+      var clickedListItem = closest(eTarget, function (el) {
+        return el.tagName && el.tagName.toUpperCase() === "FIGURE";
+      });
+
+      if (!clickedListItem) {
+        return;
+      }
+
+      var clickedGallery = clickedListItem.closest(".pswp-gallery");
+      if (!clickedGallery) {
+        return;
+      }
+
+      var thumbElements = clickedGallery.getElementsByClassName("col-md-4");
+      var index = 0;
+      for (var i = 0; i < thumbElements.length; i++) {
+        if (thumbElements[i].contains(clickedListItem)) {
+          index = i;
+          break;
+        }
+      }
+
+      if (index >= 0) {
+        openPhotoSwipe(index, clickedGallery);
+      }
+      return false;
+    };
+
+    var openPhotoSwipe = function (
+      index,
+      galleryElement,
+      disableAnimation,
+      fromURL
+    ) {
+      var pswpElement = document.querySelectorAll(".pswp")[0];
+      if (!pswpElement) {
+        return;
+      }
+
+      var items = parseThumbnailElements(galleryElement);
+      if (!items || items.length === 0) {
+        return;
+      }
+
+      var options = {
+        galleryUID: galleryElement.getAttribute("data-pswp-uid"),
+        getThumbBoundsFn: function (index) {
+          var thumbnail = items[index].el.getElementsByTagName("img")[0];
+          if (!thumbnail) {
+            return { x: 0, y: 0, w: 0 };
+          }
+          var pageYScroll =
+            window.pageYOffset || document.documentElement.scrollTop;
+          var rect = thumbnail.getBoundingClientRect();
+          return { x: rect.left, y: rect.top + pageYScroll, w: rect.width };
+        },
+        addCaptionHTMLFn: function (item, captionEl, isFake) {
+          if (!item.title) {
+            captionEl.children[0].textContent = "";
+            return false;
+          }
+          captionEl.children[0].textContent = item.title;
+          return true;
+        },
+        // Add options to better handle portrait images
+        maxSpreadZoom: 2,
+        getDoubleTapZoom: function (isMouseClick, item) {
+          if (isMouseClick) {
+            return 1.5;
+          } else {
+            return item.initialZoomLevel < 0.7 ? 1 : 1.5;
+          }
+        },
+      };
+
+      if (fromURL) {
+        if (options.galleryPIDs) {
+          for (var j = 0; j < items.length; j++) {
+            if (items[j].pid == index) {
+              options.index = j;
+              break;
+            }
+          }
+        } else {
+          options.index = parseInt(index, 10) - 1;
+        }
+      } else {
+        options.index = parseInt(index, 10);
+      }
+
+      if (isNaN(options.index)) {
+        return;
+      }
+
+      if (disableAnimation) {
+        options.showAnimationDuration = 0;
+      }
+
+      var gallery = new PhotoSwipe(
+        pswpElement,
+        PhotoSwipeUI_Default,
+        items,
+        options
+      );
+      gallery.init();
+    };
+
+    var galleryElements = document.querySelectorAll(gallerySelector);
+    for (var i = 0, l = galleryElements.length; i < l; i++) {
+      galleryElements[i].setAttribute("data-pswp-uid", i + 1);
+      galleryElements[i].onclick = onThumbnailsClick;
+    }
+  };
+
+  initPhotoSwipeFromDOM(".pswp-gallery");
+});
