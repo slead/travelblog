@@ -52,7 +52,7 @@
 				.col-md-12
 					%p.sr-only{"aria-live" => "polite"} Gallery contains #{@post.unique_photos.offset(1).count} photos
 					.pswp-gallery{"itemscope" => "", "itemtype" => "http://schema.org/ImageGallery"}
-						- @post.unique_photos.offset(1).each.with_index do |photo, index|
+						- @post.unique_photos.each.with_index do |photo, index|
 							.col-md-4
 								%figure
 									%a{"href" => "#{photo.large}", "itemprop" => "contentUrl"}
