@@ -243,19 +243,23 @@ function initPhotoSwipe() {
           continue;
         }
 
-        size = linkEl.getAttribute("data-size");
-        if (!size) {
-          size = "1200x800";
+        // Get the image element to check its natural dimensions
+        var imgEl = linkEl.getElementsByTagName("img")[0];
+        if (!imgEl) {
+          continue;
         }
-        size = size.split("x");
 
+        // Create a new image to get the natural dimensions
+        var tempImg = new Image();
+        tempImg.src = linkEl.getAttribute("href");
+
+        // Use the image's natural dimensions
         item = {
           src: linkEl.getAttribute("href"),
-          w: parseInt(size[0], 10),
-          h: parseInt(size[1], 10),
+          w: tempImg.naturalWidth || 1200,
+          h: tempImg.naturalHeight || 800,
         };
 
-        var imgEl = linkEl.getElementsByTagName("img")[0];
         if (imgEl) {
           item.msrc = imgEl.getAttribute("src");
         }
@@ -356,6 +360,20 @@ function initPhotoSwipe() {
             return item.initialZoomLevel < 0.7 ? 1 : 1.5;
           }
         },
+        // Add options to better handle image dimensions
+        fitRatio: 1,
+        allowUserZoom: true,
+        allowRotationOnUserZoom: true,
+        pinchToClose: true,
+        closeOnScroll: true,
+        closeOnVerticalDrag: true,
+        mouseUsed: false,
+        escKey: true,
+        arrowKeys: true,
+        history: false,
+        galleryPIDs: false,
+        errorMsg:
+          '<div class="pswp__error-msg">The image could not be loaded.</div>',
       };
 
       if (fromURL) {

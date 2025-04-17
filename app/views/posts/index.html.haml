@@ -51,11 +51,11 @@
                 %p.sr-only{"aria-live" => "polite"} Gallery contains #{post.unique_photos.offset(1).count} photos
                 .pswp-gallery{"itemscope" => "", "itemtype" => "http://schema.org/ImageGallery"}
                   .row
-                    - post.unique_photos.offset(1).each do |photo|
+                    - post.unique_photos.each do |photo|
                       .col-md-4
                         %figure
                           %a{"href" => photo.large, "itemprop" => "contentUrl", "target" => "_blank"}
-                            %img.image.img-fluid{:alt => "#{photo.title} - #{post.title} photo gallery", :src => photo.small}
+                            %img.image.img-fluid{:alt => "#{photo.title} - #{post.title} photo gallery", :src => photo.medium}
                           - if not photo.title.include?("jpg")
                             %figcaption{:id => "photo-desc-#{photo.id}"}= photo.title
 
