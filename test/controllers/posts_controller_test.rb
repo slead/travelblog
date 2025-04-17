@@ -10,7 +10,7 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
   test "should get index" do
     get posts_url
     assert_response :success
-    assert_select 'h1', 'Posts'
+    assert_select 'h1', "Steve and Glo's travel blog"
   end
 
   test "should get index with pagination" do
@@ -22,7 +22,7 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
   test "should get index with header image" do
     get posts_url
     assert_response :success
-    assert_select '.header-image'
+    assert_select '.masthead'
   end
 
   test "should get show" do
@@ -34,7 +34,7 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
   test "should get show with photos" do
     get post_url(@post)
     assert_response :success
-    assert_select '.pswp-gallery'
+    assert_select '.lightboxpics'
   end
 
   test "should get show with map" do
@@ -95,8 +95,8 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
         status: 'published'
       } 
     }
-    assert_redirected_to post_url(@post)
     @post.reload
+    assert_redirected_to post_url(@post.friendly_id)
     assert_equal 'Updated Title', @post.title
   end
 

@@ -48,7 +48,7 @@
 								%li.page-item
 									=link_to "Next post: #{@post.next.title}", @post.next, :class => "page-link"
 		- if @post.photos.count > 0
-			.row.top-50.lightboxpics{"role" => "region", "aria-label" => "Photo gallery for #{@post.title}"}
+			.row.lightboxpics.mt-5{"role" => "region", "aria-label" => "Photo gallery for #{@post.title}"}
 				.col-md-12
 					%p.sr-only{"aria-live" => "polite"} Gallery contains #{@post.unique_photos.offset(1).count} photos
 				- @post.unique_photos.offset(1).each.with_index do |photo, index|
