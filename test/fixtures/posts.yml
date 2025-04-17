@@ -1,9 +1,57 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  title: MyString
-  content: MyText
+  title: "First Test Post"
+  content: "This is the content of the first test post"
+  status: "published"
+  placename: "London, UK"
+  published_date: <%= 1.day.ago %>
+  flickr_album: "72177720324909924"
+  latitude: 51.5074
+  longitude: -0.1278
+  city: "London"
+  country: "United Kingdom"
 
 two:
-  title: MyString
-  content: MyText
+  title: "Second Test Post"
+  content: "This is the content of the second test post"
+  status: "published"
+  placename: "Paris, France"
+  published_date: <%= 2.days.ago %>
+  latitude: 48.8566
+  longitude: 2.3522
+  city: "Paris"
+  country: "France"
+
+three:
+  title: "Third Test Post"
+  content: "This is the content of the third test post"
+  status: "published"
+  placename: "Berlin, Germany"
+  published_date: <%= 3.days.ago %>
+  latitude: 52.5200
+  longitude: 13.4050
+  city: "Berlin"
+  country: "Germany"
+
+four:
+  title: "Fourth Test Post"
+  content: "This is the content of the fourth test post"
+  status: "published"
+  placename: "Rome, Italy"
+  published_date: <%= 4.days.ago %>
+  latitude: 41.9028
+  longitude: 12.4964
+  city: "Rome"
+  country: "Italy"
+
+five:
+  title: "Fifth Test Post"
+  content: "This is the content of the fifth test post"
+  status: "published"
+  placename: "Madrid, Spain"
+  published_date: <%= 5.days.ago %>
+  latitude: 40.4168
+  longitude: -3.7038
+  city: "Madrid"
+  country: "Spain"

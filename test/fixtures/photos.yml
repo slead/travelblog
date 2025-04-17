@@ -1,21 +1,27 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  flickr_id: MyString
-  title: MyString
-  description: MyText
-  date_taken: 2017-10-18
-  thumb: MyString
-  small: MyString
-  medium: MyString
-  large: MyString
+  flickr_id: "72177720324909924"
+  title: "Test Photo 1"
+  description: "A beautiful test photo"
+  date_taken: <%= 1.day.ago %>
+  thumb: "https://farm9.staticflickr.com/8026/test_t.jpg"
+  small: "https://farm9.staticflickr.com/8026/test_s.jpg"
+  medium: "https://farm9.staticflickr.com/8026/test_m.jpg"
+  large: "https://farm9.staticflickr.com/8026/test_b.jpg"
+  sort: 1
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
 
 two:
-  flickr_id: MyString
-  title: MyString
-  description: MyText
-  date_taken: 2017-10-18
-  thumb: MyString
-  small: MyString
-  medium: MyString
-  large: MyString
+  flickr_id: "72177720324909925"
+  title: "Test Photo 2"
+  description: "Another beautiful test photo"
+  date_taken: <%= 2.days.ago %>
+  thumb: "https://farm9.staticflickr.com/8026/test2_t.jpg"
+  small: "https://farm9.staticflickr.com/8026/test2_s.jpg"
+  medium: "https://farm9.staticflickr.com/8026/test2_m.jpg"
+  large: "https://farm9.staticflickr.com/8026/test2_b.jpg"
+  sort: 2
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>

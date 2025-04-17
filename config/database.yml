@@ -6,6 +6,7 @@ development:
   pool: 5
   username: postgres
   password: root
+  prepared_statements: false
 
 test:
   adapter: postgresql
@@ -15,7 +16,9 @@ test:
   pool: 5
   username: postgres
   password: root
+  prepared_statements: false
 
 production:
   url: <%= ENV['DATABASE_URL'] %>
   pool: 5
+  prepared_statements: false
